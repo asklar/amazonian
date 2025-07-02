@@ -1,0 +1,22 @@
+<svg width="180" height="100" viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+  <!-- Mid-distance Mountain Layer -->
+  
+  <!-- Mountain base -->
+  <polygon points="0,100 25,60 50,70 75,40 100,50 125,25 150,35 175,15 180,20 180,100" 
+           fill="#374151"/>
+  
+  <!-- Mountain faces -->
+  <polygon points="25,60 35,50 50,70" fill="#4b5563"/>
+  <polygon points="75,40 85,30 100,50" fill="#4b5563"/>
+  <polygon points="125,25 135,15 150,35" fill="#4b5563"/>
+  
+  <!-- Rocky details -->
+  <rect x="30" y="65" width="2" height="3" fill="#6b7280"/>
+  <rect x="45" y="55" width="2" height="2" fill="#6b7280"/>
+  <rect x="80" y="45" width="2" height="3" fill="#6b7280"/>
+  <rect x="130" y="30" width="2" height="2" fill="#6b7280"/>
+  
+  <!-- Snow patches -->
+  <polygon points="123,25 127,20 131,25" fill="#f3f4f6"/>
+  <polygon points="173,15 177,10 180,15" fill="#f3f4f6"/>
+</svg>

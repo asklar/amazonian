@@ -203,6 +203,10 @@ export const PLATFORM_SPRITES_SVG = {
     rightCorner: `${SPRITE_BASE_PATH}/platforms/grass_right_corner.svg`,
   },
   
+  soil: {
+    center: `${SPRITE_BASE_PATH}/platforms/soil_center.svg`,
+  },
+  
   wood: {
     plank: [
       `${SPRITE_BASE_PATH}/platforms/wood_plank_01.svg`,

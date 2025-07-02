@@ -1,0 +1,19 @@
+<svg width="200" height="120" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+  <!-- Distant Mountain Layer -->
+  
+  <!-- Mountain silhouette -->
+  <polygon points="0,120 20,80 40,90 60,60 80,70 100,40 120,50 140,30 160,40 180,20 200,25 200,120" 
+           fill="#4a5568"/>
+  
+  <!-- Mountain highlights -->
+  <polygon points="20,80 30,70 40,90" fill="#6b7280"/>
+  <polygon points="60,60 70,50 80,70" fill="#6b7280"/>
+  <polygon points="100,40 110,30 120,50" fill="#6b7280"/>
+  <polygon points="140,30 150,20 160,40" fill="#6b7280"/>
+  <polygon points="180,20 190,15 200,25" fill="#6b7280"/>
+  
+  <!-- Snow caps -->
+  <polygon points="98,40 102,35 106,40" fill="#e5e7eb"/>
+  <polygon points="138,30 142,25 146,30" fill="#e5e7eb"/>
+  <polygon points="178,20 182,15 186,20" fill="#e5e7eb"/>
+</svg>

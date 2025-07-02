@@ -19,6 +19,7 @@ import { createLevel1, createLevel2, createLevel3 } from './levels';
 
 const Game: React.FC = () => {
   const [screenShake, setScreenShake] = useState<{ x: number, y: number }>({ x: 0, y: 0 });
+  const [debugMode, setDebugMode] = useState<boolean>(false);
 
   const gameLoopRef = useRef<number | undefined>(undefined);
   const keysRef = useRef<Set<string>>(new Set());
@@ -37,6 +38,7 @@ const Game: React.FC = () => {
         weapon: 'sword',
         facing: 'right',
         isAttacking: false,
+        isCasting: false,
         isOnGround: true, // Start on ground
         isAlive: true,
         canJump: true,
@@ -190,13 +192,25 @@ const Game: React.FC = () => {
   // Magic casting
   const castMagic = useCallback((spellType: MagicType) => {
     setGameState(prev => {
-      if (prev.player.magic < GAME_CONSTANTS.MAGIC_COSTS[spellType]) return prev;
+      if (prev.player.magic < GAME_CONSTANTS.MAGIC_COSTS[spellType] || prev.player.isCasting) return prev;
 
       const newState = { ...prev };
       newState.player = {
         ...prev.player,
-        magic: prev.player.magic - GAME_CONSTANTS.MAGIC_COSTS[spellType]
+        magic: prev.player.magic - GAME_CONSTANTS.MAGIC_COSTS[spellType],
+        isCasting: true
       };
+
+      // Set casting duration and reset after animation
+      setTimeout(() => {
+        setGameState(current => ({
+          ...current,
+          player: {
+            ...current.player,
+            isCasting: false
+          }
+        }));
+      }, 800); // Casting animation duration
 
       const effectId = `magic_${Date.now()}`;
       const effect = {
@@ -606,7 +620,7 @@ const Game: React.FC = () => {
       const key = e.key.toLowerCase();
       
       switch (key) {
-        case 'x':
+        case 'z':
         case 'enter':
           handleAttack();
           break;
@@ -625,8 +639,19 @@ const Game: React.FC = () => {
         case 'b':
           castMagic('blaze');
           break;
-        case 'e':
+        case 'c':
           castMagic('cure');
+          break;
+        case 'x':
+          if (debugMode) {
+            nextLevel();
+          }
+          break;
+        case 'd':
+          // Toggle debug mode with D key
+          if (e.ctrlKey) {
+            setDebugMode(prev => !prev);
+          }
           break;
         case 'r':
           restartGame();
@@ -688,6 +713,7 @@ const Game: React.FC = () => {
         weapon: 'sword',
         facing: 'right',
         isAttacking: false,
+        isCasting: false,
         isOnGround: true, // Start on ground
         isAlive: true,
         canJump: true,
@@ -716,6 +742,7 @@ const Game: React.FC = () => {
     >
       <Background 
         cameraOffset={gameState.cameraOffset}
+        currentLevel={gameState.currentLevel}
       />
       
       <GameUI 
@@ -794,6 +821,13 @@ const Game: React.FC = () => {
           <h2>Level Complete!</h2>
           <p>Proceed to the next challenge!</p>
           <button onClick={nextLevel}>Next Level</button>
+        </div>
+      )}
+
+      {debugMode && (
+        <div className="debug-info">
+          <div>DEBUG MODE - Ctrl+D to toggle</div>
+          <div>X = Skip Level | C = Cure | Current Level: {gameState.currentLevel}</div>
         </div>
       )}
     </div>

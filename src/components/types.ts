@@ -22,6 +22,7 @@ export interface Player {
   weapon: WeaponType;
   facing: 'left' | 'right';
   isAttacking: boolean;
+  isCasting: boolean;
   isOnGround: boolean;
   isAlive: boolean;
   canJump: boolean;
@@ -125,7 +126,7 @@ export interface GameConstants {
 export const GAME_CONSTANTS: GameConstants = {
   GRAVITY: 0.25, // Even slower gravity for more frames
   JUMP_FORCE: -12, // Increased by 20% for more height
-  PLAYER_SPEED: 4,
+  PLAYER_SPEED: 2,
   MONSTER_SPEED: 1,
   ARROW_SPEED: 8,
   GAME_WIDTH: 2400, // Expanded from 800 for side-scrolling

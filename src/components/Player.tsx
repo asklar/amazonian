@@ -63,7 +63,9 @@ const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
 
   // Update animation based on player state
   useEffect(() => {
-    if (player.isAttacking) {
+    if (player.isCasting) {
+      playerAnimations.playAnimation('magicCast');
+    } else if (player.isAttacking) {
       // Choose animation based on weapon type
       switch (player.weapon) {
         case 'sword':
@@ -86,7 +88,7 @@ const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
     } else {
       playerAnimations.playAnimation('idle');
     }
-  }, [player.isAttacking, player.weapon, player.isOnGround, player.velocity.x, playerAnimations]);
+  }, [player.isCasting, player.isAttacking, player.weapon, player.isOnGround, player.velocity.x, playerAnimations]);
 
   const getWeaponComponent = () => {
     if (!player.isAttacking) return null;
