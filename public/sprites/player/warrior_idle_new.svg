@@ -1,0 +1,50 @@
+<svg width="32" height="48" viewBox="0 0 32 48" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;">
+  <!-- Amazonian Warrior Idle Frame 1 - High Quality 8-bit pixel art -->
+  
+  <!-- Hair -->
+  <rect x="10" y="4" width="12" height="6" fill="#8B4513"/>
+  <rect x="9" y="6" width="2" height="4" fill="#8B4513"/>
+  <rect x="21" y="6" width="2" height="4" fill="#8B4513"/>
+  
+  <!-- Face/Head -->
+  <rect x="11" y="8" width="10" height="8" fill="#D2B48C"/>
+  
+  <!-- Eyes -->
+  <rect x="13" y="10" width="1" height="1" fill="#000000"/>
+  <rect x="18" y="10" width="1" height="1" fill="#000000"/>
+  
+  <!-- Nose -->
+  <rect x="15" y="12" width="2" height="1" fill="#CD853F"/>
+  
+  <!-- Mouth -->
+  <rect x="15" y="14" width="2" height="1" fill="#8B0000"/>
+  
+  <!-- Body/Torso -->
+  <rect x="10" y="16" width="12" height="12" fill="#4B0082"/>
+  
+  <!-- Belt -->
+  <rect x="10" y="26" width="12" height="2" fill="#8B4513"/>
+  
+  <!-- Arms -->
+  <rect x="6" y="18" width="4" height="10" fill="#D2B48C"/>
+  <rect x="22" y="18" width="4" height="10" fill="#D2B48C"/>
+  
+  <!-- Hands -->
+  <rect x="6" y="28" width="4" height="3" fill="#CD853F"/>
+  <rect x="22" y="28" width="4" height="3" fill="#CD853F"/>
+  
+  <!-- Legs -->
+  <rect x="11" y="28" width="4" height="16" fill="#D2B48C"/>
+  <rect x="17" y="28" width="4" height="16" fill="#D2B48C"/>
+  
+  <!-- Pants -->
+  <rect x="11" y="28" width="10" height="8" fill="#228B22"/>
+  
+  <!-- Boots -->
+  <rect x="10" y="40" width="5" height="4" fill="#8B4513"/>
+  <rect x="17" y="40" width="5" height="4" fill="#8B4513"/>
+  
+  <!-- Boot details -->
+  <rect x="10" y="42" width="5" height="1" fill="#654321"/>
+  <rect x="17" y="42" width="5" height="1" fill="#654321"/>
+</svg>

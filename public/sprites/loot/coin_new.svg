@@ -1,0 +1,26 @@
+<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;">
+  <!-- Animated Coin - High Quality 8-bit pixel art -->
+  
+  <!-- Outer ring -->
+  <rect x="2" y="1" width="8" height="1" fill="#DAA520"/>
+  <rect x="1" y="2" width="1" height="8" fill="#DAA520"/>
+  <rect x="10" y="2" width="1" height="8" fill="#DAA520"/>
+  <rect x="2" y="10" width="8" height="1" fill="#DAA520"/>
+  
+  <!-- Main gold body -->
+  <rect x="2" y="2" width="8" height="8" fill="#FFD700"/>
+  
+  <!-- Inner shadow for depth -->
+  <rect x="3" y="3" width="6" height="6" fill="#DAA520"/>
+  
+  <!-- Center highlight -->
+  <rect x="4" y="4" width="4" height="4" fill="#FFD700"/>
+  
+  <!-- Cross symbol -->
+  <rect x="5" y="3" width="2" height="6" fill="#B8860B"/>
+  <rect x="3" y="5" width="6" height="2" fill="#B8860B"/>
+  
+  <!-- Shine effect -->
+  <rect x="3" y="3" width="1" height="1" fill="#FFFF99"/>
+  <rect x="8" y="8" width="1" height="1" fill="#FFFF99"/>
+</svg>

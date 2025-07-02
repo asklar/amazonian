@@ -84,6 +84,19 @@ const Game: React.FC = () => {
     );
   }, []);
 
+  // Distance calculation utility
+  const getDistance = useCallback((pos1: Position, pos2: Position): number => {
+    const dx = pos1.x - pos2.x;
+    const dy = pos1.y - pos2.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }, []);
+
+  // Check if a monster is within blaze spell range
+  const isWithinBlazeRange = useCallback((playerPos: Position, monsterPos: Position): boolean => {
+    const BLAZE_RANGE = GAME_CONSTANTS.MAGIC_RANGES.blaze;
+    return getDistance(playerPos, monsterPos) <= BLAZE_RANGE;
+  }, [getDistance]);
+
   const checkPlatformCollision = useCallback((position: Position, velocity: { x: number, y: number }): { position: Position, onGround: boolean } => {
     let newPosition = { ...position };
     let onGround = false;
@@ -219,6 +232,11 @@ const Game: React.FC = () => {
         newState.monsters = prev.monsters.map(monster => {
           if (!monster.isAlive) return monster;
           
+          // For blaze spell, check if monster is within range
+          if (spellType === 'blaze' && !isWithinBlazeRange(prev.player.position, monster.position)) {
+            return monster; // Skip monsters outside blaze range
+          }
+          
           let damage = 0;
           if (spellType === 'quake') {
             damage = 40;
@@ -265,7 +283,7 @@ const Game: React.FC = () => {
 
       return newState;
     });
-  }, []);
+  }, [isWithinBlazeRange]);
 
   // Weapon switching
   const switchWeapon = useCallback((weapon: WeaponType) => {

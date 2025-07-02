@@ -1,0 +1,51 @@
+<svg width="64" height="48" viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dragon body (main mass) -->
+  <ellipse cx="32" cy="28" rx="22" ry="12" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  
+  <!-- Dragon head -->
+  <ellipse cx="50" cy="20" rx="12" ry="8" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  
+  <!-- Snout -->
+  <rect x="55" y="18" width="8" height="4" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  
+  <!-- Eyes (glowing) -->
+  <circle cx="48" cy="17" r="2" fill="#FF4500"/>
+  <circle cx="52" cy="17" r="2" fill="#FF4500"/>
+  <circle cx="48" cy="17" r="1" fill="#FFFF00"/>
+  <circle cx="52" cy="17" r="1" fill="#FFFF00"/>
+  
+  <!-- Horns -->
+  <polygon points="45,12 47,8 49,12" fill="#4B0000"/>
+  <polygon points="51,12 53,8 55,12" fill="#4B0000"/>
+  
+  <!-- Wings (folded) -->
+  <ellipse cx="18" cy="22" rx="8" ry="12" fill="#654321" stroke="#4B0000" stroke-width="1"/>
+  <ellipse cx="46" cy="22" rx="8" ry="12" fill="#654321" stroke="#4B0000" stroke-width="1"/>
+  
+  <!-- Wing membranes -->
+  <path d="M 12 18 Q 18 14 24 18 Q 18 26 12 30 Z" fill="#8B4513" stroke="#4B0000" stroke-width="1"/>
+  <path d="M 40 18 Q 46 14 52 18 Q 46 26 40 30 Z" fill="#8B4513" stroke="#4B0000" stroke-width="1"/>
+  
+  <!-- Legs -->
+  <rect x="20" y="35" width="4" height="8" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  <rect x="28" y="35" width="4" height="8" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  <rect x="36" y="35" width="4" height="8" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  <rect x="44" y="35" width="4" height="8" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  
+  <!-- Claws -->
+  <polygon points="20,43 22,47 24,43" fill="#333333"/>
+  <polygon points="28,43 30,47 32,43" fill="#333333"/>
+  <polygon points="36,43 38,47 40,43" fill="#333333"/>
+  <polygon points="44,43 46,47 48,43" fill="#333333"/>
+  
+  <!-- Tail -->
+  <ellipse cx="8" cy="32" rx="6" ry="4" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  <ellipse cx="3" cy="35" rx="3" ry="2" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  
+  <!-- Scales texture -->
+  <circle cx="25" cy="25" r="1" fill="#654321"/>
+  <circle cx="32" cy="23" r="1" fill="#654321"/>
+  <circle cx="39" cy="28" r="1" fill="#654321"/>
+  <circle cx="28" cy="32" r="1" fill="#654321"/>
+  <circle cx="36" cy="30" r="1" fill="#654321"/>
+</svg>

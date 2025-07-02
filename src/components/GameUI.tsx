@@ -43,10 +43,10 @@ const GameUI: React.FC<GameUIProps> = ({ player, currentLevel }) => {
         <div>X/Enter: Attack</div>
         <div>1/2/3: Switch Weapon</div>
         <div className={canCastQuake ? '' : 'disabled-spell'}>
-          Q: Quake ({GAME_CONSTANTS.MAGIC_COSTS.quake}MP)
+          Q: Quake ({GAME_CONSTANTS.MAGIC_COSTS.quake}MP) - All enemies
         </div>
         <div className={canCastBlaze ? '' : 'disabled-spell'}>
-          B: Blaze ({GAME_CONSTANTS.MAGIC_COSTS.blaze}MP)
+          B: Blaze ({GAME_CONSTANTS.MAGIC_COSTS.blaze}MP) - Short range
         </div>
         <div className={canCastCure ? '' : 'disabled-spell'}>
           E: Cure ({GAME_CONSTANTS.MAGIC_COSTS.cure}MP)

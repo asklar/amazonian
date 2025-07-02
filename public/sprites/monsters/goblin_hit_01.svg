@@ -1,0 +1,36 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+  <!-- Head (tilted back from hit) -->
+  <rect x="10" y="6" width="12" height="10" fill="#2D5016" stroke="#1A2E0B" stroke-width="1"/>
+  
+  <!-- Eyes (X'd out or squinting) -->
+  <rect x="12" y="8" width="2" height="2" fill="#8B0000"/>
+  <rect x="18" y="8" width="2" height="2" fill="#8B0000"/>
+  <rect x="13" y="9" width="2" height="2" fill="#8B0000"/>
+  <rect x="17" y="9" width="2" height="2" fill="#8B0000"/>
+  
+  <!-- Mouth (open in pain) -->
+  <rect x="14" y="12" width="4" height="2" fill="#000000"/>
+  <rect x="15" y="13" width="2" height="1" fill="#8B0000"/>
+  
+  <!-- Body (pushed back) -->
+  <rect x="9" y="16" width="14" height="12" fill="#4A7C59" stroke="#2D5016" stroke-width="1"/>
+  
+  <!-- Arms (flailing) -->
+  <rect x="6" y="18" width="4" height="6" fill="#2D5016"/>
+  <rect x="22" y="16" width="4" height="8" fill="#2D5016"/>
+  
+  <!-- Legs (staggered) -->
+  <rect x="11" y="28" width="3" height="4" fill="#2D5016"/>
+  <rect x="18" y="28" width="3" height="4" fill="#2D5016"/>
+  
+  <!-- Hit effect sparkles -->
+  <rect x="4" y="10" width="2" height="2" fill="#FFD700"/>
+  <rect x="26" y="8" width="2" height="2" fill="#FF6B6B"/>
+  <rect x="24" y="14" width="2" height="2" fill="#FFA500"/>
+  <rect x="6" y="6" width="2" height="2" fill="#FF6B6B"/>
+  
+  <!-- Pain indicators -->
+  <rect x="8" y="4" width="1" height="1" fill="#8B0000"/>
+  <rect x="23" y="5" width="1" height="1" fill="#8B0000"/>
+  <rect x="25" y="12" width="1" height="1" fill="#8B0000"/>
+</svg>

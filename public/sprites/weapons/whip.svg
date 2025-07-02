@@ -1,0 +1,20 @@
+<svg width="32" height="4" viewBox="0 0 32 4" xmlns="http://www.w3.org/2000/svg">
+  <!-- Whip handle -->
+  <rect x="0" y="1" width="6" height="2" fill="#654321" stroke="#4B2F20" stroke-width="1"/>
+  
+  <!-- Handle grip -->
+  <rect x="1" y="1.2" width="4" height="0.2" fill="#8B4513"/>
+  <rect x="1" y="1.6" width="4" height="0.2" fill="#8B4513"/>
+  <rect x="1" y="2.2" width="4" height="0.2" fill="#8B4513"/>
+  <rect x="1" y="2.6" width="4" height="0.2" fill="#8B4513"/>
+  
+  <!-- Whip cord (braided leather) -->
+  <path d="M 6 2 Q 12 1 18 2 Q 24 3 30 2" stroke="#8B4513" stroke-width="1.5" fill="none"/>
+  
+  <!-- Whip tip -->
+  <circle cx="31" cy="2" r="1" fill="#654321" stroke="#4B2F20" stroke-width="1"/>
+  
+  <!-- Decorative elements on handle -->
+  <rect x="0.5" y="0.5" width="1" height="3" fill="#DAA520"/>
+  <rect x="4.5" y="0.5" width="1" height="3" fill="#DAA520"/>
+</svg>

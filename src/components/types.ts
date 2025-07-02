@@ -115,6 +115,7 @@ export interface GameConstants {
   GAME_HEIGHT: number;
   SCREEN_WIDTH: number;
   MAGIC_COSTS: Record<MagicType, number>;
+  MAGIC_RANGES: Record<MagicType, number>;
   WEAPON_DAMAGE: Record<WeaponType, number>;
   MONSTER_DAMAGE: Record<MonsterType, number>;
   MONSTER_HEALTH: Record<MonsterType, number>;
@@ -134,6 +135,11 @@ export const GAME_CONSTANTS: GameConstants = {
     quake: 30,
     blaze: 20,
     cure: 25
+  },
+  MAGIC_RANGES: {
+    quake: -1, // Global range (affects all monsters)
+    blaze: 120, // Short-range AoE
+    cure: 0 // Self-target only
   },
   WEAPON_DAMAGE: {
     sword: 25,
