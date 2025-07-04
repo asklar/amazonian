@@ -10,6 +10,7 @@ import type {
 import { GAME_CONSTANTS, initializeGameConstants } from './types';
 import { dataLoader } from '../services/DataLoader';
 import { debugLogger, debugLog } from '../utils/debugLogger';
+import { useIsMobile } from '../hooks/useIsMobile';
 import Player from './Player.tsx';
 import MonsterComponent from './Monster.tsx';
 import PlatformComponent from './Platform.tsx';
@@ -19,17 +20,25 @@ import MagicEffectComponent from './MagicEffect.tsx';
 import CastleGateComponent from './CastleGate.tsx';
 import GameUI from './GameUI.tsx';
 import Background from './Background.tsx';
+import MobileControls from './MobileControls.tsx';
 import { createLevel, getMaxLevel, levelExists } from './levels';
 
 const Game: React.FC = () => {
   const [screenShake, setScreenShake] = useState<{ x: number, y: number }>({ x: 0, y: 0 });
   const [debugMode, setDebugMode] = useState<boolean>(false); // Disable debug by default for performance
   const [isPaused, setIsPaused] = useState<boolean>(false); // Pause state for debugging
+  const [mobileEmulation, setMobileEmulation] = useState<boolean>(false); // Debug mobile emulation
   const [gameDataLoaded, setGameDataLoaded] = useState<boolean>(false);
   const [gameDataError, setGameDataError] = useState<string | null>(null);
 
   const gameLoopRef = useRef<number | undefined>(undefined);
   const keysRef = useRef<Set<string>>(new Set());
+  const isMobile = useIsMobile(debugMode && mobileEmulation ? true : undefined);
+  
+  // Mobile control states
+  const [mobileMovement, setMobileMovement] = useState<'left' | 'right' | null>(null);
+  const [mobileJump, setMobileJump] = useState<boolean>(false);
+  
   // Remove frame rate limiting for now to fix broken functionality
 
   // Sync debug mode with logger
@@ -391,6 +400,41 @@ const Game: React.FC = () => {
     }));
   }, []);
 
+  // Mobile control handlers
+  const handleMobileMove = useCallback((direction: 'left' | 'right' | null) => {
+    debugLog('Mobile move called:', direction);
+    setMobileMovement(direction);
+  }, []);
+
+  const handleMobileJump = useCallback((pressed: boolean) => {
+    setMobileJump(pressed);
+  }, []);
+
+  const handleMobileAttack = useCallback(() => {
+    handleAttack();
+  }, [handleAttack]);
+
+  const handleMobileSwitchWeapon = useCallback((weapon: WeaponType) => {
+    switchWeapon(weapon);
+  }, [switchWeapon]);
+
+  const handleMobileCastMagic = useCallback((spell: MagicType) => {
+    castMagic(spell);
+  }, [castMagic]);
+
+  // Update body class for mobile mode
+  useEffect(() => {
+    if (isMobile) {
+      document.body.classList.add('mobile-game-active');
+    } else {
+      document.body.classList.remove('mobile-game-active');
+    }
+
+    return () => {
+      document.body.classList.remove('mobile-game-active');
+    };
+  }, [isMobile]);
+
   // Game loop
   const gameLoop = useCallback(() => {
     if (gameState.gameStatus !== 'playing' || !gameDataLoaded || !GAME_CONSTANTS || isPaused) return;
@@ -403,11 +447,14 @@ const Game: React.FC = () => {
       let newPlayerVelocity = { ...prev.player.velocity };
       let newPlayerPosition = { ...prev.player.position };
 
-      // Horizontal movement (arrows only)
-      if (keys.has('arrowleft')) {
+      // Horizontal movement (arrows or mobile controls)
+      const movingLeft = keys.has('arrowleft') || mobileMovement === 'left';
+      const movingRight = keys.has('arrowright') || mobileMovement === 'right';
+      
+      if (movingLeft) {
         newPlayerVelocity.x = -GAME_CONSTANTS.PLAYER_SPEED;
         newState.player.facing = 'left';
-      } else if (keys.has('arrowright')) {
+      } else if (movingRight) {
         newPlayerVelocity.x = GAME_CONSTANTS.PLAYER_SPEED;
         newState.player.facing = 'right';
       } else {
@@ -451,7 +498,7 @@ const Game: React.FC = () => {
       }
       
       // Apply momentum-based movement for ice platforms even when pressing movement keys
-      if (prev.player.isOnGround && keys.has('arrowleft') || keys.has('arrowright')) {
+      if (prev.player.isOnGround && (movingLeft || movingRight)) {
         const playerFootY = prev.player.position.y + 48;
         const standingPlatform = prev.platforms.find(platform => {
           return prev.player.position.x + 16 >= platform.x && 
@@ -461,14 +508,14 @@ const Game: React.FC = () => {
         
         if (standingPlatform?.type === 'ice') {
           // On ice: blend current velocity with intended direction for momentum feel
-          const targetVelocity = keys.has('arrowleft') ? -GAME_CONSTANTS.PLAYER_SPEED : GAME_CONSTANTS.PLAYER_SPEED;
+          const targetVelocity = movingLeft ? -GAME_CONSTANTS.PLAYER_SPEED : GAME_CONSTANTS.PLAYER_SPEED;
           const momentum = 0.7; // How much previous velocity affects movement
           newPlayerVelocity.x = newPlayerVelocity.x * momentum + targetVelocity * (1 - momentum);
         }
       }
 
       // Jumping - only allow jumping if canJump is true
-      const jumpKeys = keys.has('arrowup') || keys.has(' ');
+      const jumpKeys = keys.has('arrowup') || keys.has(' ') || mobileJump;
       if (jumpKeys && prev.player.isOnGround && prev.player.canJump) {
         newPlayerVelocity.y = GAME_CONSTANTS.JUMP_FORCE;
         newState.player.isOnGround = false;
@@ -1270,6 +1317,12 @@ const Game: React.FC = () => {
             }));
           }
           break;
+        case 'o':
+          if (debugMode) {
+            // Toggle mobile emulation in debug mode
+            setMobileEmulation(prev => !prev);
+          }
+          break;
         case 'r':
           restartGame();
           break;
@@ -1395,7 +1448,7 @@ const Game: React.FC = () => {
       {/* Game content - only render when data is loaded and game state is initialized */}
       {gameDataLoaded && !gameDataError && (
         <div 
-          className="game-container"
+          className={`game-container ${isMobile ? 'mobile' : ''}`}
           style={{
             transform: `translate(${screenShake.x}px, ${screenShake.y}px)`,
             transition: screenShake.x === 0 && screenShake.y === 0 ? 'transform 0.1s ease-out' : 'none'
@@ -1507,9 +1560,10 @@ const Game: React.FC = () => {
       {debugMode && (
         <div className="debug-info">
           <div>DEBUG MODE - D to toggle | {isPaused ? 'PAUSED' : 'RUNNING'}</div>
-          <div>X = Skip Level | C = Cure | I = Toggle Invulnerability | J = Reload JSON | P = Pause | M = Refill MP | Current Level: {gameState.currentLevel}</div>
+          <div>X = Skip Level | C = Cure | I = Toggle Invulnerability | J = Reload JSON | P = Pause | M = Refill MP | O = Mobile Emulation | Current Level: {gameState.currentLevel}</div>
           <div>Player Velocity: X={gameState.player.velocity.x.toFixed(2)}, Y={gameState.player.velocity.y.toFixed(2)}</div>
           <div>Permanent Invulnerability: {gameState.player.isPermanentlyInvulnerable ? 'ON' : 'OFF'}</div>
+          <div>Mobile Mode: {isMobile ? 'ON' : 'OFF'} {mobileEmulation ? '(EMULATED)' : ''}</div>
           <div>Projectiles: {gameState.projectiles.length} | Monsters: {gameState.monsters.filter(m => m.isAlive).length}</div>
           <div>Ice Dragons: {gameState.monsters.filter(m => m.type === 'ice_dragon' && m.isAlive).length}</div>
           <div>Debug state preserved on restart: YES</div>
@@ -1550,6 +1604,17 @@ const Game: React.FC = () => {
       )}
         </div>
       )}
+
+      {/* Mobile Controls */}
+      <MobileControls
+        onMove={handleMobileMove}
+        onJump={handleMobileJump}
+        onAttack={handleMobileAttack}
+        onSwitchWeapon={handleMobileSwitchWeapon}
+        onCastMagic={handleMobileCastMagic}
+        currentWeapon={gameState.player.weapon}
+        isVisible={isMobile && gameDataLoaded && !gameDataError}
+      />
     </>
   );
 };
