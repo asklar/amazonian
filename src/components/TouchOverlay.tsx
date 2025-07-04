@@ -10,6 +10,19 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
   const lastTapRef = useRef<number>(0);
   const currentDirectionRef = useRef<'left' | 'right' | null>(null);
 
+  // Calculate scale to fit the game in mobile viewport
+  const getScale = useCallback(() => {
+    const gameWidth = 800;
+    const gameHeight = 600;
+    const availableWidth = window.innerWidth;
+    const availableHeight = window.innerHeight * 0.85; // 85% for game area
+    
+    const scaleX = availableWidth / gameWidth;
+    const scaleY = availableHeight / gameHeight;
+    
+    return Math.min(scaleX, scaleY);
+  }, []);
+
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     e.preventDefault();
     
@@ -144,16 +157,19 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
       onMouseUp={handleMouseUp}
       style={{
         position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '85vh', // Don't cover the mobile controls
+        top: '50%',
+        left: '50%',
+        width: '800px', // Match game container original width  
+        height: '600px', // Match game container original height
         zIndex: 100, // Above game content but below mobile controls
         pointerEvents: 'auto',
         background: 'transparent',
         userSelect: 'none',
         WebkitUserSelect: 'none',
         WebkitTouchCallout: 'none',
+        transformOrigin: 'center center',
+        transform: `scale(${getScale()}) translate(-50%, -50%)`, // Match game container scaling and centering
+        touchAction: 'manipulation',
       }}
     >
       {/* Visual indicators for touch areas (only show in debug mode) */}

@@ -1793,8 +1793,11 @@ const Game: React.FC = () => {
         <div 
           className={`game-container ${isMobile ? 'mobile' : ''}`}
           style={{
-            transform: `translate(${screenShake.x}px, ${screenShake.y}px)`,
-            transition: screenShake.x === 0 && screenShake.y === 0 ? 'transform 0.1s ease-out' : 'none'
+            transform: isMobile 
+              ? `scale(${Math.min(window.innerWidth / 800, (window.innerHeight * 0.85) / 600)}) translate(-50%, -50%) translate(${screenShake.x}px, ${screenShake.y}px)`
+              : `translate(${screenShake.x}px, ${screenShake.y}px)`,
+            transition: screenShake.x === 0 && screenShake.y === 0 ? 'transform 0.1s ease-out' : 'none',
+            transformOrigin: 'center center'
           }}
         >
       <Background 
