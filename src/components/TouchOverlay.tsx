@@ -10,8 +10,6 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
   const lastTapRef = useRef<number>(0);
   const currentDirectionRef = useRef<'left' | 'right' | null>(null);
 
-  if (!isVisible) return null;
-
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     e.preventDefault();
     
@@ -136,7 +134,7 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
     }, 100);
   }, [onMove, onJump]);
 
-  return (
+  return isVisible ? (
     <div
       className="touch-overlay"
       onTouchStart={handleTouchStart}
@@ -205,7 +203,7 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
         Double-tap anywhere to jump
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default TouchOverlay;
