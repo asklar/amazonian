@@ -209,6 +209,10 @@ class DataLoader {
     return this.gameConfig;
   }
 
+  public isConfigLoaded(): boolean {
+    return this.gameConfig !== null;
+  }
+
   public getLevelData(levelId: number): LevelData {
     const config = this.getGameConfig();
     const level = config.levels.find(l => l.id === levelId);

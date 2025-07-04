@@ -85,7 +85,7 @@
       "size": { "width": 56, "height": 70 },
       "isFlying": true,
       "canShoot": true,
-      "shootCooldown": 150,
+      "shootCooldown": 120,
       "shootRange": 250,
       "projectileType": "frost",
       "projectileLaunchOffset": { "x": 0.5, "y": 0.5 },
@@ -171,7 +171,12 @@
         "walk": { "frames": 4, "duration": 250 },
         "attack": { "frames": 4, "duration": 200 },
         "death": { "frames": 6, "duration": 550 }
-      }
+      },
+      "canShoot": true,
+        "shootCooldown": 100,
+        "shootRange": 200,
+        "projectileType": "fire",
+        "projectileLaunchOffset": { "x": 0.5, "y": 0.5 }
     },
     "wyvern": {
       "name": "Wyvern",
@@ -198,6 +203,22 @@
       "spriteType": "png",
       "sprites": {
         "idle": "/sprites/monsters/wyvern-2.png"
+      },
+      "canShoot": true,
+      "shootCooldown": 80,
+      "shootRange": 280,
+      "projectileType": "fire",
+      "projectileLaunchOffset": { "x": 0.5, "y": 0.5 },
+      "ai": {
+        "randomDirectionChangeChance": 0.02,
+        "speedBoostRange": 150,
+        "speedBoostMultiplier": 1.5,
+        "patrolOvershootRange": 20, 
+        "speedVariationMin": 0.8,
+        "speedVariationMax": 1.2,
+        "turnTowardsPlayerChance": 0.3,
+        "requireFacingToShoot": true,
+        "minMovementTime": 30
       },
       "size": { "width": 52, "height": 65 },
       "isFlying": true,

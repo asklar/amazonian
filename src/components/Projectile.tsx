@@ -13,6 +13,11 @@ const Projectile: React.FC<ProjectileProps> = ({ projectile, cameraOffset }) => 
 
   const getProjectileConfig = () => {
     try {
+      // Check if game config is available before trying to access it
+      if (!dataLoader.isConfigLoaded()) {
+        return null; // Gracefully handle when config is not loaded yet
+      }
+      
       const gameConfig = dataLoader.getGameConfig();
       
       if (projectile.type === 'arrow') {
@@ -32,7 +37,7 @@ const Projectile: React.FC<ProjectileProps> = ({ projectile, cameraOffset }) => 
       
       return null;
     } catch (error) {
-      console.warn('Could not load projectile config', error);
+      // Silent fallback when config is not available
       return null;
     }
   };

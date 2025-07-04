@@ -717,24 +717,40 @@ const Game: React.FC = () => {
           hitStunTimer,
         };
 
-        // Focused ice dragon debug logging - only log why not shooting or when shooting
-        const isIceDragon = debugMode && monster.type === 'ice_dragon';
+        // Debug logging for Elite Wyvern only
+        const isEliteWyvern = debugMode && monster.type === 'wyvern_elite';
 
         // Handle monster shooting (for blue dragons and other shooters)
         if (monster.canShoot && monster.isAlive && !monster.isDying && !isHit && monster.projectileType) {
           const shootTimer = (monster.shootTimer || 0) + 1;
           updatedMonster.shootTimer = shootTimer;
           
+          if (isEliteWyvern) {
+            console.log(`🔍 Elite Wyvern ${monster.id}: Shoot timer: ${shootTimer}/${monster.shootCooldown || 120}`);
+          }
+          
           if (shootTimer >= (monster.shootCooldown || 120)) {
             // Check if player is within range
             const distanceToPlayer = Math.abs(updatedMonster.position.x - newState.player.position.x);
             const shootRange = monster.shootRange || 300;
             
+            if (isEliteWyvern) {
+              console.log(`🔍 Elite Wyvern ${monster.id}: Player distance: ${distanceToPlayer}, shoot range: ${shootRange}`);
+            }
+            
             if (distanceToPlayer <= shootRange) {
+              if (isEliteWyvern) {
+                console.log(`🎯 Elite Wyvern ${monster.id}: Player in range, attempting to shoot`);
+              }
+              
               // Advanced AI shooting behavior
               if (monster.ai) {
                 const playerDirection = newState.player.position.x > updatedMonster.position.x ? 'right' : 'left';
                 const turnChance = monster.ai.turnTowardsPlayerChance || 0.3;
+                
+                if (isEliteWyvern) {
+                  console.log(`🔍 Elite Wyvern ${monster.id}: Player direction: ${playerDirection}, wyvern facing: ${updatedMonster.facing}`);
+                }
                 
                 // If not facing player, have a chance to turn towards player
                 if (updatedMonster.facing !== playerDirection && Math.random() < turnChance) {
@@ -761,7 +777,7 @@ const Game: React.FC = () => {
                                                    (updatedMonster.facing === 'left' && newState.player.position.x < updatedMonster.position.x);
                     canShoot = playerInForwardDirection;
                     if (!canShoot) {
-                      shootFailReason = `player not in forward direction (facing ${updatedMonster.facing}, player at x=${newState.player.position.x}, dragon at x=${updatedMonster.position.x})`;
+                      shootFailReason = `player not in forward direction (facing ${updatedMonster.facing}, player at x=${newState.player.position.x}, wyvern at x=${updatedMonster.position.x})`;
                     }
                   } else {
                     // Ground monsters require exact facing
@@ -769,12 +785,12 @@ const Game: React.FC = () => {
                                        (updatedMonster.facing === 'left' && newState.player.position.x < updatedMonster.position.x);
                     canShoot = facingPlayer;
                     if (!canShoot) {
-                      shootFailReason = `not facing player exactly (facing ${updatedMonster.facing}, player at x=${newState.player.position.x}, dragon at x=${updatedMonster.position.x})`;
+                      shootFailReason = `not facing player exactly (facing ${updatedMonster.facing}, player at x=${newState.player.position.x}, wyvern at x=${updatedMonster.position.x})`;
                     }
                   }
                   
-                  if (!canShoot && isIceDragon) {
-                    console.log(`❌ Ice dragon ${monster.id}: NOT shooting - ${shootFailReason}`);
+                  if (!canShoot && isEliteWyvern) {
+                    console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - ${shootFailReason}`);
                     return updatedMonster;
                   }
                 }
@@ -782,12 +798,33 @@ const Game: React.FC = () => {
               
               // Get projectile configuration from weapons.json
               try {
+                if (isEliteWyvern) {
+                  console.log(`🔍 Elite Wyvern ${monster.id}: Trying to load projectile config for '${monster.projectileType}'`);
+                }
+                
+                // Check if game config is loaded before trying to access it
+                if (!dataLoader.isConfigLoaded()) {
+                  if (isEliteWyvern) {
+                    console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - game configuration not loaded yet`);
+                  }
+                  return updatedMonster;
+                }
+                
                 const gameConfig = dataLoader.getGameConfig();
+                
+                if (isEliteWyvern) {
+                  console.log(`🔍 Elite Wyvern ${monster.id}: Game config loaded, checking weaponTypes:`, Object.keys(gameConfig.weaponTypes));
+                }
+                
                 const weaponConfig = gameConfig.weaponTypes[monster.projectileType];
                 
+                if (isEliteWyvern) {
+                  console.log(`🔍 Elite Wyvern ${monster.id}: Weapon config for '${monster.projectileType}':`, weaponConfig);
+                }
+                
                 if (weaponConfig?.projectile) {
-                  if (isIceDragon) {
-                    console.log(`🎯 Ice dragon ${monster.id}: FIRING frost projectile!`);
+                  if (isEliteWyvern) {
+                    console.log(`🎯 Elite Wyvern ${monster.id}: FIRING fire projectile!`);
                   }
                   
                   const projectileConfig = weaponConfig.projectile;
@@ -847,33 +884,40 @@ const Game: React.FC = () => {
                   newState.projectiles = [...newState.projectiles, fireProjectile];
                   updatedMonster.shootTimer = 0; // Reset cooldown
                   
-                  if (isIceDragon) {
-                    console.log(`✅ Ice dragon ${monster.id}: Projectile created and added to game state`);
+                  if (isEliteWyvern) {
+                    console.log(`✅ Elite Wyvern ${monster.id}: Projectile created and added to game state`);
                   }
                 } else {
-                  if (isIceDragon) {
-                    console.log(`❌ Ice dragon ${monster.id}: NOT shooting - no projectile config found for ${monster.projectileType}`);
+                  if (isEliteWyvern) {
+                    console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - no projectile config found for ${monster.projectileType}. WeaponConfig:`, weaponConfig);
                   }
                 }
               } catch (error) {
-                if (isIceDragon) {
-                  console.log(`❌ Ice dragon ${monster.id}: NOT shooting - error loading projectile config:`, error);
+                if (isEliteWyvern) {
+                  console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - error loading projectile config for '${monster.projectileType}':`, error);
+                  if (error instanceof Error) {
+                    console.log(`❌ Elite Wyvern ${monster.id}: Error details:`, {
+                      name: error.name,
+                      message: error.message,
+                      stack: error.stack
+                    });
+                  }
                 }
               }
             } else {
-              if (isIceDragon) {
-                console.log(`❌ Ice dragon ${monster.id}: NOT shooting - player out of range (distance: ${distanceToPlayer}, range: ${shootRange})`);
+              if (isEliteWyvern) {
+                console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - player out of range (distance: ${distanceToPlayer}, range: ${shootRange})`);
               }
             }
           } else {
-            // Ice dragon cooldown check - only log every 60 frames to avoid spam
-            if (isIceDragon && shootTimer % 60 === 0) {
-              console.log(`⏳ Ice dragon ${monster.id}: Cooldown not ready (${shootTimer}/${monster.shootCooldown || 120})`);
+            // Elite Wyvern cooldown check - only log every 60 frames to avoid spam
+            if (isEliteWyvern && shootTimer % 60 === 0) {
+              console.log(`⏳ Elite Wyvern ${monster.id}: Cooldown not ready (${shootTimer}/${monster.shootCooldown || 120})`);
             }
           }
         } else {
-          // Check why ice dragon can't shoot at all
-          if (isIceDragon) {
+          // Check why Elite Wyvern can't shoot at all
+          if (isEliteWyvern) {
             const reasons = [];
             if (!monster.canShoot) reasons.push('canShoot=false');
             if (!monster.isAlive) reasons.push('not alive');
@@ -882,7 +926,7 @@ const Game: React.FC = () => {
             if (!monster.projectileType) reasons.push('no projectileType');
             
             if (reasons.length > 0) {
-              console.log(`❌ Ice dragon ${monster.id}: Cannot shoot - ${reasons.join(', ')}`);
+              console.log(`❌ Elite Wyvern ${monster.id}: Cannot shoot - ${reasons.join(', ')}`);
             }
           }
         }
@@ -1184,6 +1228,18 @@ const Game: React.FC = () => {
             setIsPaused(prev => !prev);
           }
           break;
+        case 'm':
+          if (debugMode) {
+            // Refill MP to max in debug mode
+            setGameState(prev => ({
+              ...prev,
+              player: {
+                ...prev.player,
+                magic: prev.player.maxMagic
+              }
+            }));
+          }
+          break;
         case 'r':
           restartGame();
           break;
@@ -1419,7 +1475,7 @@ const Game: React.FC = () => {
       {debugMode && (
         <div className="debug-info">
           <div>DEBUG MODE - D to toggle | {isPaused ? 'PAUSED' : 'RUNNING'}</div>
-          <div>X = Skip Level | C = Cure | I = Toggle Invulnerability | J = Reload JSON | P = Pause | Current Level: {gameState.currentLevel}</div>
+          <div>X = Skip Level | C = Cure | I = Toggle Invulnerability | J = Reload JSON | P = Pause | M = Refill MP | Current Level: {gameState.currentLevel}</div>
           <div>Player Velocity: X={gameState.player.velocity.x.toFixed(2)}, Y={gameState.player.velocity.y.toFixed(2)}</div>
           <div>Permanent Invulnerability: {gameState.player.isPermanentlyInvulnerable ? 'ON' : 'OFF'}</div>
           <div>Projectiles: {gameState.projectiles.length} | Monsters: {gameState.monsters.filter(m => m.isAlive).length}</div>

@@ -271,7 +271,13 @@
           "position": { "x": 700, "y": 280 },
           "facing": "left",
           "patrolStart": 650,
-          "patrolEnd": 850
+          "patrolEnd": 850,
+          "patrolArea": {
+            "xStart": 650,
+            "xEnd": 850,
+            "yStart": 250,
+            "yEnd": 320
+          }
         },
         {
           "id": "wyvern1",
@@ -279,7 +285,13 @@
           "position": { "x": 1000, "y": 210 },
           "facing": "right",
           "patrolStart": 950,
-          "patrolEnd": 1130
+          "patrolEnd": 1130,
+          "patrolArea": {
+            "xStart": 950,
+            "xEnd": 1130,
+            "yStart": 180,
+            "yEnd": 250
+          }
         },
         {
           "id": "blue_dragon1",
@@ -287,7 +299,13 @@
           "position": { "x": 1300, "y": 130 },
           "facing": "left",
           "patrolStart": 1200,
-          "patrolEnd": 1450
+          "patrolEnd": 1450,
+          "patrolArea": {
+            "xStart": 1200,
+            "xEnd": 1450,
+            "yStart": 100,
+            "yEnd": 170
+          }
         },
         {
           "id": "wyvern_elite1",
@@ -295,7 +313,13 @@
           "position": { "x": 1700, "y": 80 },
           "facing": "right",
           "patrolStart": 1550,
-          "patrolEnd": 1850
+          "patrolEnd": 1850,
+          "patrolArea": {
+            "xStart": 1550,
+            "xEnd": 1850,
+            "yStart": 50,
+            "yEnd": 120
+          }
         },
         {
           "id": "wyvern_boss1",
@@ -303,7 +327,13 @@
           "position": { "x": 2300, "y": 260 },
           "facing": "left",
           "patrolStart": 2200,
-          "patrolEnd": 2500
+          "patrolEnd": 2500,
+          "patrolArea": {
+            "xStart": 2200,
+            "xEnd": 2500,
+            "yStart": 230,
+            "yEnd": 300
+          }
         },
         {
           "id": "wyvern_boss2",
@@ -311,7 +341,13 @@
           "position": { "x": 2450, "y": 260 },
           "facing": "right",
           "patrolStart": 2300,
-          "patrolEnd": 2550
+          "patrolEnd": 2550,
+          "patrolArea": {
+            "xStart": 2300,
+            "xEnd": 2550,
+            "yStart": 230,
+            "yEnd": 300
+          }
         }
       ],
       "loot": [
@@ -352,7 +388,13 @@
           "position": { "x": 550, "y": 360 },
           "facing": "left",
           "patrolStart": 500,
-          "patrolEnd": 700
+          "patrolEnd": 700,
+          "patrolArea": {
+            "xStart": 500,
+            "xEnd": 700,
+            "yStart": 320,
+            "yEnd": 450
+          }
         },
         {
           "id": "entrance_guardian2",
@@ -360,7 +402,13 @@
           "position": { "x": 900, "y": 280 },
           "facing": "right",
           "patrolStart": 800,
-          "patrolEnd": 1050
+          "patrolEnd": 1050,
+          "patrolArea": {
+            "xStart": 800,
+            "xEnd": 1050,
+            "yStart": 240,
+            "yEnd": 380
+          }
         },
         {
           "id": "ice_champion",
@@ -368,7 +416,13 @@
           "position": { "x": 1200, "y": 210 },
           "facing": "left",
           "patrolStart": 1150,
-          "patrolEnd": 1300
+          "patrolEnd": 1300,
+          "patrolArea": {
+            "xStart": 1150,
+            "xEnd": 1300,
+            "yStart": 170,
+            "yEnd": 300
+          }
         },
         {
           "id": "blue_elite",
@@ -376,7 +430,13 @@
           "position": { "x": 1500, "y": 140 },
           "facing": "right",
           "patrolStart": 1400,
-          "patrolEnd": 1600
+          "patrolEnd": 1600,
+          "patrolArea": {
+            "xStart": 1400,
+            "xEnd": 1600,
+            "yStart": 100,
+            "yEnd": 230
+          }
         },
         {
           "id": "fire_champion1",
@@ -384,7 +444,13 @@
           "position": { "x": 1750, "y": 240 },
           "facing": "left",
           "patrolStart": 1700,
-          "patrolEnd": 1880
+          "patrolEnd": 1880,
+          "patrolArea": {
+            "xStart": 1700,
+            "xEnd": 1880,
+            "yStart": 200,
+            "yEnd": 330
+          }
         },
         {
           "id": "fire_champion2",
@@ -392,7 +458,13 @@
           "position": { "x": 2080, "y": 160 },
           "facing": "right",
           "patrolStart": 1980,
-          "patrolEnd": 2200
+          "patrolEnd": 2200,
+          "patrolArea": {
+            "xStart": 1980,
+            "xEnd": 2200,
+            "yStart": 120,
+            "yEnd": 250
+          }
         },
         {
           "id": "ascent_guardian1",
@@ -400,7 +472,13 @@
           "position": { "x": 2400, "y": 110 },
           "facing": "left",
           "patrolStart": 2300,
-          "patrolEnd": 2600
+          "patrolEnd": 2600,
+          "patrolArea": {
+            "xStart": 2300,
+            "xEnd": 2600,
+            "yStart": 70,
+            "yEnd": 200
+          }
         },
         {
           "id": "ascent_guardian2",
@@ -408,7 +486,13 @@
           "position": { "x": 2800, "y": 60 },
           "facing": "right",
           "patrolStart": 2700,
-          "patrolEnd": 2950
+          "patrolEnd": 2950,
+          "patrolArea": {
+            "xStart": 2700,
+            "xEnd": 2950,
+            "yStart": 20,
+            "yEnd": 150
+          }
         },
         {
           "id": "final_boss1",
@@ -416,23 +500,41 @@
           "position": { "x": 3100, "y": 260 },
           "facing": "left",
           "patrolStart": 3000,
-          "patrolEnd": 3200
+          "patrolEnd": 3200,
+          "patrolArea": {
+            "xStart": 3000,
+            "xEnd": 3200,
+            "yStart": 220,
+            "yEnd": 350
+          }
         },
         {
           "id": "final_boss2",
           "type": "red_dragon",
           "position": { "x": 3300, "y": 260 },
           "facing": "right",
-          "patrolStart": 3200,
-          "patrolEnd": 3400
+          "patrolStart": 3250,
+          "patrolEnd": 3450,
+          "patrolArea": {
+            "xStart": 3250,
+            "xEnd": 3450,
+            "yStart": 220,
+            "yEnd": 350
+          }
         },
         {
           "id": "final_boss3",
           "type": "ice_dragon",
-          "position": { "x": 3250, "y": 260 },
+          "position": { "x": 3200, "y": 200 },
           "facing": "left",
-          "patrolStart": 3150,
-          "patrolEnd": 3350
+          "patrolStart": 3100,
+          "patrolEnd": 3400,
+          "patrolArea": {
+            "xStart": 3100,
+            "xEnd": 3400,
+            "yStart": 160,
+            "yEnd": 290
+          }
         }
       ],
       "loot": [
