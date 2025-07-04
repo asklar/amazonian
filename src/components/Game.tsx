@@ -464,30 +464,58 @@ const Game: React.FC = () => {
       // For real mobile devices, detect orientation using multiple methods
       let isLandscape = false;
       
-      // Method 1: Check screen dimensions
-      if (window.screen?.orientation) {
-        isLandscape = window.screen.orientation.angle === 90 || window.screen.orientation.angle === -90;
-      } else if (window.orientation !== undefined) {
-        // Method 2: Use window.orientation (legacy)
-        isLandscape = Math.abs(window.orientation) === 90;
-      } else {
-        // Method 3: Compare width vs height
-        isLandscape = window.innerWidth > window.innerHeight;
+      console.log('Checking orientation...');
+      console.log('window.orientation:', window.orientation);
+      console.log('screen.orientation:', screen.orientation);
+      console.log('innerWidth:', window.innerWidth, 'innerHeight:', window.innerHeight);
+      
+      // Method 1: Use screen.orientation API if available (most reliable)
+      if (screen.orientation) {
+        const angle = screen.orientation.angle;
+        isLandscape = angle === 90 || angle === -90 || angle === 270;
+        console.log('Using screen.orientation.angle:', angle, 'isLandscape:', isLandscape);
+      } 
+      // Method 2: Use window.orientation if available (iOS Safari and older browsers)
+      else if (typeof window.orientation !== 'undefined') {
+        const angle = window.orientation;
+        isLandscape = Math.abs(angle) === 90;
+        console.log('Using window.orientation:', angle, 'isLandscape:', isLandscape);
+      }
+      // Method 3: Fallback to window dimensions (with delay for mobile browsers)
+      else {
+        // Add small delay to allow browser to update dimensions after rotation
+        setTimeout(() => {
+          isLandscape = window.innerWidth > window.innerHeight;
+          console.log('Using dimensions (delayed):', 'width:', window.innerWidth, 'height:', window.innerHeight, 'isLandscape:', isLandscape);
+          
+          if (isLandscape) {
+            document.body.classList.add('landscape-mode');
+            document.body.classList.remove('portrait-mode');
+            console.log('Applied landscape-mode class');
+          } else {
+            document.body.classList.add('portrait-mode');
+            document.body.classList.remove('landscape-mode');
+            console.log('Applied portrait-mode class');
+          }
+        }, 200); // Increased delay for mobile browsers
+        return; // Exit early since we're using setTimeout
       }
 
-      // Apply orientation classes
+      // Apply orientation classes for methods 1 and 2
       if (isLandscape) {
         document.body.classList.add('landscape-mode');
         document.body.classList.remove('portrait-mode');
+        console.log('Applied landscape-mode class');
       } else {
         document.body.classList.add('portrait-mode');
         document.body.classList.remove('landscape-mode');
+        console.log('Applied portrait-mode class');
       }
 
       // Try to lock to landscape orientation if possible (real mobile devices only)
       if (screen.orientation && 'lock' in screen.orientation) {
-        (screen.orientation as any).lock('landscape').catch(() => {
-          // Orientation lock failed, but that's okay
+        (screen.orientation as any).lock('landscape').catch((error: any) => {
+          console.log('Orientation lock failed:', error);
         });
       }
     };
@@ -499,6 +527,11 @@ const Game: React.FC = () => {
     if (!(debugMode && mobileEmulation)) {
       window.addEventListener('orientationchange', handleOrientationChange);
       window.addEventListener('resize', handleOrientationChange);
+      
+      // Also listen for screen orientation change event if available
+      if (screen.orientation) {
+        screen.orientation.addEventListener('change', handleOrientationChange);
+      }
     }
     
     // Prevent zoom on mobile
@@ -513,6 +546,9 @@ const Game: React.FC = () => {
     return () => {
       window.removeEventListener('orientationchange', handleOrientationChange);
       window.removeEventListener('resize', handleOrientationChange);
+      if (screen.orientation) {
+        screen.orientation.removeEventListener('change', handleOrientationChange);
+      }
       document.removeEventListener('touchstart', preventZoom);
       document.body.classList.remove('landscape-mode', 'portrait-mode');
     };
@@ -522,52 +558,86 @@ const Game: React.FC = () => {
   useEffect(() => {
     if (!isMobile) return;
 
+    let fullscreenRequested = false;
+
     const requestFullscreen = async () => {
+      if (fullscreenRequested) return;
+      
       try {
         // Skip fullscreen for desktop mobile emulation
         if (debugMode && mobileEmulation) {
+          console.log('Skipping fullscreen for desktop mobile emulation');
           return;
         }
 
-        // Check if fullscreen is supported
-        if (!document.documentElement.requestFullscreen) {
-          console.log('Fullscreen API not supported');
-          return;
-        }
-
+        console.log('Attempting to request fullscreen...');
+        
         // Check if we're already in fullscreen
         if (document.fullscreenElement) {
+          console.log('Already in fullscreen');
           return;
         }
 
-        // Request fullscreen
-        await document.documentElement.requestFullscreen();
-        console.log('Entered fullscreen mode');
+        // Try multiple fullscreen methods for better browser compatibility
+        const element = document.documentElement;
+        
+        if (element.requestFullscreen) {
+          await element.requestFullscreen();
+          fullscreenRequested = true;
+          console.log('Fullscreen requested via requestFullscreen');
+        } else if ((element as any).webkitRequestFullscreen) {
+          await (element as any).webkitRequestFullscreen();
+          fullscreenRequested = true;
+          console.log('Fullscreen requested via webkitRequestFullscreen');
+        } else if ((element as any).mozRequestFullScreen) {
+          await (element as any).mozRequestFullScreen();
+          fullscreenRequested = true;
+          console.log('Fullscreen requested via mozRequestFullScreen');
+        } else if ((element as any).msRequestFullscreen) {
+          await (element as any).msRequestFullscreen();
+          fullscreenRequested = true;
+          console.log('Fullscreen requested via msRequestFullscreen');
+        } else {
+          console.log('No fullscreen API available');
+        }
       } catch (error) {
         console.log('Could not enter fullscreen:', error);
-        // Fallback: try to hide address bar by scrolling
+      }
+      
+      // Fallback: try to hide address bar by scrolling (iOS Safari)
+      try {
         window.scrollTo(0, 1);
+        setTimeout(() => window.scrollTo(0, 1), 100);
+        console.log('Attempted address bar hiding via scroll');
+      } catch (error) {
+        console.log('Could not scroll to hide address bar:', error);
       }
     };
 
-    // Request fullscreen after a short delay to ensure the page is loaded
-    const timer = setTimeout(requestFullscreen, 1000);
-
-    // Also try on user interaction (some browsers require user gesture)
-    const handleUserInteraction = () => {
+    // Try on first user interaction (required by most browsers)
+    const handleFirstInteraction = (e: Event) => {
+      console.log('First user interaction detected:', e.type);
       requestFullscreen();
-      // Remove listeners after first interaction
-      document.removeEventListener('touchstart', handleUserInteraction);
-      document.removeEventListener('click', handleUserInteraction);
     };
 
-    document.addEventListener('touchstart', handleUserInteraction, { once: true });
-    document.addEventListener('click', handleUserInteraction, { once: true });
+    // Add listeners for first interaction
+    document.addEventListener('touchstart', handleFirstInteraction, { once: true, passive: true });
+    document.addEventListener('click', handleFirstInteraction, { once: true });
+    document.addEventListener('keydown', handleFirstInteraction, { once: true });
+
+    // Also try after page load (some browsers allow this)
+    const timer = setTimeout(() => {
+      if (!fullscreenRequested) {
+        console.log('Trying fullscreen after page load...');
+        requestFullscreen();
+      }
+    }, 2000);
 
     return () => {
       clearTimeout(timer);
-      document.removeEventListener('touchstart', handleUserInteraction);
-      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('keydown', handleFirstInteraction);
     };
   }, [isMobile, debugMode, mobileEmulation]);
 

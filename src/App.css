@@ -139,10 +139,19 @@ body.portrait-mode:not(.desktop-mobile-emulation) .orientation-message {
   z-index: 9999;
   padding: 20px;
   box-sizing: border-box;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+/* Show orientation message in portrait mode (only on real mobile devices) */
+body.portrait-mode:not(.desktop-mobile-emulation) .orientation-message {
+  display: flex !important;
+}
+
+/* Hide orientation message in landscape mode */
+body.landscape-mode .orientation-message {
+  display: none !important;
 }
 
 .orientation-message::before {
