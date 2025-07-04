@@ -518,6 +518,130 @@ const Game: React.FC = () => {
     };
   }, [isMobile, debugMode, mobileEmulation]);
 
+  // Handle fullscreen for mobile devices
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const requestFullscreen = async () => {
+      try {
+        // Skip fullscreen for desktop mobile emulation
+        if (debugMode && mobileEmulation) {
+          return;
+        }
+
+        // Check if fullscreen is supported
+        if (!document.documentElement.requestFullscreen) {
+          console.log('Fullscreen API not supported');
+          return;
+        }
+
+        // Check if we're already in fullscreen
+        if (document.fullscreenElement) {
+          return;
+        }
+
+        // Request fullscreen
+        await document.documentElement.requestFullscreen();
+        console.log('Entered fullscreen mode');
+      } catch (error) {
+        console.log('Could not enter fullscreen:', error);
+        // Fallback: try to hide address bar by scrolling
+        window.scrollTo(0, 1);
+      }
+    };
+
+    // Request fullscreen after a short delay to ensure the page is loaded
+    const timer = setTimeout(requestFullscreen, 1000);
+
+    // Also try on user interaction (some browsers require user gesture)
+    const handleUserInteraction = () => {
+      requestFullscreen();
+      // Remove listeners after first interaction
+      document.removeEventListener('touchstart', handleUserInteraction);
+      document.removeEventListener('click', handleUserInteraction);
+    };
+
+    document.addEventListener('touchstart', handleUserInteraction, { once: true });
+    document.addEventListener('click', handleUserInteraction, { once: true });
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('touchstart', handleUserInteraction);
+      document.removeEventListener('click', handleUserInteraction);
+    };
+  }, [isMobile, debugMode, mobileEmulation]);
+
+  // Handle mobile viewport and address bar hiding
+  useEffect(() => {
+    if (!isMobile) return;
+
+    // Skip for desktop mobile emulation
+    if (debugMode && mobileEmulation) {
+      return;
+    }
+
+    // Set viewport meta tag for mobile
+    let viewportMeta = document.querySelector('meta[name="viewport"]') as HTMLMetaElement;
+    if (!viewportMeta) {
+      viewportMeta = document.createElement('meta');
+      viewportMeta.name = 'viewport';
+      document.head.appendChild(viewportMeta);
+    }
+
+    // Store original viewport content
+    const originalViewport = viewportMeta.content;
+
+    // Set mobile-optimized viewport
+    viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+
+    // Add iOS-specific meta tags for fullscreen-like experience
+    const addMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        meta.content = content;
+        document.head.appendChild(meta);
+      }
+      return meta;
+    };
+
+    addMetaTag('apple-mobile-web-app-capable', 'yes');
+    addMetaTag('apple-mobile-web-app-status-bar-style', 'black-translucent');
+    addMetaTag('mobile-web-app-capable', 'yes');
+
+    // Hide address bar by scrolling (works on many mobile browsers)
+    const hideAddressBar = () => {
+      setTimeout(() => {
+        window.scrollTo(0, 1);
+      }, 100);
+    };
+
+    // Hide address bar on page load and orientation change
+    hideAddressBar();
+    window.addEventListener('orientationchange', hideAddressBar);
+    window.addEventListener('resize', hideAddressBar);
+
+    // Prevent body scrolling
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.height = '100%';
+
+    return () => {
+      // Restore original settings
+      viewportMeta.content = originalViewport;
+      window.removeEventListener('orientationchange', hideAddressBar);
+      window.removeEventListener('resize', hideAddressBar);
+      
+      // Restore body styles
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+    };
+  }, [isMobile, debugMode, mobileEmulation]);
+
   // Game loop
   const gameLoop = useCallback(() => {
     if (gameState.gameStatus !== 'playing' || !gameDataLoaded || !GAME_CONSTANTS || isPaused) return;
@@ -1420,6 +1544,16 @@ const Game: React.FC = () => {
         case 'r':
           restartGame();
           break;
+        case 'f':
+          if (debugMode) {
+            // Toggle fullscreen mode
+            if (document.fullscreenElement) {
+              document.exitFullscreen().catch(console.error);
+            } else {
+              document.documentElement.requestFullscreen().catch(console.error);
+            }
+          }
+          break;
       }
     };
 
@@ -1654,7 +1788,7 @@ const Game: React.FC = () => {
       {debugMode && (
         <div className="debug-info">
           <div>DEBUG MODE - D to toggle | {isPaused ? 'PAUSED' : 'RUNNING'}</div>
-          <div>X = Skip Level | C = Cure | I = Toggle Invulnerability | J = Reload JSON | P = Pause | M = Refill MP | O = Mobile Emulation | Current Level: {gameState.currentLevel}</div>
+          <div>X = Skip Level | C = Cure | I = Toggle Invulnerability | J = Reload JSON | P = Pause | M = Refill MP | O = Mobile Emulation | F = Fullscreen | Current Level: {gameState.currentLevel}</div>
           <div>Player Velocity: X={gameState.player.velocity.x.toFixed(2)}, Y={gameState.player.velocity.y.toFixed(2)}</div>
           <div>Permanent Invulnerability: {gameState.player.isPermanentlyInvulnerable ? 'ON' : 'OFF'}</div>
           <div>Mobile Mode: {isMobile ? 'ON' : 'OFF'} {mobileEmulation ? '(EMULATED)' : ''}</div>
