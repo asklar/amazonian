@@ -7,6 +7,7 @@ import type {
 } from '../components/types';
 import { createMonster } from '../components/types';
 import { dataLoader, type MonsterData, type PlatformData, type LootData } from './DataLoader';
+import { debugLog } from '../utils/debugLogger';
 
 export interface GameLevel {
   id: number;
@@ -94,11 +95,11 @@ class GameFactory {
           
           // Debug output for ice dragons
           if (monsterData.type === 'ice_dragon') {
-            console.log(`Ice dragon ${monsterData.id} created with projectiles:`, {
+            debugLog(`Ice dragon ${monsterData.id} created with projectiles:`, {
               projectiles: monster.projectiles,
               ai: monster.ai
             });
-            console.log(`Monster config data:`, monsterConfig);
+            debugLog(`Monster config data:`, monsterConfig);
           }
         }
       } catch (error) {

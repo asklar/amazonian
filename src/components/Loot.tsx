@@ -7,7 +7,7 @@ interface LootProps {
   cameraOffset: Position;
 }
 
-const Loot: React.FC<LootProps> = ({ loot, cameraOffset }) => {
+const Loot: React.FC<LootProps> = React.memo(({ loot, cameraOffset }) => {
   if (loot.collected) return null;
 
   const style: React.CSSProperties = {
@@ -57,6 +57,6 @@ const Loot: React.FC<LootProps> = ({ loot, cameraOffset }) => {
       />
     </div>
   );
-};
+});
 
 export default Loot;

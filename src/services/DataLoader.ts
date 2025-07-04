@@ -1,4 +1,6 @@
 // Data loading service for game configuration
+import { debugLog } from '../utils/debugLogger';
+
 export interface GameConfig {
   levels: LevelData[];
   monsterTypes: Record<string, MonsterTypeData>;
@@ -214,7 +216,7 @@ class DataLoader {
   }
 
   public async reloadGameConfig(): Promise<GameConfig> {
-    console.log('Reloading game configuration from JSON files...');
+    debugLog('Reloading game configuration from JSON files...');
     this.gameConfig = null; // Clear cached config
     return await this.loadGameConfig();
   }

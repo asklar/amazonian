@@ -9,6 +9,7 @@ import type {
 } from './types';
 import { GAME_CONSTANTS, initializeGameConstants } from './types';
 import { dataLoader } from '../services/DataLoader';
+import { debugLogger, debugLog } from '../utils/debugLogger';
 import Player from './Player.tsx';
 import MonsterComponent from './Monster.tsx';
 import PlatformComponent from './Platform.tsx';
@@ -22,13 +23,19 @@ import { createLevel, getMaxLevel, levelExists } from './levels';
 
 const Game: React.FC = () => {
   const [screenShake, setScreenShake] = useState<{ x: number, y: number }>({ x: 0, y: 0 });
-  const [debugMode, setDebugMode] = useState<boolean>(true); // Start with debug enabled
+  const [debugMode, setDebugMode] = useState<boolean>(false); // Disable debug by default for performance
   const [isPaused, setIsPaused] = useState<boolean>(false); // Pause state for debugging
   const [gameDataLoaded, setGameDataLoaded] = useState<boolean>(false);
   const [gameDataError, setGameDataError] = useState<string | null>(null);
 
   const gameLoopRef = useRef<number | undefined>(undefined);
   const keysRef = useRef<Set<string>>(new Set());
+  // Remove frame rate limiting for now to fix broken functionality
+
+  // Sync debug mode with logger
+  useEffect(() => {
+    debugLogger.setDebugMode(debugMode);
+  }, [debugMode]);
 
   // Initialize game data on component mount
   useEffect(() => {
@@ -733,7 +740,7 @@ const Game: React.FC = () => {
           updatedMonster.shootTimer = shootTimer;
           
           if (isEliteWyvern) {
-            console.log(`🔍 Elite Wyvern ${monster.id}: Shoot timer: ${shootTimer}/${shootCooldown}`);
+            debugLog(`🔍 Elite Wyvern ${monster.id}: Shoot timer: ${shootTimer}/${shootCooldown}`);
           }
           
           if (shootTimer >= shootCooldown) {
@@ -741,12 +748,12 @@ const Game: React.FC = () => {
             const distanceToPlayer = Math.abs(updatedMonster.position.x - newState.player.position.x);
             
             if (isEliteWyvern) {
-              console.log(`🔍 Elite Wyvern ${monster.id}: Player distance: ${distanceToPlayer}, shoot range: ${shootRange}`);
+              debugLog(`🔍 Elite Wyvern ${monster.id}: Player distance: ${distanceToPlayer}, shoot range: ${shootRange}`);
             }
             
             if (distanceToPlayer <= shootRange) {
               if (isEliteWyvern) {
-                console.log(`🎯 Elite Wyvern ${monster.id}: Player in range, attempting to shoot`);
+                debugLog(`🎯 Elite Wyvern ${monster.id}: Player in range, attempting to shoot`);
               }
               
               // Advanced AI shooting behavior
@@ -755,7 +762,7 @@ const Game: React.FC = () => {
                 const turnChance = monster.ai.turnTowardsPlayerChance || 0.3;
                 
                 if (isEliteWyvern) {
-                  console.log(`🔍 Elite Wyvern ${monster.id}: Player direction: ${playerDirection}, wyvern facing: ${updatedMonster.facing}`);
+                  debugLog(`🔍 Elite Wyvern ${monster.id}: Player direction: ${playerDirection}, wyvern facing: ${updatedMonster.facing}`);
                 }
                 
                 // If not facing player, have a chance to turn towards player
@@ -796,7 +803,7 @@ const Game: React.FC = () => {
                   }
                   
                   if (!canShoot && isEliteWyvern) {
-                    console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - ${shootFailReason}`);
+                    debugLog(`❌ Elite Wyvern ${monster.id}: NOT shooting - ${shootFailReason}`);
                     return updatedMonster;
                   }
                 }
@@ -805,13 +812,13 @@ const Game: React.FC = () => {
               // Get projectile configuration from weapons.json
               try {
                 if (isEliteWyvern) {
-                  console.log(`🔍 Elite Wyvern ${monster.id}: Trying to load projectile config for monster projectiles:`, monster.projectiles);
+                  debugLog(`🔍 Elite Wyvern ${monster.id}: Trying to load projectile config for monster projectiles:`, monster.projectiles);
                 }
                 
                 // Check if game config is loaded before trying to access it
                 if (!dataLoader.isConfigLoaded()) {
                   if (isEliteWyvern) {
-                    console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - game configuration not loaded yet`);
+                    debugLog(`❌ Elite Wyvern ${monster.id}: NOT shooting - game configuration not loaded yet`);
                   }
                   return updatedMonster;
                 }
@@ -819,7 +826,7 @@ const Game: React.FC = () => {
                 const gameConfig = dataLoader.getGameConfig();
                 
                 if (isEliteWyvern) {
-                  console.log(`🔍 Elite Wyvern ${monster.id}: Game config loaded, checking weaponTypes:`, Object.keys(gameConfig.weaponTypes));
+                  debugLog(`🔍 Elite Wyvern ${monster.id}: Game config loaded, checking weaponTypes:`, Object.keys(gameConfig.weaponTypes));
                 }
                 
                 // Select a projectile from the projectiles array (could be random based on weight)
@@ -842,12 +849,12 @@ const Game: React.FC = () => {
                 const weaponConfig = gameConfig.weaponTypes[selectedProjectile.type];
                 
                 if (isEliteWyvern) {
-                  console.log(`🔍 Elite Wyvern ${monster.id}: Selected projectile '${selectedProjectile.type}', weapon config:`, weaponConfig);
+                  debugLog(`🔍 Elite Wyvern ${monster.id}: Selected projectile '${selectedProjectile.type}', weapon config:`, weaponConfig);
                 }
                 
                 if (weaponConfig?.projectile) {
                   if (isEliteWyvern) {
-                    console.log(`🎯 Elite Wyvern ${monster.id}: FIRING ${selectedProjectile.type} projectile!`);
+                    debugLog(`🎯 Elite Wyvern ${monster.id}: FIRING ${selectedProjectile.type} projectile!`);
                   }
                   
                   const projectileConfig = weaponConfig.projectile;
@@ -908,18 +915,18 @@ const Game: React.FC = () => {
                   updatedMonster.shootTimer = 0; // Reset cooldown
                   
                   if (isEliteWyvern) {
-                    console.log(`✅ Elite Wyvern ${monster.id}: Projectile created and added to game state`);
+                    debugLog(`✅ Elite Wyvern ${monster.id}: Projectile created and added to game state`);
                   }
                 } else {
                   if (isEliteWyvern) {
-                    console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - no projectile config found for ${selectedProjectile.type}. WeaponConfig:`, weaponConfig);
+                    debugLog(`❌ Elite Wyvern ${monster.id}: NOT shooting - no projectile config found for ${selectedProjectile.type}. WeaponConfig:`, weaponConfig);
                   }
                 }
               } catch (error) {
                 if (isEliteWyvern) {
-                  console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - error loading projectile config:`, error);
+                  debugLog(`❌ Elite Wyvern ${monster.id}: NOT shooting - error loading projectile config:`, error);
                   if (error instanceof Error) {
-                    console.log(`❌ Elite Wyvern ${monster.id}: Error details:`, {
+                    debugLog(`❌ Elite Wyvern ${monster.id}: Error details:`, {
                       name: error.name,
                       message: error.message,
                       stack: error.stack
@@ -929,13 +936,13 @@ const Game: React.FC = () => {
               }
             } else {
               if (isEliteWyvern) {
-                console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - player out of range (distance: ${distanceToPlayer}, range: ${shootRange})`);
+                debugLog(`❌ Elite Wyvern ${monster.id}: NOT shooting - player out of range (distance: ${distanceToPlayer}, range: ${shootRange})`);
               }
             }
           } else {
             // Elite Wyvern cooldown check - only log every 60 frames to avoid spam
             if (isEliteWyvern && shootTimer % 60 === 0) {
-              console.log(`⏳ Elite Wyvern ${monster.id}: Cooldown not ready (${shootTimer}/${shootCooldown})`);
+              debugLog(`⏳ Elite Wyvern ${monster.id}: Cooldown not ready (${shootTimer}/${shootCooldown})`);
             }
           }
         } else {
@@ -948,7 +955,7 @@ const Game: React.FC = () => {
             if (!monster.projectiles || monster.projectiles.length === 0) reasons.push('no projectiles');
             
             if (reasons.length > 0) {
-              console.log(`❌ Elite Wyvern ${monster.id}: Cannot shoot - ${reasons.join(', ')}`);
+              debugLog(`❌ Elite Wyvern ${monster.id}: Cannot shoot - ${reasons.join(', ')}`);
             }
           }
         }
@@ -1157,7 +1164,7 @@ const Game: React.FC = () => {
     if (!debugMode) return;
     
     try {
-      console.log('Reloading game configuration...');
+      debugLog('Reloading game configuration...');
       const gameConfig = await dataLoader.reloadGameConfig();
       
       // Reinitialize the game constants from reloaded JSON data
@@ -1168,7 +1175,7 @@ const Game: React.FC = () => {
         gameConfig.platformTypes
       );
       
-      console.log('Game configuration reloaded successfully!');
+      debugLog('Game configuration reloaded successfully!');
       
       // Optionally reload the current level with new data
       setGameState(prev => {
@@ -1275,7 +1282,7 @@ const Game: React.FC = () => {
 
   // Level progression
   const nextLevel = useCallback(() => {
-    console.log('nextLevel called, gameDataLoaded:', gameDataLoaded);
+    debugLog('nextLevel called, gameDataLoaded:', gameDataLoaded);
     if (!gameDataLoaded) return;
     
     setGameState(prev => {
@@ -1284,11 +1291,11 @@ const Game: React.FC = () => {
       const nextLevelNum = prev.currentLevel + 1;
       const maxLevel = getMaxLevel();
       
-      console.log('Current level:', prev.currentLevel, 'Next level:', nextLevelNum, 'Max level:', maxLevel);
+      debugLog('Current level:', prev.currentLevel, 'Next level:', nextLevelNum, 'Max level:', maxLevel);
       
       // Check if next level exists
       if (nextLevelNum > maxLevel) {
-        console.log('No more levels available');
+        debugLog('No more levels available');
         return prev; // No more levels
       }
       
@@ -1297,7 +1304,7 @@ const Game: React.FC = () => {
         return prev;
       }
 
-      console.log('Creating level:', nextLevelNum);
+      debugLog('Creating level:', nextLevelNum);
       const newLevel = createLevel(nextLevelNum);
 
       return {

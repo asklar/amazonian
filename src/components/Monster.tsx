@@ -7,7 +7,7 @@ interface MonsterProps {
   cameraOffset: Position;
 }
 
-const Monster: React.FC<MonsterProps> = ({ monster, cameraOffset }) => {
+const Monster: React.FC<MonsterProps> = React.memo(({ monster, cameraOffset }) => {
   const [hasSvgSprite, setHasSvgSprite] = useState(false);
   
   // Don't render if completely dead (after animation)
@@ -67,6 +67,6 @@ const Monster: React.FC<MonsterProps> = ({ monster, cameraOffset }) => {
       />
     </div>
   );
-};
+});
 
 export default Monster;

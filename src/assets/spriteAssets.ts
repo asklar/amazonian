@@ -5,6 +5,8 @@
  * and managing game assets. Update paths here when sprites are added.
  */
 
+import { debugLog } from '../utils/debugLogger';
+
 // Base path for all sprites
 export const SPRITE_BASE_PATH = '/sprites';
 
@@ -561,7 +563,7 @@ export async function preloadAllSprites(): Promise<void> {
   ];
   
   await Promise.all(categories.map(preloadSpriteCategory));
-  console.log('All sprites preloaded successfully!');
+  debugLog('All sprites preloaded successfully!');
 }
 
 // All exports are already declared above with export const

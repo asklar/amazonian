@@ -5,6 +5,7 @@
  * Provides fallback functionality when sprites are not yet created.
  */
 
+import { debugLog } from '../utils/debugLogger';
 import { 
   PLAYER_SPRITES, 
   MONSTER_SPRITES, 
@@ -214,7 +215,7 @@ export class SpriteManager {
   }
 
   async loadAllSprites(): Promise<void> {
-    console.log('Loading game sprites...');
+    debugLog('Loading game sprites...');
     
     try {
       await Promise.all([
@@ -223,7 +224,7 @@ export class SpriteManager {
         this.ui.loadAll(),
       ]);
       
-      console.log('All sprites loaded successfully!');
+      debugLog('All sprites loaded successfully!');
     } catch (error) {
       console.warn('Some sprites failed to load, using fallbacks:', error);
     }

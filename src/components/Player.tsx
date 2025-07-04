@@ -8,7 +8,7 @@ interface PlayerProps {
   cameraOffset: Position;
 }
 
-const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
+const Player: React.FC<PlayerProps> = React.memo(({ player, cameraOffset }) => {
   const [hasSvgSprite, setHasSvgSprite] = useState(false);
   
   const style: React.CSSProperties = {
@@ -158,6 +158,6 @@ const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
       {getWeaponComponent()}
     </div>
   );
-};
+});
 
 export default Player;

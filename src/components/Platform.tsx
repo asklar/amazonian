@@ -7,7 +7,7 @@ interface PlatformProps {
   cameraOffset: Position;
 }
 
-const Platform: React.FC<PlatformProps> = ({ platform, cameraOffset }) => {
+const Platform: React.FC<PlatformProps> = React.memo(({ platform, cameraOffset }) => {
   const [hasSvgSprite, setHasSvgSprite] = useState(false);
   
   const style: React.CSSProperties = {
@@ -99,6 +99,6 @@ const Platform: React.FC<PlatformProps> = ({ platform, cameraOffset }) => {
       )}
     </div>
   );
-};
+});
 
 export default Platform;

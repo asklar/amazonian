@@ -30,6 +30,10 @@
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
+  /* Performance optimizations */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Background System */
@@ -61,6 +65,10 @@
   border: 2px solid #000;
   transition: none;
   z-index: 10;
+  /* Performance optimizations */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .player.attacking {
@@ -174,6 +182,10 @@
   position: absolute;
   border: 2px solid #000;
   z-index: 8;
+  /* Performance optimizations */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .goblin {
@@ -281,7 +293,10 @@
 .loot {
   position: absolute;
   z-index: 5;
-  animation: float 2s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite; /* Slower animation for performance */
+  /* Performance optimizations */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .coin {
