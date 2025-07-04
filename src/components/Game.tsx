@@ -29,9 +29,10 @@ const Game: React.FC = () => {
   const [debugMode, setDebugMode] = useState<boolean>(false); // Disable debug by default for performance
   const [isPaused, setIsPaused] = useState<boolean>(false); // Pause state for debugging
   const [mobileEmulation, setMobileEmulation] = useState<boolean>(false); // Debug mobile emulation
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false); // Fullscreen state
   const [gameDataLoaded, setGameDataLoaded] = useState<boolean>(false);
   const [gameDataError, setGameDataError] = useState<string | null>(null);
-
+  
   const gameLoopRef = useRef<number | undefined>(undefined);
   const keysRef = useRef<Set<string>>(new Set());
   const isMobile = useIsMobile(debugMode && mobileEmulation ? true : undefined);
@@ -638,6 +639,12 @@ const Game: React.FC = () => {
       document.removeEventListener('touchstart', handleFirstInteraction);
       document.removeEventListener('click', handleFirstInteraction);
       document.removeEventListener('keydown', handleFirstInteraction);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+      window.removeEventListener('resize', handleViewportResize);
+      window.removeEventListener('orientationchange', handleViewportResize);
     };
   }, [isMobile, debugMode, mobileEmulation]);
 
@@ -711,6 +718,44 @@ const Game: React.FC = () => {
       document.body.style.height = '';
     };
   }, [isMobile, debugMode, mobileEmulation]);
+
+  // Handle fullscreen change events
+  const handleFullscreenChange = () => {
+    const isFullscreen = !!(document.fullscreenElement || 
+                            (document as any).webkitFullscreenElement || 
+                            (document as any).mozFullScreenElement || 
+                            (document as any).msFullscreenElement);
+    
+    console.log('Fullscreen changed:', isFullscreen);
+    setIsFullscreen(isFullscreen);
+    
+    // Force a layout recalculation
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 100);
+  };
+
+  // Handle viewport resize for mobile browsers
+  const handleViewportResize = () => {
+    console.log('Viewport resized:', window.innerWidth, 'x', window.innerHeight);
+    
+    // Update CSS custom properties for dynamic viewport
+    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    document.documentElement.style.setProperty('--vw', `${window.innerWidth * 0.01}px`);
+  };
+
+  // Add fullscreen event listeners
+  document.addEventListener('fullscreenchange', handleFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+  document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+  document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+  
+  // Add viewport resize listener
+  window.addEventListener('resize', handleViewportResize);
+  window.addEventListener('orientationchange', handleViewportResize);
+  
+  // Initial viewport setup
+  handleViewportResize();
 
   // Game loop
   const gameLoop = useCallback(() => {
@@ -1862,7 +1907,7 @@ const Game: React.FC = () => {
           <div>Player Velocity: X={gameState.player.velocity.x.toFixed(2)}, Y={gameState.player.velocity.y.toFixed(2)}</div>
           <div>Permanent Invulnerability: {gameState.player.isPermanentlyInvulnerable ? 'ON' : 'OFF'}</div>
           <div>Mobile Mode: {isMobile ? 'ON' : 'OFF'} {mobileEmulation ? '(EMULATED)' : ''}</div>
-          {isMobile && <div>Orientation: {document.body.classList.contains('landscape-mode') ? 'LANDSCAPE' : document.body.classList.contains('portrait-mode') ? 'PORTRAIT' : 'UNKNOWN'}</div>}
+          {isMobile && <div>Orientation: {document.body.classList.contains('landscape-mode') ? 'LANDSCAPE' : document.body.classList.contains('portrait-mode') ? 'PORTRAIT' : 'UNKNOWN'} | Fullscreen: {isFullscreen ? 'YES' : 'NO'}</div>}
           {isMobile && <div>Touch Controls: Tap left/right quarters to move, double-tap to jump</div>}
           <div>Projectiles: {gameState.projectiles.length} | Monsters: {gameState.monsters.filter(m => m.isAlive).length}</div>
           <div>Ice Dragons: {gameState.monsters.filter(m => m.type === 'ice_dragon' && m.isAlive).length}</div>
