@@ -22,16 +22,6 @@ const MobileControls: React.FC<MobileControlsProps> = ({
 }) => {
   if (!isVisible) return null;
 
-  const handleTouchStart = (action: () => void) => (e: React.TouchEvent) => {
-    e.preventDefault();
-    action();
-  };
-
-  const handleTouchEnd = (action: () => void) => (e: React.TouchEvent) => {
-    e.preventDefault();
-    action();
-  };
-
   const handleMoveStart = (direction: 'left' | 'right') => (e: React.TouchEvent) => {
     e.preventDefault();
     console.log('Touch move start:', direction);
@@ -54,6 +44,36 @@ const MobileControls: React.FC<MobileControlsProps> = ({
     e.preventDefault();
     console.log('Mouse move end');
     onMove(null);
+  };
+
+  const handleJumpStart = (e: React.TouchEvent | React.MouseEvent) => {
+    e.preventDefault();
+    console.log('Jump start');
+    onJump(true);
+  };
+
+  const handleJumpEnd = (e: React.TouchEvent | React.MouseEvent) => {
+    e.preventDefault();
+    console.log('Jump end');
+    onJump(false);
+  };
+
+  const handleAttackClick = (e: React.TouchEvent | React.MouseEvent) => {
+    e.preventDefault();
+    console.log('Attack clicked');
+    onAttack();
+  };
+
+  const handleWeaponClick = (weapon: WeaponType) => (e: React.TouchEvent | React.MouseEvent) => {
+    e.preventDefault();
+    console.log('Weapon clicked:', weapon);
+    onSwitchWeapon(weapon);
+  };
+
+  const handleMagicClick = (spell: MagicType) => (e: React.TouchEvent | React.MouseEvent) => {
+    e.preventDefault();
+    console.log('Magic clicked:', spell);
+    onCastMagic(spell);
   };
 
   return (
@@ -86,9 +106,12 @@ const MobileControls: React.FC<MobileControlsProps> = ({
         </div>
         <button
           className="jump-btn"
-          onTouchStart={handleTouchStart(() => onJump(true))}
-          onTouchEnd={handleTouchEnd(() => onJump(false))}
-          onTouchCancel={handleTouchEnd(() => onJump(false))}
+          onTouchStart={handleJumpStart}
+          onTouchEnd={handleJumpEnd}
+          onTouchCancel={handleJumpEnd}
+          onMouseDown={handleJumpStart}
+          onMouseUp={handleJumpEnd}
+          onMouseLeave={handleJumpEnd}
         >
           JUMP
         </button>
@@ -98,7 +121,8 @@ const MobileControls: React.FC<MobileControlsProps> = ({
       <div className="action-section">
         <button
           className="attack-btn"
-          onTouchStart={handleTouchStart(onAttack)}
+          onTouchStart={handleAttackClick}
+          onMouseDown={handleAttackClick}
         >
           ATTACK
         </button>
@@ -109,19 +133,22 @@ const MobileControls: React.FC<MobileControlsProps> = ({
           <div className="weapon-buttons">
             <button
               className={`weapon-btn ${currentWeapon === 'sword' ? 'active' : ''}`}
-              onTouchStart={handleTouchStart(() => onSwitchWeapon('sword'))}
+              onTouchStart={handleWeaponClick('sword')}
+              onMouseDown={handleWeaponClick('sword')}
             >
               ⚔️
             </button>
             <button
               className={`weapon-btn ${currentWeapon === 'bow' ? 'active' : ''}`}
-              onTouchStart={handleTouchStart(() => onSwitchWeapon('bow'))}
+              onTouchStart={handleWeaponClick('bow')}
+              onMouseDown={handleWeaponClick('bow')}
             >
               🏹
             </button>
             <button
               className={`weapon-btn ${currentWeapon === 'whip' ? 'active' : ''}`}
-              onTouchStart={handleTouchStart(() => onSwitchWeapon('whip'))}
+              onTouchStart={handleWeaponClick('whip')}
+              onMouseDown={handleWeaponClick('whip')}
             >
               🔗
             </button>
@@ -134,19 +161,22 @@ const MobileControls: React.FC<MobileControlsProps> = ({
           <div className="magic-buttons">
             <button
               className="magic-btn quake"
-              onTouchStart={handleTouchStart(() => onCastMagic('quake'))}
+              onTouchStart={handleMagicClick('quake')}
+              onMouseDown={handleMagicClick('quake')}
             >
               🌍
             </button>
             <button
               className="magic-btn blaze"
-              onTouchStart={handleTouchStart(() => onCastMagic('blaze'))}
+              onTouchStart={handleMagicClick('blaze')}
+              onMouseDown={handleMagicClick('blaze')}
             >
               🔥
             </button>
             <button
               className="magic-btn cure"
-              onTouchStart={handleTouchStart(() => onCastMagic('cure'))}
+              onTouchStart={handleMagicClick('cure')}
+              onMouseDown={handleMagicClick('cure')}
             >
               💚
             </button>

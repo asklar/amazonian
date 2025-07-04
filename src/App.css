@@ -50,7 +50,7 @@ body.mobile-game-active .app {
 /* Mobile game container */
 .game-container.mobile {
   width: 100vw !important;
-  height: 85vh !important;
+  height: 100vh !important;
   border: none !important;
   border-radius: 0 !important;
   max-width: none !important;
@@ -59,6 +59,160 @@ body.mobile-game-active .app {
   top: 0 !important;
   left: 0 !important;
   z-index: 1 !important;
+  background: #4a86c7 !important;
+}
+
+/* Safe area handling for mobile devices */
+@supports (padding: max(0px)) {
+  .game-container.mobile {
+    padding-left: max(0px, env(safe-area-inset-left)) !important;
+    padding-right: max(0px, env(safe-area-inset-right)) !important;
+    padding-top: max(0px, env(safe-area-inset-top)) !important;
+  }
+  
+  .mobile-controls {
+    padding-left: max(10px, calc(10px + env(safe-area-inset-left))) !important;
+    padding-right: max(10px, calc(10px + env(safe-area-inset-right))) !important;
+    padding-bottom: max(10px, calc(10px + env(safe-area-inset-bottom))) !important;
+  }
+}
+
+/* Fullscreen mobile styles */
+.game-container.mobile {
+  /* Ensure no scrollbars on mobile */
+  overflow: hidden !important;
+  /* Hardware acceleration */
+  transform: translate3d(0, 0, 0) !important;
+  will-change: auto !important;
+}
+
+/* Force landscape orientation on mobile (excluding desktop emulation) */
+@media screen and (orientation: portrait) and (max-width: 768px) {
+  body:not(.desktop-mobile-emulation) .game-container.mobile {
+    transform: rotate(90deg) !important;
+    transform-origin: center center !important;
+    width: 100vh !important;
+    height: 100vw !important;
+    position: fixed !important;
+    top: calc(50% - 50vw) !important;
+    left: calc(50% - 50vh) !important;
+  }
+  
+  body:not(.desktop-mobile-emulation) .mobile-controls {
+    transform: rotate(90deg) !important;
+    transform-origin: center center !important;
+    width: 100vh !important;
+    height: 15vw !important;
+    min-height: 80px !important;
+    position: fixed !important;
+    bottom: calc(50% - 50vw) !important;
+    left: calc(50% - 50vh) !important;
+  }
+  
+  /* Show orientation message (only on real mobile devices) */
+  body:not(.desktop-mobile-emulation) .orientation-message {
+    display: block !important;
+  }
+}
+
+/* Orientation message */
+.orientation-message {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.orientation-message::before {
+  content: "📱➡️📱";
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+/* Mobile layout adjustments */
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+  .game-container.mobile {
+    width: 100vw !important;
+    height: 85vh !important;
+  }
+  
+  .mobile-controls {
+    height: 15vh !important;
+    min-height: 100px !important;
+  }
+}
+
+/* Responsive game scaling for different mobile screen sizes */
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+  .game-container.mobile {
+    /* Scale game content to fit screen while maintaining aspect ratio */
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  
+  /* Scale UI elements based on screen size */
+  .game-ui {
+    transform: scale(0.9) !important;
+    transform-origin: top left !important;
+  }
+  
+  /* Adjust font sizes for smaller screens */
+  .mobile-controls {
+    font-size: 12px !important;
+  }
+  
+  .weapon-label, .magic-label {
+    font-size: 8px !important;
+  }
+}
+
+/* Extra small mobile devices */
+@media screen and (orientation: landscape) and (max-width: 768px) {
+  .game-ui {
+    transform: scale(0.8) !important;
+  }
+  
+  .mobile-controls {
+    font-size: 11px !important;
+    padding: 5px !important;
+  }
+  
+  .dpad-btn, .jump-btn {
+    width: 45px !important;
+    height: 45px !important;
+    font-size: 14px !important;
+  }
+  
+  .jump-btn {
+    width: 60px !important;
+    font-size: 9px !important;
+  }
+  
+  .attack-btn {
+    width: 60px !important;
+    height: 45px !important;
+    font-size: 9px !important;
+  }
+  
+  .weapon-btn, .magic-btn {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 12px !important;
+  }
 }
 
 /* Background System */
@@ -703,6 +857,7 @@ body.mobile-game-active .app {
   padding: 10px;
   z-index: 1000;
   font-family: 'Courier New', monospace;
+  box-sizing: border-box;
 }
 
 /* Ensure mobile controls are properly sized on mobile */
@@ -710,6 +865,62 @@ body.mobile-game-active .app {
   height: 15vh;
   min-height: 120px;
   background: rgba(0, 0, 0, 0.95);
+}
+
+/* Mobile controls in landscape */
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+  .mobile-controls {
+    height: 15vh;
+    min-height: 100px;
+    padding: 8px;
+  }
+  
+  .dpad-btn, .jump-btn {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 16px !important;
+  }
+  
+  .jump-btn {
+    width: 70px !important;
+    font-size: 10px !important;
+  }
+  
+  .attack-btn {
+    width: 70px !important;
+    height: 50px !important;
+    font-size: 10px !important;
+  }
+  
+  .weapon-btn, .magic-btn {
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Desktop mobile emulation - always assume landscape */
+body.desktop-mobile-emulation .game-container.mobile {
+  width: 100vw !important;
+  height: 85vh !important;
+  transform: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+body.desktop-mobile-emulation .mobile-controls {
+  width: 100vw !important;
+  height: 15vh !important;
+  min-height: 120px !important;
+  transform: none !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+}
+
+body.desktop-mobile-emulation .orientation-message {
+  display: none !important;
 }
 
 .movement-section {
@@ -892,4 +1103,26 @@ body.mobile-game-active .app {
   border-radius: 0;
   max-width: none;
   max-height: none;
+}
+
+/* Touch Overlay for mobile navigation */
+.touch-overlay {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Show touch area indicators in debug mode */
+.debug-info:not(:empty) ~ * .touch-area-left,
+.debug-info:not(:empty) ~ * .touch-area-right,
+.debug-info:not(:empty) ~ * .touch-instructions {
+  display: block !important;
+}
+
+/* Hide touch overlay on desktop unless in mobile emulation */
+body:not(.mobile-game-active) .touch-overlay {
+  display: none;
 }

@@ -21,6 +21,7 @@ import CastleGateComponent from './CastleGate.tsx';
 import GameUI from './GameUI.tsx';
 import Background from './Background.tsx';
 import MobileControls from './MobileControls.tsx';
+import TouchOverlay from './TouchOverlay.tsx';
 import { createLevel, getMaxLevel, levelExists } from './levels';
 
 const Game: React.FC = () => {
@@ -402,11 +403,14 @@ const Game: React.FC = () => {
 
   // Mobile control handlers
   const handleMobileMove = useCallback((direction: 'left' | 'right' | null) => {
+    console.log('Mobile move called:', direction);
     debugLog('Mobile move called:', direction);
     setMobileMovement(direction);
   }, []);
 
   const handleMobileJump = useCallback((pressed: boolean) => {
+    console.log('Mobile jump called:', pressed);
+    debugLog('Mobile jump called:', pressed);
     setMobileJump(pressed);
   }, []);
 
@@ -426,14 +430,65 @@ const Game: React.FC = () => {
   useEffect(() => {
     if (isMobile) {
       document.body.classList.add('mobile-game-active');
+      
+      // Add special class for desktop mobile emulation
+      if (debugMode && mobileEmulation) {
+        document.body.classList.add('desktop-mobile-emulation');
+      } else {
+        document.body.classList.remove('desktop-mobile-emulation');
+      }
     } else {
       document.body.classList.remove('mobile-game-active');
+      document.body.classList.remove('desktop-mobile-emulation');
     }
 
     return () => {
       document.body.classList.remove('mobile-game-active');
+      document.body.classList.remove('desktop-mobile-emulation');
     };
-  }, [isMobile]);
+  }, [isMobile, debugMode, mobileEmulation]);
+
+  // Handle orientation for mobile devices
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const handleOrientationChange = () => {
+      // Skip orientation handling for desktop mobile emulation
+      if (debugMode && mobileEmulation) {
+        // Desktop mobile emulation - always assume landscape
+        return;
+      }
+
+      // Force landscape orientation if possible (real mobile devices only)
+      if (screen.orientation && 'lock' in screen.orientation) {
+        (screen.orientation as any).lock('landscape').catch(() => {
+          // Orientation lock failed, but that's okay
+        });
+      }
+    };
+
+    // Try to lock orientation on mount
+    handleOrientationChange();
+
+    // Listen for orientation changes (real mobile devices only)
+    if (!(debugMode && mobileEmulation)) {
+      window.addEventListener('orientationchange', handleOrientationChange);
+    }
+    
+    // Prevent zoom on mobile
+    const preventZoom = (e: TouchEvent) => {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    };
+    
+    document.addEventListener('touchstart', preventZoom, { passive: false });
+
+    return () => {
+      window.removeEventListener('orientationchange', handleOrientationChange);
+      document.removeEventListener('touchstart', preventZoom);
+    };
+  }, [isMobile, debugMode, mobileEmulation]);
 
   // Game loop
   const gameLoop = useCallback(() => {
@@ -450,6 +505,11 @@ const Game: React.FC = () => {
       // Horizontal movement (arrows or mobile controls)
       const movingLeft = keys.has('arrowleft') || mobileMovement === 'left';
       const movingRight = keys.has('arrowright') || mobileMovement === 'right';
+      
+      // Debug mobile movement
+      if (mobileMovement) {
+        console.log('Mobile movement state:', mobileMovement, 'movingLeft:', movingLeft, 'movingRight:', movingRight);
+      }
       
       if (movingLeft) {
         newPlayerVelocity.x = -GAME_CONSTANTS.PLAYER_SPEED;
@@ -516,6 +576,12 @@ const Game: React.FC = () => {
 
       // Jumping - only allow jumping if canJump is true
       const jumpKeys = keys.has('arrowup') || keys.has(' ') || mobileJump;
+      
+      // Debug mobile jump
+      if (mobileJump) {
+        console.log('Mobile jump state:', mobileJump, 'jumpKeys:', jumpKeys, 'isOnGround:', prev.player.isOnGround, 'canJump:', prev.player.canJump);
+      }
+      
       if (jumpKeys && prev.player.isOnGround && prev.player.canJump) {
         newPlayerVelocity.y = GAME_CONSTANTS.JUMP_FORCE;
         newState.player.isOnGround = false;
@@ -1191,7 +1257,7 @@ const Game: React.FC = () => {
     });
 
     gameLoopRef.current = requestAnimationFrame(gameLoop);
-  }, [gameState.gameStatus, gameDataLoaded, checkPlatformCollision, checkCollision, isPaused]);
+  }, [gameState.gameStatus, gameDataLoaded, checkPlatformCollision, checkCollision, isPaused, mobileMovement, mobileJump]);
 
   // Start game loop
   useEffect(() => {
@@ -1564,6 +1630,7 @@ const Game: React.FC = () => {
           <div>Player Velocity: X={gameState.player.velocity.x.toFixed(2)}, Y={gameState.player.velocity.y.toFixed(2)}</div>
           <div>Permanent Invulnerability: {gameState.player.isPermanentlyInvulnerable ? 'ON' : 'OFF'}</div>
           <div>Mobile Mode: {isMobile ? 'ON' : 'OFF'} {mobileEmulation ? '(EMULATED)' : ''}</div>
+          {isMobile && <div>Touch Controls: Tap left/right quarters to move, double-tap to jump</div>}
           <div>Projectiles: {gameState.projectiles.length} | Monsters: {gameState.monsters.filter(m => m.isAlive).length}</div>
           <div>Ice Dragons: {gameState.monsters.filter(m => m.type === 'ice_dragon' && m.isAlive).length}</div>
           <div>Debug state preserved on restart: YES</div>
@@ -1605,6 +1672,13 @@ const Game: React.FC = () => {
         </div>
       )}
 
+      {/* Touch Overlay for mobile navigation */}
+      <TouchOverlay
+        onMove={handleMobileMove}
+        onJump={handleMobileJump}
+        isVisible={isMobile && gameDataLoaded && !gameDataError}
+      />
+
       {/* Mobile Controls */}
       <MobileControls
         onMove={handleMobileMove}
@@ -1615,6 +1689,16 @@ const Game: React.FC = () => {
         currentWeapon={gameState.player.weapon}
         isVisible={isMobile && gameDataLoaded && !gameDataError}
       />
+
+      {/* Orientation Message for Mobile Portrait Mode */}
+      {isMobile && !(debugMode && mobileEmulation) && (
+        <div className="orientation-message">
+          <div>Please rotate your device to landscape mode for the best gaming experience!</div>
+          <div style={{ fontSize: '14px', marginTop: '10px', opacity: 0.8 }}>
+            This game is optimized for landscape orientation.
+          </div>
+        </div>
+      )}
     </>
   );
 };
