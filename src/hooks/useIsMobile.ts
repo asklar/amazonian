@@ -21,8 +21,14 @@ export const useIsMobile = (forceOverride?: boolean): boolean => {
       const isSmallScreen = window.innerWidth <= 768;
       const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
       
-      // Consider mobile if has touch AND (small screen OR coarse pointer)
-      const mobile = hasTouchscreen && (isSmallScreen || hasCoarsePointer);
+      // Check user agent for mobile indicators
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isMobileUserAgent = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+      
+      // Consider mobile if:
+      // 1. Has mobile user agent, OR
+      // 2. Has touch AND (small screen OR coarse pointer)
+      const mobile = isMobileUserAgent || (hasTouchscreen && (isSmallScreen || hasCoarsePointer));
       setIsMobile(mobile);
     };
 

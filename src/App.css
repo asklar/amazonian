@@ -86,33 +86,41 @@ body.mobile-game-active .app {
   will-change: auto !important;
 }
 
-/* Force landscape orientation on mobile (excluding desktop emulation) */
-@media screen and (orientation: portrait) and (max-width: 768px) {
-  body:not(.desktop-mobile-emulation) .game-container.mobile {
-    transform: rotate(90deg) !important;
-    transform-origin: center center !important;
-    width: 100vh !important;
-    height: 100vw !important;
-    position: fixed !important;
-    top: calc(50% - 50vw) !important;
-    left: calc(50% - 50vh) !important;
-  }
-  
-  body:not(.desktop-mobile-emulation) .mobile-controls {
-    transform: rotate(90deg) !important;
-    transform-origin: center center !important;
-    width: 100vh !important;
-    height: 15vw !important;
-    min-height: 80px !important;
-    position: fixed !important;
-    bottom: calc(50% - 50vw) !important;
-    left: calc(50% - 50vh) !important;
-  }
-  
-  /* Show orientation message (only on real mobile devices) */
-  body:not(.desktop-mobile-emulation) .orientation-message {
-    display: block !important;
-  }
+/* Force landscape layout when in portrait mode (using JavaScript detection) */
+body.portrait-mode:not(.desktop-mobile-emulation) .game-container.mobile {
+  transform: rotate(90deg) !important;
+  transform-origin: center center !important;
+  width: 100vh !important;
+  height: 100vw !important;
+  position: fixed !important;
+  top: calc(50% - 50vw) !important;
+  left: calc(50% - 50vh) !important;
+}
+
+body.portrait-mode:not(.desktop-mobile-emulation) .mobile-controls {
+  transform: rotate(90deg) !important;
+  transform-origin: center center !important;
+  width: 100vh !important;
+  height: 15vw !important;
+  min-height: 80px !important;
+  position: fixed !important;
+  bottom: calc(50% - 50vw) !important;
+  left: calc(50% - 50vh) !important;
+}
+
+body.portrait-mode:not(.desktop-mobile-emulation) .touch-overlay {
+  transform: rotate(90deg) !important;
+  transform-origin: center center !important;
+  width: 100vh !important;
+  height: 85vw !important;
+  position: fixed !important;
+  top: calc(50% - 42.5vw) !important;
+  left: calc(50% - 50vh) !important;
+}
+
+/* Show orientation message in portrait mode (only on real mobile devices) */
+body.portrait-mode:not(.desktop-mobile-emulation) .orientation-message {
+  display: block !important;
 }
 
 /* Orientation message */

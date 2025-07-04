@@ -456,10 +456,35 @@ const Game: React.FC = () => {
       // Skip orientation handling for desktop mobile emulation
       if (debugMode && mobileEmulation) {
         // Desktop mobile emulation - always assume landscape
+        document.body.classList.add('landscape-mode');
+        document.body.classList.remove('portrait-mode');
         return;
       }
 
-      // Force landscape orientation if possible (real mobile devices only)
+      // For real mobile devices, detect orientation using multiple methods
+      let isLandscape = false;
+      
+      // Method 1: Check screen dimensions
+      if (window.screen?.orientation) {
+        isLandscape = window.screen.orientation.angle === 90 || window.screen.orientation.angle === -90;
+      } else if (window.orientation !== undefined) {
+        // Method 2: Use window.orientation (legacy)
+        isLandscape = Math.abs(window.orientation) === 90;
+      } else {
+        // Method 3: Compare width vs height
+        isLandscape = window.innerWidth > window.innerHeight;
+      }
+
+      // Apply orientation classes
+      if (isLandscape) {
+        document.body.classList.add('landscape-mode');
+        document.body.classList.remove('portrait-mode');
+      } else {
+        document.body.classList.add('portrait-mode');
+        document.body.classList.remove('landscape-mode');
+      }
+
+      // Try to lock to landscape orientation if possible (real mobile devices only)
       if (screen.orientation && 'lock' in screen.orientation) {
         (screen.orientation as any).lock('landscape').catch(() => {
           // Orientation lock failed, but that's okay
@@ -473,6 +498,7 @@ const Game: React.FC = () => {
     // Listen for orientation changes (real mobile devices only)
     if (!(debugMode && mobileEmulation)) {
       window.addEventListener('orientationchange', handleOrientationChange);
+      window.addEventListener('resize', handleOrientationChange);
     }
     
     // Prevent zoom on mobile
@@ -486,7 +512,9 @@ const Game: React.FC = () => {
 
     return () => {
       window.removeEventListener('orientationchange', handleOrientationChange);
+      window.removeEventListener('resize', handleOrientationChange);
       document.removeEventListener('touchstart', preventZoom);
+      document.body.classList.remove('landscape-mode', 'portrait-mode');
     };
   }, [isMobile, debugMode, mobileEmulation]);
 
@@ -1630,6 +1658,7 @@ const Game: React.FC = () => {
           <div>Player Velocity: X={gameState.player.velocity.x.toFixed(2)}, Y={gameState.player.velocity.y.toFixed(2)}</div>
           <div>Permanent Invulnerability: {gameState.player.isPermanentlyInvulnerable ? 'ON' : 'OFF'}</div>
           <div>Mobile Mode: {isMobile ? 'ON' : 'OFF'} {mobileEmulation ? '(EMULATED)' : ''}</div>
+          {isMobile && <div>Orientation: {document.body.classList.contains('landscape-mode') ? 'LANDSCAPE' : document.body.classList.contains('portrait-mode') ? 'PORTRAIT' : 'UNKNOWN'}</div>}
           {isMobile && <div>Touch Controls: Tap left/right quarters to move, double-tap to jump</div>}
           <div>Projectiles: {gameState.projectiles.length} | Monsters: {gameState.monsters.filter(m => m.isAlive).length}</div>
           <div>Ice Dragons: {gameState.monsters.filter(m => m.type === 'ice_dragon' && m.isAlive).length}</div>
