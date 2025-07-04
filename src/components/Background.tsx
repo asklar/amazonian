@@ -81,7 +81,7 @@ const Background: React.FC<BackgroundProps> = ({ cameraOffset, currentLevel }) =
           const finalPosition = basePosition + spacingVariation;
           
           // Add base path for background sprites
-          const elementPath = `/sprites/backgrounds/${layer.element}`;
+          const elementPath = `./sprites/backgrounds/${layer.element}`;
           
           return (
             <img

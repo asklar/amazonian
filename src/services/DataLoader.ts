@@ -191,11 +191,11 @@ class DataLoader {
     try {
       // Load all configuration files
       const [levels, monsters, weapons, platforms, gameConstants] = await Promise.all([
-        fetch('/data/levels.json').then(res => res.json()),
-        fetch('/data/monsters.json').then(res => res.json()),
-        fetch('/data/weapons.json').then(res => res.json()),
-        fetch('/data/platforms.json').then(res => res.json()),
-        fetch('/data/gameConfig.json').then(res => res.json())
+        fetch('./data/levels.json').then(res => res.json()),
+        fetch('./data/monsters.json').then(res => res.json()),
+        fetch('./data/weapons.json').then(res => res.json()),
+        fetch('./data/platforms.json').then(res => res.json()),
+        fetch('./data/gameConfig.json').then(res => res.json())
       ]);
 
       this.gameConfig = {

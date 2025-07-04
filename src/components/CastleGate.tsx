@@ -23,7 +23,7 @@ const CastleGate: React.FC<CastleGateProps> = ({ castleGate, cameraOffset }) => 
       style={style}
     >
       <SpriteImage
-        src="/sprites/objects/castle_gate.svg"
+        src="./sprites/objects/castle_gate.svg"
         fallbackClassName="castle-gate-sprite"
         alt="Castle Gate"
         style={{

@@ -50,15 +50,15 @@
     "loot": {
       "coin": {
         "value": 10,
-        "sprite": "/sprites/loot/coin.png"
+        "sprite": "./sprites/loot/coin.png"
       },
       "health": {
         "healAmount": 25,
-        "sprite": "/sprites/loot/health.png"
+        "sprite": "./sprites/loot/health.png"
       },
       "magic": {
         "manaAmount": 30,
-        "sprite": "/sprites/loot/magic.png"
+        "sprite": "./sprites/loot/magic.png"
       }
     }
   }

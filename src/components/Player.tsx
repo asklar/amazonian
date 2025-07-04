@@ -107,7 +107,7 @@ const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
         return (
           <div className={`weapon sword ${facingClass}`} style={weaponStyle}>
             <SpriteImage
-              src="/sprites/weapons/sword_horizontal.svg"
+              src="./sprites/weapons/sword_horizontal.svg"
               fallbackClassName={`weapon sword ${facingClass}`}
               alt="sword"
             />
@@ -117,7 +117,7 @@ const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
         return (
           <div className={`weapon bow ${facingClass}`} style={weaponStyle}>
             <SpriteImage
-              src="/sprites/weapons/bow.svg"
+              src="./sprites/weapons/bow.svg"
               fallbackClassName={`weapon bow ${facingClass}`}
               alt="bow"
             />
@@ -127,7 +127,7 @@ const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
         return (
           <div className={`weapon whip ${facingClass}`} style={weaponStyle}>
             <SpriteImage
-              src="/sprites/weapons/whip.svg"
+              src="./sprites/weapons/whip.svg"
               fallbackClassName={`weapon whip ${facingClass}`}
               alt="whip"
             />

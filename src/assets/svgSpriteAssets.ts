@@ -251,7 +251,7 @@ export const LOOT_SPRITES_SVG = {
       `${SPRITE_BASE_PATH}/loot/health_potion_medium.svg`,
       `${SPRITE_BASE_PATH}/loot/health_potion_large.svg`,
     ],
-    heart: `${SPRITE_BASE_PATH}/loot/health_heart.svg`,
+    heart: `${SPRITE_BASE_PATH}/loot/health_heart_3d.svg`,
   },
   
   magic: {

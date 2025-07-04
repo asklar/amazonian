@@ -17,13 +17,13 @@ const Loot: React.FC<LootProps> = ({ loot, cameraOffset }) => {
 
   // Determine which sprite to use based on loot type
   const getLootSprite = (): string | undefined => {
-    const basePath = '/sprites/loot';
+    const basePath = './sprites/loot';
     
     switch (loot.type) {
       case 'coin':
         return `${basePath}/coin_01.svg`;
       case 'health':
-        return `${basePath}/health_heart.svg`;
+        return `${basePath}/health_heart_3d.svg`;
       case 'magic':
         return `${basePath}/magic_potion_01.svg`;
       default:

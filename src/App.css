@@ -295,8 +295,7 @@
 .health-potion {
   width: 12px;
   height: 18px;
-  background: #ff0000;
-  border: 2px solid #000;
+  /* SVG heart asset used, no background needed */
 }
 
 .magic-scroll {
