@@ -7,24 +7,24 @@ import { svgSpriteManager } from '../assets/svgSpriteAssets';
 // Define our sprite categories and files
 const SPRITE_SHOWCASE = {
   player: [
-    '/sprites/player/warrior_idle_new.svg',
-    '/sprites/player/warrior_idle_01.svg',
-    '/sprites/player/warrior_idle_02.svg'
+    './sprites/player/warrior_idle_new.svg',
+    './sprites/player/warrior_idle_01.svg',
+    './sprites/player/warrior_idle_02.svg'
   ],
   monsters: [
-    '/sprites/monsters/goblin_idle_new.svg',
-    '/sprites/monsters/goblin_idle_01.svg'
+    './sprites/monsters/goblin_idle_new.svg',
+    './sprites/monsters/goblin_idle_01.svg'
   ],
   platforms: [
-    '/sprites/platforms/grass_center_new.svg',
-    '/sprites/platforms/grass_center.svg'
+    './sprites/platforms/grass_center_new.svg',
+    './sprites/platforms/grass_center.svg'
   ],
   loot: [
-    '/sprites/loot/coin_new.svg',
-    '/sprites/loot/coin_01.svg'
+    './sprites/loot/coin_new.svg',
+    './sprites/loot/coin_01.svg'
   ],
   magic: [
-    '/sprites/magic/fireball_new.svg'
+    './sprites/magic/fireball_new.svg'
   ]
 };
 

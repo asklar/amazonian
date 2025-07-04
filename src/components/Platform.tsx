@@ -26,11 +26,11 @@ const Platform: React.FC<PlatformProps> = ({ platform, cameraOffset }) => {
         console.log(`Grass platform sprite paths: grass=${grassPath}, soil=${soilPath}`);
         return { grass: grassPath, soil: soilPath };
       case 'stone':
-        return { main: '/sprites/platforms/stone_center.svg' }; // Fallback to CSS if SVG doesn't exist
+        return { main: './sprites/platforms/stone_center.svg' }; // Fallback to CSS if SVG doesn't exist
       case 'wood':
-        return { main: '/sprites/platforms/wood_center.svg' }; // Fallback to CSS if SVG doesn't exist
+        return { main: './sprites/platforms/wood_center.svg' }; // Fallback to CSS if SVG doesn't exist
       case 'ice':
-        return { main: '/sprites/platforms/ice_center.svg' }; // Ice platform sprite
+        return { main: './sprites/platforms/ice_center.svg' }; // Ice platform sprite
       default:
         return {};
     }

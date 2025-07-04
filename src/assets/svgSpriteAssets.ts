@@ -6,7 +6,7 @@
  */
 
 // Base path for all sprites
-export const SPRITE_BASE_PATH = '/sprites';
+export const SPRITE_BASE_PATH = './sprites';
 
 // Player Character Sprites (SVG)
 export const PLAYER_SPRITES_SVG = {

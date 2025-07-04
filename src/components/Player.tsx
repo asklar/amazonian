@@ -21,42 +21,42 @@ const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
   const playerAnimations = useEntitySpriteAnimations({
     idle: {
       frames: [
-        '/sprites/player/warrior_idle_01.svg',
-        '/sprites/player/warrior_idle_02.svg',
+        './sprites/player/warrior_idle_01.svg',
+        './sprites/player/warrior_idle_02.svg',
       ],
       frameRate: 4,
       loop: true,
     },
     run: {
       frames: [
-        '/sprites/player/warrior_run_01.svg',
-        '/sprites/player/warrior_run_02.svg',
+        './sprites/player/warrior_run_01.svg',
+        './sprites/player/warrior_run_02.svg',
       ],
       frameRate: 8,
       loop: true,
     },
     jump: {
-      frames: ['/sprites/player/warrior_jump_01.svg'],
+      frames: ['./sprites/player/warrior_jump_01.svg'],
       frameRate: 1,
       loop: false,
     },
     swordAttack: {
-      frames: ['/sprites/player/warrior_attack_01.svg'],
+      frames: ['./sprites/player/warrior_attack_01.svg'],
       frameRate: 10,
       loop: false,
     },
     bowAttack: {
-      frames: ['/sprites/player/warrior_bow_attack_01.svg'],
+      frames: ['./sprites/player/warrior_bow_attack_01.svg'],
       frameRate: 10,
       loop: false,
     },
     whipAttack: {
-      frames: ['/sprites/player/warrior_whip_attack_01.svg'],
+      frames: ['./sprites/player/warrior_whip_attack_01.svg'],
       frameRate: 10,
       loop: false,
     },
     magicCast: {
-      frames: ['/sprites/player/warrior_magic_cast_01.svg'],
+      frames: ['./sprites/player/warrior_magic_cast_01.svg'],
       frameRate: 8,
       loop: false,
     },

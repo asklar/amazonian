@@ -58,13 +58,13 @@ const Projectile: React.FC<ProjectileProps> = ({ projectile, cameraOffset }) => 
     // Fallback sprites
     switch (projectile.type) {
       case 'arrow':
-        return '/sprites/weapons/arrow.svg';
+        return './sprites/weapons/arrow.svg';
       case 'fire':
-        return '/sprites/magic/fireball_new.svg';
+        return './sprites/magic/fireball_new.svg';
       case 'frost':
-        return '/sprites/weapons/frost_crystal.svg';
+        return './sprites/weapons/frost_crystal.svg';
       case 'whirlwind':
-        return '/sprites/weapons/whirlwind.svg';
+        return './sprites/weapons/whirlwind.svg';
       default:
         return undefined;
     }
