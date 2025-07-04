@@ -1921,6 +1921,7 @@ const Game: React.FC = () => {
         onCastMagic={handleMobileCastMagic}
         currentWeapon={gameState.player.weapon}
         isVisible={isMobile && gameDataLoaded && !gameDataError}
+        isRealMobile={isMobile && !(debugMode && mobileEmulation)}
       />
 
       {/* Orientation Message for Mobile Portrait Mode */}

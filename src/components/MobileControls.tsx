@@ -9,6 +9,7 @@ interface MobileControlsProps {
   onCastMagic: (spell: MagicType) => void;
   currentWeapon: WeaponType;
   isVisible: boolean;
+  isRealMobile?: boolean; // New prop to distinguish real mobile from desktop emulation
 }
 
 const MobileControls: React.FC<MobileControlsProps> = ({
@@ -18,7 +19,8 @@ const MobileControls: React.FC<MobileControlsProps> = ({
   onSwitchWeapon,
   onCastMagic,
   currentWeapon,
-  isVisible
+  isVisible,
+  isRealMobile = false
 }) => {
   if (!isVisible) return null;
 
@@ -78,44 +80,46 @@ const MobileControls: React.FC<MobileControlsProps> = ({
 
   return (
     <div className="mobile-controls">
-      {/* Movement Controls */}
-      <div className="movement-section">
-        <div className="dpad">
+      {/* Movement Controls - Only show on desktop emulation, hide on real mobile */}
+      {!isRealMobile && (
+        <div className="movement-section">
+          <div className="dpad">
+            <button
+              className="dpad-btn left"
+              onTouchStart={handleMoveStart('left')}
+              onTouchEnd={handleMoveEnd}
+              onTouchCancel={handleMoveEnd}
+              onMouseDown={handleMouseMoveStart('left')}
+              onMouseUp={handleMouseMoveEnd}
+              onMouseLeave={handleMouseMoveEnd}
+            >
+              ←
+            </button>
+            <button
+              className="dpad-btn right"
+              onTouchStart={handleMoveStart('right')}
+              onTouchEnd={handleMoveEnd}
+              onTouchCancel={handleMoveEnd}
+              onMouseDown={handleMouseMoveStart('right')}
+              onMouseUp={handleMouseMoveEnd}
+              onMouseLeave={handleMouseMoveEnd}
+            >
+              →
+            </button>
+          </div>
           <button
-            className="dpad-btn left"
-            onTouchStart={handleMoveStart('left')}
-            onTouchEnd={handleMoveEnd}
-            onTouchCancel={handleMoveEnd}
-            onMouseDown={handleMouseMoveStart('left')}
-            onMouseUp={handleMouseMoveEnd}
-            onMouseLeave={handleMouseMoveEnd}
+            className="jump-btn"
+            onTouchStart={handleJumpStart}
+            onTouchEnd={handleJumpEnd}
+            onTouchCancel={handleJumpEnd}
+            onMouseDown={handleJumpStart}
+            onMouseUp={handleJumpEnd}
+            onMouseLeave={handleJumpEnd}
           >
-            ←
-          </button>
-          <button
-            className="dpad-btn right"
-            onTouchStart={handleMoveStart('right')}
-            onTouchEnd={handleMoveEnd}
-            onTouchCancel={handleMoveEnd}
-            onMouseDown={handleMouseMoveStart('right')}
-            onMouseUp={handleMouseMoveEnd}
-            onMouseLeave={handleMouseMoveEnd}
-          >
-            →
+            JUMP
           </button>
         </div>
-        <button
-          className="jump-btn"
-          onTouchStart={handleJumpStart}
-          onTouchEnd={handleJumpEnd}
-          onTouchCancel={handleJumpEnd}
-          onMouseDown={handleJumpStart}
-          onMouseUp={handleJumpEnd}
-          onMouseLeave={handleJumpEnd}
-        >
-          JUMP
-        </button>
-      </div>
+      )}
 
       {/* Action Controls */}
       <div className="action-section">

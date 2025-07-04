@@ -881,6 +881,23 @@ body.landscape-mode .orientation-message {
   box-sizing: border-box;
 }
 
+/* Ensure buttons are visible on transparent background for real mobile */
+body:not(.desktop-mobile-emulation) .mobile-controls .attack-btn,
+body:not(.desktop-mobile-emulation) .mobile-controls .weapon-btn,
+body:not(.desktop-mobile-emulation) .mobile-controls .magic-btn {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 2px solid #ffd700 !important;
+}
+
+body:not(.desktop-mobile-emulation) .mobile-controls .weapon-btn.active {
+  background: rgba(74, 134, 199, 0.9) !important;
+}
+
+/* Real mobile devices - more transparent background */
+body:not(.desktop-mobile-emulation) .mobile-controls {
+  background: rgba(0, 0, 0, 0.1) !important; /* 10% opacity */
+}
+
 /* Ensure mobile controls are properly sized on mobile */
 .app.mobile .mobile-controls {
   height: 15vh;
