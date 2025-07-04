@@ -50,7 +50,7 @@ body.mobile-game-active .app {
 /* Mobile game container */
 .game-container.mobile {
   width: 100vw !important;
-  height: 100vh !important;
+  height: 85vh !important;
   border: none !important;
   border-radius: 0 !important;
   max-width: none !important;
@@ -60,6 +60,10 @@ body.mobile-game-active .app {
   left: 0 !important;
   z-index: 1 !important;
   background: #4a86c7 !important;
+  overflow: hidden !important;
+  /* Use CSS to scale content to fit */
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 /* Safe area handling for mobile devices */
@@ -90,32 +94,32 @@ body.mobile-game-active .app {
 body.portrait-mode:not(.desktop-mobile-emulation) .game-container.mobile {
   transform: rotate(90deg) !important;
   transform-origin: center center !important;
-  width: 100vh !important;
+  width: 85vh !important; /* 85% of viewport height when rotated */
   height: 100vw !important;
   position: fixed !important;
   top: calc(50% - 50vw) !important;
-  left: calc(50% - 50vh) !important;
+  left: calc(50% - 42.5vh) !important; /* Adjust for 85% width */
 }
 
 body.portrait-mode:not(.desktop-mobile-emulation) .mobile-controls {
   transform: rotate(90deg) !important;
   transform-origin: center center !important;
-  width: 100vh !important;
-  height: 15vw !important;
+  width: 15vh !important; /* 15% of viewport height when rotated */
+  height: 100vw !important;
   min-height: 80px !important;
   position: fixed !important;
   bottom: calc(50% - 50vw) !important;
-  left: calc(50% - 50vh) !important;
+  left: calc(50% + 35vh) !important; /* Position after the game area */
 }
 
 body.portrait-mode:not(.desktop-mobile-emulation) .touch-overlay {
   transform: rotate(90deg) !important;
   transform-origin: center center !important;
-  width: 100vh !important;
-  height: 85vw !important;
+  width: 85vh !important; /* Match game container */
+  height: 100vw !important;
   position: fixed !important;
-  top: calc(50% - 42.5vw) !important;
-  left: calc(50% - 50vh) !important;
+  top: calc(50% - 50vw) !important;
+  left: calc(50% - 42.5vh) !important; /* Match game container position */
 }
 
 /* Show orientation message in portrait mode (only on real mobile devices) */
@@ -872,7 +876,7 @@ body.landscape-mode .orientation-message {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  z-index: 1000;
+  z-index: 1001; /* Higher than touch overlay */
   font-family: 'Courier New', monospace;
   box-sizing: border-box;
 }
