@@ -1,0 +1,23 @@
+<!-- Stone Platform Center Tile - 16x16px 8-bit style -->
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+  <!-- Stone gray base -->
+  <rect x="0" y="0" width="16" height="16" fill="#808080"/>
+  
+  <!-- Stone highlights -->
+  <rect x="0" y="0" width="16" height="2" fill="#A0A0A0"/>
+  <rect x="0" y="2" width="16" height="2" fill="#909090"/>
+  
+  <!-- Stone texture/cracks -->
+  <rect x="1" y="4" width="1" height="8" fill="#707070"/>
+  <rect x="5" y="6" width="1" height="6" fill="#707070"/>
+  <rect x="9" y="5" width="1" height="7" fill="#707070"/>
+  <rect x="13" y="4" width="1" height="8" fill="#707070"/>
+  
+  <!-- Stone patterns -->
+  <rect x="3" y="8" width="2" height="1" fill="#606060"/>
+  <rect x="7" y="10" width="2" height="1" fill="#606060"/>
+  <rect x="11" y="9" width="2" height="1" fill="#606060"/>
+  
+  <!-- Bottom edge darkening -->
+  <rect x="0" y="14" width="16" height="2" fill="#606060"/>
+</svg>

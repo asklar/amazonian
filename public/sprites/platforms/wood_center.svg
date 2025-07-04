@@ -1,0 +1,26 @@
+<!-- Wood Platform Center Tile - 16x16px 8-bit style -->
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+  <!-- Wood brown base -->
+  <rect x="0" y="0" width="16" height="16" fill="#8B4513"/>
+  
+  <!-- Wood highlights -->
+  <rect x="0" y="0" width="16" height="2" fill="#CD853F"/>
+  <rect x="0" y="2" width="16" height="2" fill="#A0522D"/>
+  
+  <!-- Wood grain -->
+  <rect x="0" y="4" width="16" height="1" fill="#654321"/>
+  <rect x="0" y="8" width="16" height="1" fill="#654321"/>
+  <rect x="0" y="12" width="16" height="1" fill="#654321"/>
+  
+  <!-- Wood texture lines -->
+  <rect x="2" y="5" width="12" height="1" fill="#704214"/>
+  <rect x="1" y="9" width="14" height="1" fill="#704214"/>
+  <rect x="3" y="13" width="10" height="1" fill="#704214"/>
+  
+  <!-- Wood knots -->
+  <rect x="4" y="6" width="1" height="1" fill="#654321"/>
+  <rect x="11" y="10" width="1" height="1" fill="#654321"/>
+  
+  <!-- Bottom edge darkening -->
+  <rect x="0" y="14" width="16" height="2" fill="#654321"/>
+</svg>

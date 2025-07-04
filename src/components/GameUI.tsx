@@ -39,8 +39,8 @@ const GameUI: React.FC<GameUIProps> = ({ player, currentLevel }) => {
       
       <div style={{ marginTop: '10px', fontSize: '12px' }}>
         <div>Controls:</div>
-        <div>WASD/Arrows: Move</div>
-        <div>Z/Enter: Attack</div>
+        <div>Arrows: Move</div>
+        <div>Enter: Attack</div>
         <div>1/2/3: Switch Weapon</div>
         <div className={canCastQuake ? '' : 'disabled-spell'}>
           Q: Quake ({GAME_CONSTANTS.MAGIC_COSTS.quake}MP) - All enemies
@@ -52,7 +52,7 @@ const GameUI: React.FC<GameUIProps> = ({ player, currentLevel }) => {
           C: Cure ({GAME_CONSTANTS.MAGIC_COSTS.cure}MP)
         </div>
         <div>
-          R: Restart Game
+          R: Restart Game | D: Debug Mode
         </div>
       </div>
     </div>

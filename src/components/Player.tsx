@@ -14,6 +14,7 @@ const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
   const style: React.CSSProperties = {
     left: player.position.x - cameraOffset.x,
     top: player.position.y - cameraOffset.y,
+    // Don't flip the entire player container, let individual elements handle their own flipping
   };
 
   // Define player animations
@@ -97,6 +98,8 @@ const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
     const weaponStyle: React.CSSProperties = {
       position: 'absolute',
       zIndex: 15,
+      // Flip weapons when facing left
+      transform: player.facing === 'left' ? 'scaleX(-1)' : 'scaleX(1)',
     };
 
     switch (player.weapon) {
@@ -148,6 +151,9 @@ const Player: React.FC<PlayerProps> = ({ player, cameraOffset }) => {
         className=""
         alt="Amazonian Warrior"
         onSpriteLoad={setHasSvgSprite}
+        style={{
+          transform: player.facing === 'left' ? 'scaleX(-1)' : 'scaleX(1)',
+        }}
       />
       {getWeaponComponent()}
     </div>

@@ -1,0 +1,65 @@
+{
+  "gameConstants": {
+    "physics": {
+      "gravity": 0.25,
+      "jumpForce": -12,
+      "playerSpeed": 2,
+      "monsterSpeed": 1,
+      "arrowSpeed": 8
+    },
+    "world": {
+      "gameWidth": 2400,
+      "gameHeight": 600,
+      "screenWidth": 800
+    },
+    "magic": {
+      "costs": {
+        "quake": 30,
+        "blaze": 20,
+        "cure": 25
+      },
+      "ranges": {
+        "quake": -1,
+        "blaze": 120,
+        "cure": 0
+      },
+      "effects": {
+        "quake": {
+          "damage": 40,
+          "screenShake": true,
+          "duration": 1000
+        },
+        "blaze": {
+          "damage": 30,
+          "burnDuration": 3000,
+          "duration": 1500
+        },
+        "cure": {
+          "healAmount": 50,
+          "duration": 1000
+        }
+      }
+    },
+    "combat": {
+      "invulnerabilityDuration": 120,
+      "hitStunDuration": 30,
+      "magicHitStunDuration": 45,
+      "projectileHitStunDuration": 20,
+      "deathAnimationDuration": 60
+    },
+    "loot": {
+      "coin": {
+        "value": 10,
+        "sprite": "/sprites/loot/coin.png"
+      },
+      "health": {
+        "healAmount": 25,
+        "sprite": "/sprites/loot/health.png"
+      },
+      "magic": {
+        "manaAmount": 30,
+        "sprite": "/sprites/loot/magic.png"
+      }
+    }
+  }
+}

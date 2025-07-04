@@ -1,51 +1,183 @@
-<svg width="64" height="48" viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg">
-  <!-- Dragon body (main mass) -->
-  <ellipse cx="32" cy="28" rx="22" ry="12" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+<svg width="120" height="80" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Menacing 8-bit RPG Dragon - Fearsome and Angular -->
+  <defs>
+    <!-- Dragon body gradient - darker, more sinister -->
+    <linearGradient id="dragonBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B0000;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#B22222;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#660000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#330000;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Dragon wing membrane - tattered and menacing -->
+    <linearGradient id="wingMembrane" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1F0000;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#2B0000;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#0a0000;stop-opacity:0.9" />
+    </linearGradient>
+    
+    <!-- Dragon armored belly -->
+    <linearGradient id="dragonBelly" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A4A4A;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#696969;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2F2F2F;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Fire gradient - more intense -->
+    <radialGradient id="fireGrad" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="20%" style="stop-color:#FFFF00;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FF4500;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#8B0000;stop-opacity:0.4" />
+    </radialGradient>
+    
+    <!-- Eye glow -->
+    <radialGradient id="eyeGlow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" style="stop-color:#FF0000;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#AA0000;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#440000;stop-opacity:0.6" />
+    </radialGradient>
+  </defs>
   
-  <!-- Dragon head -->
-  <ellipse cx="50" cy="20" rx="12" ry="8" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  <!-- Wing (left, behind body) - angular and tattered -->
+  <path d="M10,15 L5,8 L18,5 L25,2 L35,8 L42,15 L48,25 L45,35 L40,45 L30,48 L20,45 L12,38 L8,28 L10,15 Z" 
+        fill="url(#wingMembrane)" stroke="#000000" stroke-width="1"/>
   
-  <!-- Snout -->
-  <rect x="55" y="18" width="8" height="4" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  <!-- Wing tears and damage -->
+  <path d="M15,20 L18,25 L22,22 L25,27 L28,24" stroke="#000000" stroke-width="1" fill="none"/>
+  <path d="M35,30 L38,35 L32,38" stroke="#000000" stroke-width="1" fill="none"/>
   
-  <!-- Eyes (glowing) -->
-  <circle cx="48" cy="17" r="2" fill="#FF4500"/>
-  <circle cx="52" cy="17" r="2" fill="#FF4500"/>
-  <circle cx="48" cy="17" r="1" fill="#FFFF00"/>
-  <circle cx="52" cy="17" r="1" fill="#FFFF00"/>
+  <!-- Wing bone structure - sharp and defined -->
+  <path d="M15,12 L28,10 L40,18" stroke="#2F0000" stroke-width="2" fill="none"/>
+  <path d="M12,25 L25,23 L38,30" stroke="#2F0000" stroke-width="2" fill="none"/>
+  <path d="M15,38 L28,36 L40,42" stroke="#2F0000" stroke-width="2" fill="none"/>
   
-  <!-- Horns -->
-  <polygon points="45,12 47,8 49,12" fill="#4B0000"/>
-  <polygon points="51,12 53,8 55,12" fill="#4B0000"/>
+  <!-- Dragon main body (angular torso) -->
+  <polygon points="30,35 70,30 85,40 90,50 85,60 70,65 30,60 25,50 30,35" 
+           fill="url(#dragonBodyGrad)" stroke="#2F0000" stroke-width="1"/>
   
-  <!-- Wings (folded) -->
-  <ellipse cx="18" cy="22" rx="8" ry="12" fill="#654321" stroke="#4B0000" stroke-width="1"/>
-  <ellipse cx="46" cy="22" rx="8" ry="12" fill="#654321" stroke="#4B0000" stroke-width="1"/>
+  <!-- Armored belly plates -->
+  <polygon points="35,45 65,42 75,50 70,58 35,58 30,50 35,45" fill="url(#dragonBelly)"/>
+  <rect x="40" y="47" width="25" height="3" fill="#2F2F2F" opacity="0.8"/>
+  <rect x="42" y="52" width="21" height="3" fill="#2F2F2F" opacity="0.8"/>
   
-  <!-- Wing membranes -->
-  <path d="M 12 18 Q 18 14 24 18 Q 18 26 12 30 Z" fill="#8B4513" stroke="#4B0000" stroke-width="1"/>
-  <path d="M 40 18 Q 46 14 52 18 Q 46 26 40 30 Z" fill="#8B4513" stroke="#4B0000" stroke-width="1"/>
+  <!-- Dragon neck - muscular and angular -->
+  <polygon points="70,30 85,25 95,30 98,40 92,45 80,45 70,40 70,30" 
+           fill="url(#dragonBodyGrad)" stroke="#2F0000" stroke-width="1"/>
   
-  <!-- Legs -->
-  <rect x="20" y="35" width="4" height="8" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
-  <rect x="28" y="35" width="4" height="8" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
-  <rect x="36" y="35" width="4" height="8" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
-  <rect x="44" y="35" width="4" height="8" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
+  <!-- Dragon head - elongated and menacing -->
+  <polygon points="85,25 100,20 112,25 118,32 116,42 108,45 95,42 88,35 85,25" 
+           fill="url(#dragonBodyGrad)" stroke="#2F0000" stroke-width="1"/>
   
-  <!-- Claws -->
-  <polygon points="20,43 22,47 24,43" fill="#333333"/>
-  <polygon points="28,43 30,47 32,43" fill="#333333"/>
-  <polygon points="36,43 38,47 40,43" fill="#333333"/>
-  <polygon points="44,43 46,47 48,43" fill="#333333"/>
+  <!-- Dragon snout - sharp and predatory -->
+  <polygon points="100,28 115,26 120,32 118,38 112,40 102,38 100,28" 
+           fill="url(#dragonBodyGrad)" stroke="#2F0000" stroke-width="1"/>
   
-  <!-- Tail -->
-  <ellipse cx="8" cy="32" rx="6" ry="4" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
-  <ellipse cx="3" cy="35" rx="3" ry="2" fill="#8B0000" stroke="#4B0000" stroke-width="1"/>
   
-  <!-- Scales texture -->
-  <circle cx="25" cy="25" r="1" fill="#654321"/>
-  <circle cx="32" cy="23" r="1" fill="#654321"/>
-  <circle cx="39" cy="28" r="1" fill="#654321"/>
-  <circle cx="28" cy="32" r="1" fill="#654321"/>
-  <circle cx="36" cy="30" r="1" fill="#654321"/>
+  <!-- Jaw line - threatening -->
+  <path d="M98,35 L110,38 L118,36 L120,40" stroke="#1F0000" stroke-width="2" fill="none"/>
+  
+  <!-- Sharp teeth -->
+  <polygon points="105,36 107,40 109,36" fill="#FFFFFF" stroke="#000000" stroke-width="0.5"/>
+  <polygon points="110,37 112,41 114,37" fill="#FFFFFF" stroke="#000000" stroke-width="0.5"/>
+  <polygon points="115,36 117,40 119,36" fill="#FFFFFF" stroke="#000000" stroke-width="0.5"/>
+  
+  <!-- Lower jaw teeth -->
+  <polygon points="106,39 108,42 110,39" fill="#FFFFFF" stroke="#000000" stroke-width="0.5"/>
+  <polygon points="112,39 114,42 116,39" fill="#FFFFFF" stroke="#000000" stroke-width="0.5"/>
+  
+  <!-- Nostrils - flared and menacing -->
+  <ellipse cx="115" cy="30" rx="2" ry="1.5" fill="#000000"/>
+  <ellipse cx="117" cy="33" rx="2" ry="1.5" fill="#000000"/>
+  
+  <!-- Dragon eye - glowing and malevolent -->
+  <ellipse cx="92" cy="28" rx="6" ry="4" fill="url(#eyeGlow)" stroke="#000000" stroke-width="1"/>
+  <ellipse cx="93" cy="28" rx="4" ry="3" fill="#FF4500"/>
+  <ellipse cx="94" cy="28" rx="2" ry="2" fill="#000000"/>
+  <ellipse cx="94.5" cy="27.5" rx="1" ry="1" fill="#FF0000" opacity="0.8"/>
+  
+  <!-- Dragon horns - large and menacing -->
+  <polygon points="84,18 82,10 86,8 90,12 88,20 84,18" fill="#2F0000" stroke="#000000" stroke-width="1"/>
+  <polygon points="96,16 94,8 98,6 102,10 100,18 96,16" fill="#2F0000" stroke="#000000" stroke-width="1"/>
+  
+  <!-- Additional smaller horns -->
+  <polygon points="88,20 87,16 89,15 91,17 90,21 88,20" fill="#2F0000" stroke="#000000" stroke-width="0.5"/>
+  <polygon points="93,18 92,14 94,13 96,15 95,19 93,18" fill="#2F0000" stroke="#000000" stroke-width="0.5"/>
+  
+  <!-- Horn ridges and details -->
+  <path d="M85,15 L87,12" stroke="#4B0000" stroke-width="1" fill="none"/>
+  <path d="M97,13 L99,10" stroke="#4B0000" stroke-width="1" fill="none"/>
+  
+  <!-- Neck spikes/ridges - sharp and aggressive -->
+  <polygon points="76,28 74,24 78,23 80,27 76,28" fill="#4B0000" opacity="0.9"/>
+  <polygon points="81,26 79,22 83,21 85,25 81,26" fill="#4B0000" opacity="0.9"/>
+  <polygon points="86,24 84,20 88,19 90,23 86,24" fill="#4B0000" opacity="0.9"/>
+  
+  <!-- Dragon front leg - powerful and clawed -->
+  <polygon points="70,55 75,50 82,55 80,65 75,70 68,65 70,55" 
+           fill="url(#dragonBodyGrad)" stroke="#2F0000" stroke-width="1"/>
+  
+  <!-- Dragon back leg - muscular -->
+  <polygon points="40,55 45,50 52,55 50,65 45,70 38,65 40,55" 
+           fill="url(#dragonBodyGrad)" stroke="#2F0000" stroke-width="1"/>
+  
+  <!-- Leg muscle definition -->
+  <polygon points="72,52 78,50 80,56 76,58 72,52" fill="#660000" opacity="0.7"/>
+  <polygon points="42,52 48,50 50,56 46,58 42,52" fill="#660000" opacity="0.7"/>
+  
+  <!-- Dragon claws - long and razor-sharp -->
+  <polygon points="68,68 70,75 72,68" fill="#1a1a1a" stroke="#000000" stroke-width="1"/>
+  <polygon points="74,69 76,76 78,69" fill="#1a1a1a" stroke="#000000" stroke-width="1"/>
+  <polygon points="80,68 82,75 84,68" fill="#1a1a1a" stroke="#000000" stroke-width="1"/>
+  
+  <polygon points="38,68 40,75 42,68" fill="#1a1a1a" stroke="#000000" stroke-width="1"/>
+  <polygon points="44,69 46,76 48,69" fill="#1a1a1a" stroke="#000000" stroke-width="1"/>
+  <polygon points="50,68 52,75 54,68" fill="#1a1a1a" stroke="#000000" stroke-width="1"/>
+  
+  <!-- Dragon tail - segmented and spiked -->
+  <polygon points="25,50 15,48 8,52 12,60 20,62 30,58 25,50" 
+           fill="url(#dragonBodyGrad)" stroke="#2F0000" stroke-width="1"/>
+  <polygon points="8,52 2,54 0,58 4,62 8,60 8,52" 
+           fill="url(#dragonBodyGrad)" stroke="#2F0000" stroke-width="1"/>
+  
+  <!-- Tail spikes - menacing -->
+  <polygon points="22,45 20,38 26,40 22,45" fill="#2F0000" stroke="#000000" stroke-width="1"/>
+  <polygon points="15,46 13,39 19,41 15,46" fill="#2F0000" stroke="#000000" stroke-width="1"/>
+  <polygon points="8,49 6,42 12,44 8,49" fill="#2F0000" stroke="#000000" stroke-width="1"/>
+  <polygon points="3,52 1,45 7,47 3,52" fill="#2F0000" stroke="#000000" stroke-width="1"/>
+  
+  <!-- Body scale details - angular armor plates -->
+  <polygon points="48,38 52,36 54,40 50,42 48,38" fill="#4B0000" opacity="0.8"/>
+  <polygon points="62,35 66,33 68,37 64,39 62,35" fill="#4B0000" opacity="0.8"/>
+  <polygon points="68,43 72,41 74,45 70,47 68,43" fill="#4B0000" opacity="0.8"/>
+  <polygon points="53,50 57,48 59,52 55,54 53,50" fill="#4B0000" opacity="0.8"/>
+  <polygon points="38,46 42,44 44,48 40,50 38,46" fill="#4B0000" opacity="0.8"/>
+  
+  <!-- Body battle scars -->
+  <path d="M45,40 L50,45" stroke="#2F0000" stroke-width="1" opacity="0.6"/>
+  <path d="M65,38 L70,42" stroke="#2F0000" stroke-width="1" opacity="0.6"/>
+  
+  <!-- Fire breath - intense and threatening -->
+  <ellipse cx="120" cy="35" rx="10" ry="8" fill="url(#fireGrad)">
+    <animateTransform attributeName="transform" type="scale" values="1,1; 1.6,1.4; 1.2,1.1; 1,1" dur="0.6s" repeatCount="indefinite"/>
+  </ellipse>
+  
+  <!-- Fire core - white hot center -->
+  <ellipse cx="122" cy="35" rx="4" ry="3" fill="#FFFFFF" opacity="0.9">
+    <animateTransform attributeName="transform" type="scale" values="0.8,0.8; 1.2,1.2; 0.8,0.8" dur="0.4s" repeatCount="indefinite"/>
+  </ellipse>
+  
+  <!-- Fire particles - aggressive and chaotic -->
+  <circle cx="128" cy="32" r="2" fill="#FFFF00" opacity="0.9">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 8,-2; 0,0" dur="0.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="126" cy="39" r="1.8" fill="#FF4500" opacity="0.8">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 6,2; 0,0" dur="0.7s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="130" cy="35" r="1.5" fill="#8B0000" opacity="0.7">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 10,0; 0,0" dur="0.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="124" cy="30" r="1.2" fill="#FF0000" opacity="0.9">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 7,-3; 0,0" dur="0.8s" repeatCount="indefinite"/>
+  </circle>
 </svg>

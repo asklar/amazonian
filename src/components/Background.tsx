@@ -27,7 +27,14 @@ const Background: React.FC<BackgroundProps> = ({ cameraOffset, currentLevel }) =
     const screenWidth = 800; // Game viewport width
     
     // Calculate how many repetitions we need for repeating layers
-    const repetitions = layer.repeat ? Math.ceil((screenWidth + Math.abs(parallaxOffset)) / 200) + 2 : 1;
+    const repetitions = layer.repeat ? Math.ceil((screenWidth + Math.abs(parallaxOffset)) / 200) + 3 : 1;
+    
+    // Create seeded random for consistent spacing per layer
+    const seed = currentLevel * 1000 + index;
+    const random = (i: number) => {
+      const x = Math.sin(seed + i * 12.9898) * 43758.5453;
+      return x - Math.floor(x);
+    };
     
     return (
       <div
@@ -46,25 +53,35 @@ const Background: React.FC<BackgroundProps> = ({ cameraOffset, currentLevel }) =
           pointerEvents: 'none',
         }}
       >
-        {Array.from({ length: repetitions }, (_, repIndex) => (
-          <img
-            key={repIndex}
-            src={layer.element}
-            alt={`Background layer ${index}`}
-            style={{
-              position: 'absolute',
-              left: layer.repeat ? repIndex * 200 - 200 : '50%',
-              transform: layer.repeat ? 'none' : 'translateX(-50%)',
-              bottom: 0,
-              imageRendering: 'pixelated',
-              display: 'block',
-            }}
-            onError={(e) => {
-              console.warn(`Failed to load background element: ${layer.element}`);
-              e.currentTarget.style.display = 'none';
-            }}
-          />
-        ))}
+        {Array.from({ length: repetitions }, (_, repIndex) => {
+          // Add randomized spacing and flipping for mountains
+          const isFlipped = layer.element.includes('mountain') && random(repIndex) > 0.5;
+          const spacingVariation = layer.repeat ? random(repIndex + 100) * 100 - 50 : 0; // ±50px variation
+          const basePosition = layer.repeat ? repIndex * 200 - 200 : 0;
+          const finalPosition = basePosition + spacingVariation;
+          
+          return (
+            <img
+              key={repIndex}
+              src={layer.element}
+              alt={`Background layer ${index}`}
+              style={{
+                position: 'absolute',
+                left: layer.repeat ? finalPosition : '50%',
+                transform: layer.repeat 
+                  ? (isFlipped ? 'scaleX(-1)' : 'none')
+                  : 'translateX(-50%)',
+                bottom: 0,
+                imageRendering: 'pixelated',
+                display: 'block',
+              }}
+              onError={(e) => {
+                console.warn(`Failed to load background element: ${layer.element}`);
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          );
+        })}
       </div>
     );
   };

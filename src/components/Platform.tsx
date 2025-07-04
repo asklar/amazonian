@@ -29,6 +29,8 @@ const Platform: React.FC<PlatformProps> = ({ platform, cameraOffset }) => {
         return { main: '/sprites/platforms/stone_center.svg' }; // Fallback to CSS if SVG doesn't exist
       case 'wood':
         return { main: '/sprites/platforms/wood_center.svg' }; // Fallback to CSS if SVG doesn't exist
+      case 'ice':
+        return { main: '/sprites/platforms/ice_center.svg' }; // Ice platform sprite
       default:
         return {};
     }

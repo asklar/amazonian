@@ -1,0 +1,457 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "name": "Forest Entrance",
+      "playerStartPosition": { "x": 50, "y": 452 },
+      "platforms": [
+        { "id": "ground1", "x": 0, "y": 500, "width": 800, "height": 100, "type": "grass" },
+        { "id": "platform1", "x": 300, "y": 400, "width": 200, "height": 20, "type": "wood" },
+        { "id": "platform2", "x": 600, "y": 300, "width": 150, "height": 20, "type": "stone" },
+        { "id": "platform3", "x": 900, "y": 450, "width": 300, "height": 20, "type": "wood" },
+        { "id": "platform4", "x": 1300, "y": 350, "width": 200, "height": 20, "type": "stone" },
+        { "id": "ground2", "x": 1600, "y": 500, "width": 800, "height": 100, "type": "grass" }
+      ],
+      "monsters": [
+        {
+          "id": "goblin1",
+          "type": "goblin",
+          "position": { "x": 400, "y": 460 },
+          "facing": "right",
+          "patrolStart": 350,
+          "patrolEnd": 550
+        },
+        {
+          "id": "orc1",
+          "type": "orc",
+          "position": { "x": 1000, "y": 410 },
+          "facing": "left",
+          "patrolStart": 900,
+          "patrolEnd": 1200
+        },
+        {
+          "id": "skeleton1",
+          "type": "skeleton",
+          "position": { "x": 1700, "y": 460 },
+          "facing": "right",
+          "patrolStart": 1650,
+          "patrolEnd": 1950
+        }
+      ],
+      "loot": [
+        { "id": "coin1", "type": "coin", "position": { "x": 350, "y": 370 }, "collected": false },
+        { "id": "health1", "type": "health", "position": { "x": 650, "y": 270 }, "collected": false },
+        { "id": "magic1", "type": "magic", "position": { "x": 1350, "y": 320 }, "collected": false },
+        { "id": "coin2", "type": "coin", "position": { "x": 1750, "y": 470 }, "collected": false }
+      ],
+      "castleGate": {
+        "position": { "x": 2200, "y": 380 },
+        "isUnlocked": false
+      }
+    },
+    {
+      "id": 2,
+      "name": "Mountain Pass",
+      "playerStartPosition": { "x": 50, "y": 452 },
+      "platforms": [
+        { "id": "ground1", "x": 0, "y": 500, "width": 600, "height": 100, "type": "stone" },
+        { "id": "platform1", "x": 400, "y": 400, "width": 300, "height": 20, "type": "stone" },
+        { "id": "platform2", "x": 800, "y": 350, "width": 200, "height": 20, "type": "wood" },
+        { "id": "platform3", "x": 1100, "y": 280, "width": 250, "height": 20, "type": "stone" },
+        { "id": "platform4", "x": 1450, "y": 400, "width": 300, "height": 20, "type": "wood" },
+        { "id": "ground2", "x": 1800, "y": 500, "width": 600, "height": 100, "type": "stone" }
+      ],
+      "monsters": [
+        {
+          "id": "orc1",
+          "type": "orc",
+          "position": { "x": 500, "y": 360 },
+          "facing": "left",
+          "patrolStart": 400,
+          "patrolEnd": 650
+        },
+        {
+          "id": "skeleton1",
+          "type": "skeleton",
+          "position": { "x": 850, "y": 310 },
+          "facing": "right",
+          "patrolStart": 800,
+          "patrolEnd": 1000
+        },
+        {
+          "id": "dragon1",
+          "type": "dragon",
+          "position": { "x": 1200, "y": 240 },
+          "facing": "left",
+          "patrolStart": 1100,
+          "patrolEnd": 1350
+        },
+        {
+          "id": "goblin1",
+          "type": "goblin",
+          "position": { "x": 1900, "y": 460 },
+          "facing": "right",
+          "patrolStart": 1850,
+          "patrolEnd": 2050
+        }
+      ],
+      "loot": [
+        { "id": "magic1", "type": "magic", "position": { "x": 450, "y": 370 }, "collected": false },
+        { "id": "health1", "type": "health", "position": { "x": 850, "y": 320 }, "collected": false },
+        { "id": "coin1", "type": "coin", "position": { "x": 1150, "y": 250 }, "collected": false },
+        { "id": "magic2", "type": "magic", "position": { "x": 1500, "y": 370 }, "collected": false },
+        { "id": "health2", "type": "health", "position": { "x": 1950, "y": 470 }, "collected": false }
+      ],
+      "castleGate": {
+        "position": { "x": 2200, "y": 380 },
+        "isUnlocked": false
+      }
+    },
+    {
+      "id": 3,
+      "name": "Ice Caverns",
+      "playerStartPosition": { "x": 50, "y": 452 },
+      "platforms": [
+        { "id": "ground1", "x": 0, "y": 500, "width": 800, "height": 100, "type": "grass" },
+        { "id": "platform1", "x": 700, "y": 320, "width": 400, "height": 20, "type": "stone" },
+        { "id": "platform2", "x": 1200, "y": 220, "width": 300, "height": 20, "type": "wood" },
+        { "id": "platform3", "x": 1000, "y": 160, "width": 300, "height": 20, "type": "stone" },
+        { "id": "ground2", "x": 1600, "y": 320, "width": 800, "height": 80, "type": "grass" },
+        { "id": "platform4", "x": 400, "y": 250, "width": 150, "height": 20, "type": "wood" },
+        { "id": "platform5", "x": 600, "y": 180, "width": 120, "height": 20, "type": "stone" },
+        { "id": "platform6", "x": 850, "y": 120, "width": 200, "height": 20, "type": "wood" },
+        { "id": "platform7", "x": 1450, "y": 160, "width": 150, "height": 20, "type": "stone" },
+        { "id": "platform8", "x": 1800, "y": 200, "width": 200, "height": 20, "type": "wood" },
+        { "id": "ice_platform1", "x": 550, "y": 100, "width": 80, "height": 20, "type": "ice" },
+        { "id": "ice_platform2", "x": 1300, "y": 80, "width": 1000, "height": 20, "type": "ice" }
+      ],
+      "monsters": [
+        {
+          "id": "dragon1",
+          "type": "dragon",
+          "position": { "x": 800, "y": 280 },
+          "facing": "left",
+          "patrolStart": 700,
+          "patrolEnd": 1100
+        },
+        {
+          "id": "skeleton1",
+          "type": "skeleton",
+          "position": { "x": 450, "y": 210 },
+          "facing": "right",
+          "patrolStart": 400,
+          "patrolEnd": 550
+        },
+        {
+          "id": "orc1",
+          "type": "orc",
+          "position": { "x": 1250, "y": 180 },
+          "facing": "left",
+          "patrolStart": 1200,
+          "patrolEnd": 1500
+        },
+        {
+          "id": "goblin1",
+          "type": "goblin",
+          "position": { "x": 1100, "y": 120 },
+          "facing": "right",
+          "patrolStart": 1050,
+          "patrolEnd": 1200
+        }
+      ],
+      "loot": [
+        { "id": "health1", "type": "health", "position": { "x": 450, "y": 220 }, "collected": false },
+        { "id": "magic1", "type": "magic", "position": { "x": 650, "y": 150 }, "collected": false },
+        { "id": "coin1", "type": "coin", "position": { "x": 900, "y": 90 }, "collected": false },
+        { "id": "health2", "type": "health", "position": { "x": 1300, "y": 190 }, "collected": false },
+        { "id": "magic2", "type": "magic", "position": { "x": 1500, "y": 130 }, "collected": false },
+        { "id": "coin2", "type": "coin", "position": { "x": 1850, "y": 170 }, "collected": false },
+        { "id": "magic3", "type": "magic", "position": { "x": 600, "y": 70 }, "collected": false },
+        { "id": "health3", "type": "health", "position": { "x": 1700, "y": 50 }, "collected": false }
+      ],
+      "castleGate": {
+        "position": { "x": 2200, "y": 200 },
+        "isUnlocked": false
+      }
+    },
+    {
+      "id": 4,
+      "name": "Dragon's Lair",
+      "playerStartPosition": { "x": 50, "y": 452 },
+      "platforms": [
+        { "id": "ground1", "x": 0, "y": 500, "width": 400, "height": 100, "type": "stone" },
+        { "id": "lava_platform1", "x": 500, "y": 450, "width": 200, "height": 20, "type": "stone" },
+        { "id": "lava_platform2", "x": 800, "y": 400, "width": 150, "height": 20, "type": "stone" },
+        { "id": "lava_platform3", "x": 1100, "y": 350, "width": 300, "height": 20, "type": "stone" },
+        { "id": "ice_challenge1", "x": 600, "y": 300, "width": 100, "height": 20, "type": "ice" },
+        { "id": "ice_challenge2", "x": 850, "y": 250, "width": 150, "height": 20, "type": "ice" },
+        { "id": "ice_challenge3", "x": 1200, "y": 200, "width": 200, "height": 20, "type": "ice" },
+        { "id": "final_platform", "x": 1500, "y": 150, "width": 400, "height": 20, "type": "stone" },
+        { "id": "boss_arena", "x": 2000, "y": 400, "width": 400, "height": 100, "type": "stone" }
+      ],
+      "monsters": [
+        {
+          "id": "guardian_orc1",
+          "type": "orc",
+          "position": { "x": 550, "y": 410 },
+          "facing": "left",
+          "patrolStart": 500,
+          "patrolEnd": 700
+        },
+        {
+          "id": "guardian_skeleton1",
+          "type": "skeleton",
+          "position": { "x": 1150, "y": 310 },
+          "facing": "right",
+          "patrolStart": 1100,
+          "patrolEnd": 1400
+        },
+        {
+          "id": "boss_ice_dragon1",
+          "type": "ice_dragon",
+          "position": { "x": 2100, "y": 90 },
+          "facing": "left",
+          "patrolStart": 2000,
+          "patrolEnd": 2300,
+          "patrolArea": {
+            "xStart": 2000,
+            "xEnd": 2300,
+            "yStart": 80,
+            "yEnd": 200
+          }
+        },
+        {
+          "id": "boss_wind_dragon1", 
+          "type": "wind_dragon",
+          "position": { "x": 2250, "y": 40 },
+          "facing": "right",
+          "patrolStart": 2150,
+          "patrolEnd": 2350,
+          "patrolArea": {
+            "xStart": 2150,
+            "xEnd": 2350,
+            "yStart": 30,
+            "yEnd": 150
+          }
+        }
+      ],
+      "loot": [
+        { "id": "magic1", "type": "magic", "position": { "x": 650, "y": 270 }, "collected": false },
+        { "id": "health1", "type": "health", "position": { "x": 900, "y": 220 }, "collected": false },
+        { "id": "magic2", "type": "magic", "position": { "x": 1250, "y": 170 }, "collected": false },
+        { "id": "health2", "type": "health", "position": { "x": 1600, "y": 120 }, "collected": false },
+        { "id": "final_treasure", "type": "coin", "position": { "x": 2200, "y": 370 }, "collected": false }
+      ],
+      "castleGate": {
+        "position": { "x": 2300, "y": 280 },
+        "isUnlocked": false
+      }
+    },
+    {
+      "id": 5,
+      "name": "Wyvern Heights",
+      "playerStartPosition": { "x": 50, "y": 452 },
+      "platforms": [
+        { "id": "ground1", "x": 0, "y": 500, "width": 300, "height": 100, "type": "stone" },
+        { "id": "sky_platform1", "x": 400, "y": 420, "width": 150, "height": 20, "type": "wood" },
+        { "id": "sky_platform2", "x": 650, "y": 350, "width": 200, "height": 20, "type": "stone" },
+        { "id": "sky_platform3", "x": 950, "y": 280, "width": 180, "height": 20, "type": "wood" },
+        { "id": "wind_platform1", "x": 1200, "y": 200, "width": 250, "height": 20, "type": "stone" },
+        { "id": "wind_platform2", "x": 1550, "y": 150, "width": 300, "height": 20, "type": "wood" },
+        { "id": "wind_platform3", "x": 1950, "y": 100, "width": 200, "height": 20, "type": "stone" },
+        { "id": "aerial_challenge1", "x": 500, "y": 250, "width": 80, "height": 20, "type": "ice" },
+        { "id": "aerial_challenge2", "x": 750, "y": 180, "width": 100, "height": 20, "type": "ice" },
+        { "id": "aerial_challenge3", "x": 1100, "y": 120, "width": 120, "height": 20, "type": "ice" },
+        { "id": "wyvern_nest", "x": 2200, "y": 300, "width": 400, "height": 100, "type": "stone" }
+      ],
+      "monsters": [
+        {
+          "id": "wind_dragon1",
+          "type": "wind_dragon",
+          "position": { "x": 700, "y": 280 },
+          "facing": "left",
+          "patrolStart": 650,
+          "patrolEnd": 850
+        },
+        {
+          "id": "wyvern1",
+          "type": "wyvern",
+          "position": { "x": 1000, "y": 210 },
+          "facing": "right",
+          "patrolStart": 950,
+          "patrolEnd": 1130
+        },
+        {
+          "id": "blue_dragon1",
+          "type": "blue_dragon",
+          "position": { "x": 1300, "y": 130 },
+          "facing": "left",
+          "patrolStart": 1200,
+          "patrolEnd": 1450
+        },
+        {
+          "id": "wyvern_elite1",
+          "type": "wyvern_elite",
+          "position": { "x": 1700, "y": 80 },
+          "facing": "right",
+          "patrolStart": 1550,
+          "patrolEnd": 1850
+        },
+        {
+          "id": "wyvern_boss1",
+          "type": "wyvern",
+          "position": { "x": 2300, "y": 260 },
+          "facing": "left",
+          "patrolStart": 2200,
+          "patrolEnd": 2500
+        },
+        {
+          "id": "wyvern_boss2",
+          "type": "wyvern_elite",
+          "position": { "x": 2450, "y": 260 },
+          "facing": "right",
+          "patrolStart": 2300,
+          "patrolEnd": 2550
+        }
+      ],
+      "loot": [
+        { "id": "magic1", "type": "magic", "position": { "x": 550, "y": 220 }, "collected": false },
+        { "id": "health1", "type": "health", "position": { "x": 800, "y": 150 }, "collected": false },
+        { "id": "magic2", "type": "magic", "position": { "x": 1150, "y": 90 }, "collected": false },
+        { "id": "health2", "type": "health", "position": { "x": 1350, "y": 130 }, "collected": false },
+        { "id": "magic3", "type": "magic", "position": { "x": 1750, "y": 80 }, "collected": false },
+        { "id": "health3", "type": "health", "position": { "x": 2000, "y": 70 }, "collected": false },
+        { "id": "wyvern_treasure1", "type": "coin", "position": { "x": 2350, "y": 270 }, "collected": false },
+        { "id": "wyvern_treasure2", "type": "coin", "position": { "x": 2500, "y": 270 }, "collected": false }
+      ],
+      "castleGate": {
+        "position": { "x": 2600, "y": 180 },
+        "isUnlocked": false
+      }
+    },
+    {
+      "id": 6,
+      "name": "Dragon Apocalypse",
+      "playerStartPosition": { "x": 50, "y": 452 },
+      "platforms": [
+        { "id": "entrance_ground", "x": 0, "y": 500, "width": 400, "height": 100, "type": "stone" },
+        { "id": "challenge_platform1", "x": 500, "y": 400, "width": 200, "height": 20, "type": "stone" },
+        { "id": "challenge_platform2", "x": 800, "y": 320, "width": 250, "height": 20, "type": "stone" },
+        { "id": "ice_trial1", "x": 1150, "y": 250, "width": 150, "height": 20, "type": "ice" },
+        { "id": "ice_trial2", "x": 1400, "y": 180, "width": 200, "height": 20, "type": "ice" },
+        { "id": "fire_trial1", "x": 1700, "y": 280, "width": 180, "height": 20, "type": "stone" },
+        { "id": "fire_trial2", "x": 1980, "y": 200, "width": 220, "height": 20, "type": "stone" },
+        { "id": "final_ascent1", "x": 2300, "y": 150, "width": 300, "height": 20, "type": "stone" },
+        { "id": "final_ascent2", "x": 2700, "y": 100, "width": 250, "height": 20, "type": "stone" },
+        { "id": "dragon_throne", "x": 3000, "y": 300, "width": 500, "height": 100, "type": "stone" }
+      ],
+      "monsters": [
+        {
+          "id": "entrance_guardian1",
+          "type": "ice_dragon",
+          "position": { "x": 550, "y": 360 },
+          "facing": "left",
+          "patrolStart": 500,
+          "patrolEnd": 700
+        },
+        {
+          "id": "entrance_guardian2",
+          "type": "wind_dragon",
+          "position": { "x": 900, "y": 280 },
+          "facing": "right",
+          "patrolStart": 800,
+          "patrolEnd": 1050
+        },
+        {
+          "id": "ice_champion",
+          "type": "ice_dragon",
+          "position": { "x": 1200, "y": 210 },
+          "facing": "left",
+          "patrolStart": 1150,
+          "patrolEnd": 1300
+        },
+        {
+          "id": "blue_elite",
+          "type": "blue_dragon",
+          "position": { "x": 1500, "y": 140 },
+          "facing": "right",
+          "patrolStart": 1400,
+          "patrolEnd": 1600
+        },
+        {
+          "id": "fire_champion1",
+          "type": "red_dragon",
+          "position": { "x": 1750, "y": 240 },
+          "facing": "left",
+          "patrolStart": 1700,
+          "patrolEnd": 1880
+        },
+        {
+          "id": "fire_champion2",
+          "type": "red_dragon",
+          "position": { "x": 2080, "y": 160 },
+          "facing": "right",
+          "patrolStart": 1980,
+          "patrolEnd": 2200
+        },
+        {
+          "id": "ascent_guardian1",
+          "type": "wyvern_elite",
+          "position": { "x": 2400, "y": 110 },
+          "facing": "left",
+          "patrolStart": 2300,
+          "patrolEnd": 2600
+        },
+        {
+          "id": "ascent_guardian2",
+          "type": "blue_dragon",
+          "position": { "x": 2800, "y": 60 },
+          "facing": "right",
+          "patrolStart": 2700,
+          "patrolEnd": 2950
+        },
+        {
+          "id": "final_boss1",
+          "type": "red_dragon",
+          "position": { "x": 3100, "y": 260 },
+          "facing": "left",
+          "patrolStart": 3000,
+          "patrolEnd": 3200
+        },
+        {
+          "id": "final_boss2",
+          "type": "red_dragon",
+          "position": { "x": 3300, "y": 260 },
+          "facing": "right",
+          "patrolStart": 3200,
+          "patrolEnd": 3400
+        },
+        {
+          "id": "final_boss3",
+          "type": "ice_dragon",
+          "position": { "x": 3250, "y": 260 },
+          "facing": "left",
+          "patrolStart": 3150,
+          "patrolEnd": 3350
+        }
+      ],
+      "loot": [
+        { "id": "entrance_magic", "type": "magic", "position": { "x": 600, "y": 370 }, "collected": false },
+        { "id": "entrance_health", "type": "health", "position": { "x": 950, "y": 290 }, "collected": false },
+        { "id": "ice_reward", "type": "magic", "position": { "x": 1250, "y": 220 }, "collected": false },
+        { "id": "blue_reward", "type": "health", "position": { "x": 1550, "y": 150 }, "collected": false },
+        { "id": "fire_reward1", "type": "magic", "position": { "x": 1800, "y": 250 }, "collected": false },
+        { "id": "fire_reward2", "type": "health", "position": { "x": 2130, "y": 170 }, "collected": false },
+        { "id": "ascent_reward1", "type": "magic", "position": { "x": 2450, "y": 120 }, "collected": false },
+        { "id": "ascent_reward2", "type": "health", "position": { "x": 2850, "y": 70 }, "collected": false },
+        { "id": "ultimate_treasure1", "type": "coin", "position": { "x": 3150, "y": 270 }, "collected": false },
+        { "id": "ultimate_treasure2", "type": "coin", "position": { "x": 3300, "y": 270 }, "collected": false },
+        { "id": "ultimate_treasure3", "type": "coin", "position": { "x": 3450, "y": 270 }, "collected": false }
+      ],
+      "castleGate": {
+        "position": { "x": 3500, "y": 180 },
+        "isUnlocked": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "monsterTypes": {
+    "goblin": {
+      "name": "Goblin",
+      "health": 50,
+      "damage": 10,
+      "speed": 1.0,
+      "spriteType": "svg",
+      "sprites": {
+        "idle": "/sprites/monsters/goblin_idle_new.svg",
+        "hit": "/sprites/monsters/goblin_hit_01.svg",
+        "dying": "/sprites/monsters/goblin_dying_01.svg"
+      },
+      "size": { "width": 32, "height": 40 },
+      "animations": {
+        "walk": { "frames": 4, "duration": 200 },
+        "attack": { "frames": 3, "duration": 150 },
+        "death": { "frames": 5, "duration": 300 }
+      }
+    },
+    "orc": {
+      "name": "Orc",
+      "health": 80,
+      "damage": 15,
+      "speed": 0.8,
+      "spriteType": "svg",
+      "sprites": {
+        "idle": "/sprites/monsters/orc_idle_01.svg",
+        "hit": "/sprites/monsters/orc_hit_01.svg",
+        "dying": "/sprites/monsters/orc_dying_01.svg"
+      },
+      "size": { "width": 32, "height": 40 },
+      "animations": {
+        "walk": { "frames": 4, "duration": 250 },
+        "attack": { "frames": 3, "duration": 200 },
+        "death": { "frames": 5, "duration": 400 }
+      }
+    },
+    "skeleton": {
+      "name": "Skeleton",
+      "health": 60,
+      "damage": 12,
+      "speed": 1.2,
+      "spriteType": "svg",
+      "sprites": {
+        "idle": "/sprites/monsters/skeleton_idle_01.svg",
+        "hit": "/sprites/monsters/skeleton_hit_01.svg",
+        "dying": "/sprites/monsters/skeleton_dying_01.svg"
+      },
+      "size": { "width": 32, "height": 40 },
+      "animations": {
+        "walk": { "frames": 4, "duration": 180 },
+        "attack": { "frames": 3, "duration": 120 },
+        "death": { "frames": 5, "duration": 250 }
+      }
+    },
+    "dragon": {
+      "name": "Dragon",
+      "health": 120,
+      "damage": 25,
+      "speed": 0.6,
+      "spriteType": "svg",
+      "sprites": {
+        "idle": "/sprites/monsters/dragon_idle_01.svg",
+        "hit": "/sprites/monsters/dragon_hit_01.svg",
+        "dying": "/sprites/monsters/dragon_dying_01.svg"
+      },
+      "size": { "width": 48, "height": 60 },
+      "isFlying": true,
+      "animations": {
+        "walk": { "frames": 4, "duration": 300 },
+        "attack": { "frames": 4, "duration": 250 },
+        "death": { "frames": 6, "duration": 500 }
+      }
+    },
+    "ice_dragon": {
+      "name": "Ice Dragon",
+      "health": 180,
+      "damage": 35,
+      "speed": 0.5,
+      "spriteType": "png",
+      "sprites": {
+        "idle": "/sprites/monsters/ice-dragon.png"
+      },
+      "size": { "width": 56, "height": 70 },
+      "isFlying": true,
+      "canShoot": true,
+      "shootCooldown": 150,
+      "shootRange": 250,
+      "projectileType": "frost",
+      "projectileLaunchOffset": { "x": 0.5, "y": 0.5 },
+      "ai": {
+        "randomDirectionChangeChance": 0.015,
+        "speedBoostRange": 120,
+        "speedBoostMultiplier": 1.3,
+        "patrolOvershootRange": 15,
+        "speedVariationMin": 0.9,
+        "speedVariationMax": 1.1,
+        "turnTowardsPlayerChance": 0.25,
+        "requireFacingToShoot": true,
+        "minMovementTime": 45
+      },
+      "animations": {
+        "walk": { "frames": 4, "duration": 350 },
+        "attack": { "frames": 4, "duration": 300 },
+        "death": { "frames": 6, "duration": 600 }
+      }
+    },
+    "red_dragon": {
+      "name": "Red Dragon",
+      "health": 220,
+      "damage": 45,
+      "speed": 0.4,
+      "spriteType": "png",
+      "sprites": {
+        "idle": "/sprites/monsters/red-dragon.png"
+      },
+      "size": { "width": 64, "height": 80 },
+      "isFlying": true,
+      "animations": {
+        "walk": { "frames": 4, "duration": 400 },
+        "attack": { "frames": 5, "duration": 350 },
+        "death": { "frames": 7, "duration": 700 }
+      }
+    },
+    "blue_dragon": {
+      "name": "Blue Dragon",
+      "health": 200,
+      "damage": 40,
+      "speed": 0.45,
+      "spriteType": "png",
+      "sprites": {
+        "idle": "/sprites/monsters/blue-dragon.png"
+      },
+      "size": { "width": 60, "height": 75 },
+      "isFlying": true,
+      "canShoot": true,
+      "shootCooldown": 120,
+      "shootRange": 300,
+      "projectileType": "fire",
+      "projectileLaunchOffset": { "x": 1.0, "y": 0.5 },
+      "ai": {
+        "randomDirectionChangeChance": 0.02,
+        "speedBoostRange": 150,
+        "speedBoostMultiplier": 1.5,
+        "patrolOvershootRange": 20,
+        "speedVariationMin": 0.8,
+        "speedVariationMax": 1.2,
+        "turnTowardsPlayerChance": 0.3,
+        "requireFacingToShoot": true,
+        "minMovementTime": 30
+      },
+      "animations": {
+        "walk": { "frames": 4, "duration": 375 },
+        "attack": { "frames": 4, "duration": 325 },
+        "death": { "frames": 6, "duration": 650 }
+      }
+    },
+    "wind_dragon": {
+      "name": "Wind Dragon",
+      "health": 160,
+      "damage": 30,
+      "speed": 0.8,
+      "spriteType": "png",
+      "sprites": {
+        "idle": "/sprites/monsters/wind-dragon.png"
+      },
+      "size": { "width": 52, "height": 65 },
+      "isFlying": true,
+      "animations": {
+        "walk": { "frames": 4, "duration": 250 },
+        "attack": { "frames": 4, "duration": 200 },
+        "death": { "frames": 6, "duration": 550 }
+      }
+    },
+    "wyvern": {
+      "name": "Wyvern",
+      "health": 140,
+      "damage": 28,
+      "speed": 0.9,
+      "spriteType": "png",
+      "sprites": {
+        "idle": "/sprites/monsters/wyvern-1.png"
+      },
+      "size": { "width": 48, "height": 60 },
+      "isFlying": true,
+      "animations": {
+        "walk": { "frames": 4, "duration": 280 },
+        "attack": { "frames": 4, "duration": 230 },
+        "death": { "frames": 6, "duration": 580 }
+      }
+    },
+    "wyvern_elite": {
+      "name": "Elite Wyvern",
+      "health": 170,
+      "damage": 38,
+      "speed": 0.75,
+      "spriteType": "png",
+      "sprites": {
+        "idle": "/sprites/monsters/wyvern-2.png"
+      },
+      "size": { "width": 52, "height": 65 },
+      "isFlying": true,
+      "animations": {
+        "walk": { "frames": 4, "duration": 320 },
+        "attack": { "frames": 5, "duration": 280 },
+        "death": { "frames": 7, "duration": 620 }
+      }
+    }
+  }
+}

@@ -16,10 +16,26 @@ const Monster: React.FC<MonsterProps> = ({ monster, cameraOffset }) => {
   const style: React.CSSProperties = {
     left: monster.position.x - cameraOffset.x,
     top: monster.position.y - cameraOffset.y,
+    transform: monster.facing === 'left' ? 'scaleX(-1)' : 'scaleX(1)',
+    // Scale PNG sprites to 2x size
+    width: monster.spriteType === 'png' ? (monster.size?.width || 32) * 2 : (monster.size?.width || undefined),
+    height: monster.spriteType === 'png' ? (monster.size?.height || 40) * 2 : (monster.size?.height || undefined),
   };
 
   // Determine which sprite to use based on monster state and type
   const getMonsterSprite = (): string | undefined => {
+    // Use sprite information from monster configuration if available
+    if (monster.sprites) {
+      if (monster.isDying && monster.sprites.dying) {
+        return monster.sprites.dying;
+      } else if (monster.isHit && monster.sprites.hit) {
+        return monster.sprites.hit;
+      } else if (monster.sprites.idle) {
+        return monster.sprites.idle;
+      }
+    }
+    
+    // Fallback to SVG sprites for backward compatibility
     const basePath = `/sprites/monsters`;
     
     if (monster.isDying) {
