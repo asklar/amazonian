@@ -1,0 +1,50 @@
+<svg width="80" height="120" viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gate background -->
+  <rect x="0" y="20" width="80" height="100" fill="#4a4a4a" stroke="#2a2a2a" stroke-width="2"/>
+  
+  <!-- Stone texture -->
+  <rect x="2" y="22" width="76" height="96" fill="#5a5a5a"/>
+  
+  <!-- Vertical gate planks -->
+  <rect x="8" y="25" width="8" height="90" fill="#3a2a1a" stroke="#2a1a0a" stroke-width="1"/>
+  <rect x="18" y="25" width="8" height="90" fill="#3a2a1a" stroke="#2a1a0a" stroke-width="1"/>
+  <rect x="28" y="25" width="8" height="90" fill="#3a2a1a" stroke="#2a1a0a" stroke-width="1"/>
+  <rect x="38" y="25" width="8" height="90" fill="#3a2a1a" stroke="#2a1a0a" stroke-width="1"/>
+  <rect x="48" y="25" width="8" height="90" fill="#3a2a1a" stroke="#2a1a0a" stroke-width="1"/>
+  <rect x="58" y="25" width="8" height="90" fill="#3a2a1a" stroke="#2a1a0a" stroke-width="1"/>
+  <rect x="68" y="25" width="8" height="90" fill="#3a2a1a" stroke="#2a1a0a" stroke-width="1"/>
+  
+  <!-- Horizontal reinforcement bars -->
+  <rect x="5" y="35" width="70" height="4" fill="#2a2a2a"/>
+  <rect x="5" y="50" width="70" height="4" fill="#2a2a2a"/>
+  <rect x="5" y="65" width="70" height="4" fill="#2a2a2a"/>
+  <rect x="5" y="80" width="70" height="4" fill="#2a2a2a"/>
+  <rect x="5" y="95" width="70" height="4" fill="#2a2a2a"/>
+  
+  <!-- Gate arch top -->
+  <path d="M 0 20 Q 40 0 80 20 L 80 25 Q 40 5 0 25 Z" fill="#6a6a6a" stroke="#4a4a4a" stroke-width="2"/>
+  
+  <!-- Castle battlements -->
+  <rect x="0" y="0" width="15" height="20" fill="#7a7a7a" stroke="#5a5a5a" stroke-width="1"/>
+  <rect x="20" y="0" width="15" height="20" fill="#7a7a7a" stroke="#5a5a5a" stroke-width="1"/>
+  <rect x="40" y="0" width="15" height="20" fill="#7a7a7a" stroke="#5a5a5a" stroke-width="1"/>
+  <rect x="60" y="0" width="20" height="20" fill="#7a7a7a" stroke="#5a5a5a" stroke-width="1"/>
+  
+  <!-- Gate handles/rings -->
+  <circle cx="25" cy="60" r="3" fill="#8a6a2a" stroke="#6a4a1a" stroke-width="1"/>
+  <circle cx="55" cy="60" r="3" fill="#8a6a2a" stroke="#6a4a1a" stroke-width="1"/>
+  
+  <!-- Lock mechanism -->
+  <rect x="35" y="75" width="10" height="8" fill="#4a4a4a" stroke="#2a2a2a" stroke-width="1"/>
+  <rect x="37" y="77" width="6" height="4" fill="#6a6a6a"/>
+  
+  <!-- Stone border details -->
+  <rect x="0" y="20" width="80" height="5" fill="#6a6a6a"/>
+  <rect x="0" y="115" width="80" height="5" fill="#6a6a6a"/>
+  
+  <!-- Moss/weathering effects -->
+  <ellipse cx="10" cy="30" rx="3" ry="2" fill="#2a4a2a" opacity="0.6"/>
+  <ellipse cx="70" cy="40" rx="2" ry="1.5" fill="#2a4a2a" opacity="0.6"/>
+  <ellipse cx="15" cy="100" rx="4" ry="2" fill="#2a4a2a" opacity="0.6"/>
+  <ellipse cx="65" cy="110" rx="3" ry="1.5" fill="#2a4a2a" opacity="0.6"/>
+</svg>

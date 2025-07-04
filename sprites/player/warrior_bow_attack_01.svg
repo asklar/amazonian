@@ -1,0 +1,83 @@
+<svg width="32" height="48" viewBox="0 0 32 48" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+  <!-- Amazonian Warrior Bow Attack - Matching idle design -->
+  
+  <!-- Hair -->
+  <rect x="10" y="4" width="12" height="8" fill="#2B1810"/>
+  <rect x="8" y="6" width="2" height="6" fill="#2B1810"/>
+  <rect x="22" y="6" width="2" height="6" fill="#2B1810"/>
+  
+  <!-- Face -->
+  <rect x="10" y="8" width="12" height="8" fill="#CD853F"/>
+  <rect x="8" y="10" width="2" height="4" fill="#CD853F"/>
+  <rect x="22" y="10" width="2" height="4" fill="#CD853F"/>
+  
+  <!-- Eyes (focused) -->
+  <rect x="12" y="10" width="2" height="2" fill="#000000"/>
+  <rect x="18" y="10" width="2" height="2" fill="#000000"/>
+  
+  <!-- Nose -->
+  <rect x="15" y="12" width="2" height="1" fill="#B8860B"/>
+  
+  <!-- Mouth (focused expression) -->
+  <rect x="14" y="14" width="4" height="1" fill="#8B4513"/>
+  
+  <!-- Neck -->
+  <rect x="12" y="16" width="8" height="2" fill="#CD853F"/>
+  
+  <!-- Tribal Top -->
+  <rect x="10" y="18" width="12" height="8" fill="#8B4513"/>
+  <rect x="8" y="20" width="2" height="4" fill="#8B4513"/>
+  <rect x="22" y="20" width="2" height="4" fill="#8B4513"/>
+  
+  <!-- Tribal decorations -->
+  <rect x="12" y="20" width="2" height="2" fill="#DAA520"/>
+  <rect x="18" y="20" width="2" height="2" fill="#DAA520"/>
+  <rect x="15" y="22" width="2" height="2" fill="#DAA520"/>
+  
+  <!-- Left arm (extended holding bow) -->
+  <rect x="2" y="18" width="8" height="4" fill="#CD853F"/>
+  <rect x="2" y="20" width="8" height="2" fill="#B8860B"/> <!-- arm band -->
+  
+  <!-- Right arm (pulling bowstring) -->
+  <rect x="22" y="16" width="8" height="6" fill="#CD853F"/>
+  <rect x="22" y="18" width="8" height="2" fill="#B8860B"/> <!-- arm band -->
+  
+  <!-- Hands -->
+  <rect x="2" y="22" width="4" height="4" fill="#CD853F"/> <!-- left hand on bow -->
+  <rect x="26" y="20" width="4" height="4" fill="#CD853F"/> <!-- right hand pulling string -->
+  
+  <!-- Bow (in left hand) -->
+  <rect x="0" y="23" width="2" height="8" fill="#8B4513"/>
+  <rect x="1" y="22" width="1" height="1" fill="#8B4513"/> <!-- top curve -->
+  <rect x="1" y="31" width="1" height="1" fill="#8B4513"/> <!-- bottom curve -->
+  
+  <!-- Bowstring -->
+  <line x1="2" y1="24" x2="28" y2="22" stroke="#654321" stroke-width="1"/>
+  <line x1="2" y1="30" x2="28" y2="22" stroke="#654321" stroke-width="1"/>
+  
+  <!-- Arrow (nocked and drawn) -->
+  <rect x="3" y="26" width="24" height="1" fill="#8B4513"/>
+  <rect x="27" y="25" width="2" height="1" fill="#D2691E"/> <!-- fletching -->
+  <rect x="2" y="26" width="2" height="1" fill="#C0C0C0"/> <!-- arrowhead -->
+  
+  <!-- Tribal skirt -->
+  <rect x="8" y="26" width="16" height="8" fill="#654321"/>
+  
+  <!-- Decorative fringe -->
+  <rect x="9" y="33" width="2" height="1" fill="#8B4513"/>
+  <rect x="13" y="33" width="2" height="1" fill="#8B4513"/>
+  <rect x="17" y="33" width="2" height="1" fill="#8B4513"/>
+  <rect x="21" y="33" width="2" height="1" fill="#8B4513"/>
+  
+  <!-- Legs -->
+  <rect x="10" y="34" width="5" height="10" fill="#CD853F"/>
+  <rect x="17" y="34" width="5" height="10" fill="#CD853F"/>
+  
+  <!-- Feet -->
+  <rect x="8" y="44" width="8" height="4" fill="#654321"/>
+  <rect x="16" y="44" width="8" height="4" fill="#654321"/>
+  
+  <!-- Focus effects around bow -->
+  <rect x="0" y="20" width="1" height="1" fill="#FFD700"/>
+  <rect x="30" y="18" width="1" height="1" fill="#FFD700"/>
+</svg>

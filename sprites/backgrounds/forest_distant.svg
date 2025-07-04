@@ -1,0 +1,30 @@
+<svg width="160" height="100" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+  <!-- Forest Silhouette -->
+  
+  <!-- Tree trunks -->
+  <rect x="10" y="60" width="6" height="40" fill="#4a5568"/>
+  <rect x="25" y="55" width="8" height="45" fill="#374151"/>
+  <rect x="45" y="50" width="7" height="50" fill="#4a5568"/>
+  <rect x="65" y="45" width="9" height="55" fill="#2d3748"/>
+  <rect x="85" y="52" width="6" height="48" fill="#374151"/>
+  <rect x="105" y="48" width="8" height="52" fill="#4a5568"/>
+  <rect x="125" y="55" width="7" height="45" fill="#2d3748"/>
+  <rect x="145" y="58" width="6" height="42" fill="#374151"/>
+  
+  <!-- Tree canopies -->
+  <circle cx="13" cy="55" r="12" fill="#1f2937"/>
+  <circle cx="29" cy="48" r="15" fill="#111827"/>
+  <circle cx="48" cy="42" r="13" fill="#1f2937"/>
+  <circle cx="69" cy="35" r="18" fill="#0f172a"/>
+  <circle cx="88" cy="45" r="14" fill="#1f2937"/>
+  <circle cx="109" cy="40" r="16" fill="#111827"/>
+  <circle cx="128" cy="48" r="13" fill="#1f2937"/>
+  <circle cx="148" cy="52" r="11" fill="#111827"/>
+  
+  <!-- Overlapping canopies for depth -->
+  <circle cx="20" cy="50" r="8" fill="#374151"/>
+  <circle cx="55" cy="38" r="10" fill="#374151"/>
+  <circle cx="95" cy="42" r="9" fill="#374151"/>
+  <circle cx="115" cy="44" r="11" fill="#374151"/>
+  <circle cx="138" cy="50" r="8" fill="#374151"/>
+</svg>

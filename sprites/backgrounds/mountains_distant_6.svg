@@ -1,0 +1,25 @@
+<svg width="800" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rolling hills with gentle slopes -->
+  <defs>
+    <linearGradient id="mountainGradient7" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b9dc3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6b7c99;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="800" height="300" fill="#dce9ff" opacity="0.3"/>
+  
+  <!-- Gentle rolling hills -->
+  <path d="M0,180 Q100,160 200,170 Q300,150 400,160 Q500,140 600,155 Q700,135 800,150 L800,300 L0,300 Z" 
+        fill="url(#mountainGradient7)" opacity="0.8"/>
+  
+  <!-- Secondary hill layer -->
+  <path d="M0,200 Q80,190 160,195 Q240,180 320,185 Q400,170 480,180 Q560,160 640,175 Q720,155 800,170 L800,300 L0,300 Z" 
+        fill="url(#mountainGradient7)" opacity="0.6"/>
+  
+  <!-- Mist effects -->
+  <ellipse cx="200" cy="165" rx="60" ry="8" fill="#ffffff" opacity="0.5"/>
+  <ellipse cx="500" cy="150" rx="50" ry="6" fill="#ffffff" opacity="0.4"/>
+  <ellipse cx="700" cy="145" rx="45" ry="7" fill="#ffffff" opacity="0.3"/>
+</svg>

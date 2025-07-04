@@ -1,0 +1,24 @@
+<!-- Ice Platform Center Tile - 16x16px 8-bit style -->
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+  <!-- Ice blue base -->
+  <rect x="0" y="0" width="16" height="16" fill="#B8E6FF"/>
+  
+  <!-- Ice highlights -->
+  <rect x="0" y="0" width="16" height="2" fill="#E6F7FF"/>
+  <rect x="0" y="2" width="16" height="2" fill="#D1EFFF"/>
+  
+  <!-- Ice cracks/texture -->
+  <rect x="2" y="4" width="1" height="8" fill="#9BD4F5"/>
+  <rect x="6" y="6" width="1" height="6" fill="#9BD4F5"/>
+  <rect x="10" y="5" width="1" height="7" fill="#9BD4F5"/>
+  <rect x="14" y="4" width="1" height="8" fill="#9BD4F5"/>
+  
+  <!-- Ice shine effects -->
+  <rect x="1" y="1" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="4" y="1" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="8" y="1" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="12" y="1" width="1" height="1" fill="#FFFFFF"/>
+  
+  <!-- Bottom edge darkening -->
+  <rect x="0" y="14" width="16" height="2" fill="#85C1E8"/>
+</svg>

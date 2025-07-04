@@ -1,0 +1,16 @@
+<svg width="20" height="6" viewBox="0 0 20 6" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bow body (curved) -->
+  <path d="M 2 1 Q 10 0 18 1 Q 10 6 2 5 Z" fill="#8B4513" stroke="#654321" stroke-width="1"/>
+  
+  <!-- Bow string -->
+  <line x1="2" y1="1.5" x2="2" y2="4.5" stroke="#D2B48C" stroke-width="1"/>
+  
+  <!-- Grip area -->
+  <rect x="9" y="2" width="2" height="2" fill="#654321" stroke="#4B2F20" stroke-width="1"/>
+  
+  <!-- Bow tips -->
+  <circle cx="2" cy="1.5" r="0.5" fill="#654321"/>
+  <circle cx="2" cy="4.5" r="0.5" fill="#654321"/>
+  <circle cx="18" cy="1.5" r="0.5" fill="#654321"/>
+  <circle cx="18" cy="4.5" r="0.5" fill="#654321"/>
+</svg>

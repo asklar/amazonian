@@ -1,0 +1,13 @@
+<svg width="16" height="2" viewBox="0 0 16 2" xmlns="http://www.w3.org/2000/svg">
+  <!-- Arrow shaft -->
+  <rect x="2" y="0.5" width="12" height="1" fill="#8B4513" stroke="#654321" stroke-width="0.5"/>
+  
+  <!-- Arrow head -->
+  <polygon points="14,0.5 16,1 14,1.5" fill="#C0C0C0" stroke="#808080" stroke-width="0.5"/>
+  
+  <!-- Arrow fletching -->
+  <polygon points="0,0 2,0.5 2,1.5 0,2" fill="#FF6347" stroke="#B22222" stroke-width="0.5"/>
+  
+  <!-- Arrow nock -->
+  <rect x="0" y="0.7" width="1" height="0.6" fill="#654321"/>
+</svg>

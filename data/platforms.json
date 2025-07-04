@@ -1,0 +1,32 @@
+{
+  "platformTypes": {
+    "grass": {
+      "name": "Grass Platform",
+      "friction": 0.70,
+      "sprite": "/sprites/platforms/grass_center.svg",
+      "color": "#4a8c4a",
+      "description": "Natural grass surface with moderate friction"
+    },
+    "stone": {
+      "name": "Stone Platform", 
+      "friction": 0.05,
+      "sprite": "/sprites/platforms/stone_center.svg",
+      "color": "#666666",
+      "description": "Solid stone surface with excellent grip"
+    },
+    "wood": {
+      "name": "Wooden Platform",
+      "friction": 0.30,
+      "sprite": "/sprites/platforms/wood_center.svg", 
+      "color": "#8b4513",
+      "description": "Wooden planks with good friction and balanced feel"
+    },
+    "ice": {
+      "name": "Ice Platform",
+      "friction": 0.96,
+      "sprite": "/sprites/platforms/ice_center.svg",
+      "color": "#87ceeb",
+      "description": "Slippery ice surface with very low friction"
+    }
+  }
+}

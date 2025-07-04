@@ -1,0 +1,107 @@
+<svg width="24" height="32" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .debris-float {
+        animation: debris-drift 1.2s ease-in-out infinite alternate;
+      }
+      .debris-float-2 {
+        animation: debris-drift 1.5s ease-in-out infinite alternate-reverse;
+      }
+      .tornado-sway {
+        animation: tornado-sway 2s ease-in-out infinite;
+        transform-origin: 12px 28px;
+      }
+      @keyframes debris-drift {
+        0% { transform: translate(0px, 0px); }
+        100% { transform: translate(2px, -1px); }
+      }
+      @keyframes tornado-sway {
+        0% { transform: rotate(-1deg); }
+        50% { transform: rotate(1deg); }
+        100% { transform: rotate(-1deg); }
+      }
+    </style>
+  </defs>
+  
+  <!-- 8-bit 3D tornado from side view -->
+  <g class="tornado-sway">
+    <!-- Top wide cloud base -->
+    <rect x="2" y="1" width="20" height="3" fill="#E6F3FF" opacity="0.8"/>
+    <rect x="4" y="4" width="16" height="2" fill="#CCE7FF" opacity="0.9"/>
+    <rect x="6" y="6" width="12" height="2" fill="#B3DBFF"/>
+    
+    <!-- Upper tornado body (wide at top) -->
+    <rect x="7" y="8" width="10" height="2" fill="#99CFFF"/>
+    <rect x="8" y="10" width="8" height="2" fill="#80C3FF"/>
+    <rect x="9" y="12" width="6" height="2" fill="#66B7FF"/>
+    
+    <!-- Middle tornado body with 3D shading -->
+    <rect x="10" y="14" width="4" height="2" fill="#4DABFF"/>
+    <rect x="9" y="16" width="6" height="2" fill="#339FFF"/>
+    <rect x="10" y="18" width="4" height="2" fill="#1A93FF"/>
+    <rect x="11" y="20" width="2" height="2" fill="#0087FF"/>
+    
+    <!-- Lower tornado body (narrowing to spout) -->
+    <rect x="10" y="22" width="4" height="2" fill="#0080E6"/>
+    <rect x="11" y="24" width="2" height="2" fill="#0073CC"/>
+    <rect x="11" y="26" width="2" height="2" fill="#0066B3"/>
+    
+    <!-- Tornado spout at bottom -->
+    <rect x="12" y="28" width="1" height="2" fill="#005999"/>
+    <rect x="12" y="30" width="1" height="1" fill="#004D80"/>
+    
+    <!-- 3D depth shading - left side darker -->
+    <rect x="7" y="9" width="1" height="1" fill="#80C3FF"/>
+    <rect x="8" y="11" width="1" height="1" fill="#66B7FF"/>
+    <rect x="9" y="13" width="1" height="1" fill="#4DABFF"/>
+    <rect x="9" y="15" width="1" height="1" fill="#339FFF"/>
+    <rect x="9" y="17" width="1" height="1" fill="#1A93FF"/>
+    <rect x="10" y="19" width="1" height="1" fill="#0087FF"/>
+    <rect x="10" y="21" width="1" height="1" fill="#0080E6"/>
+    <rect x="10" y="23" width="1" height="1" fill="#0073CC"/>
+    <rect x="11" y="25" width="1" height="1" fill="#0066B3"/>
+    <rect x="11" y="27" width="1" height="1" fill="#005999"/>
+    
+    <!-- 3D depth shading - right side lighter -->
+    <rect x="16" y="9" width="1" height="1" fill="#B3DBFF"/>
+    <rect x="15" y="11" width="1" height="1" fill="#99CFFF"/>
+    <rect x="14" y="13" width="1" height="1" fill="#80C3FF"/>
+    <rect x="14" y="15" width="1" height="1" fill="#66B7FF"/>
+    <rect x="13" y="17" width="1" height="1" fill="#4DABFF"/>
+    <rect x="13" y="19" width="1" height="1" fill="#339FFF"/>
+    <rect x="13" y="21" width="1" height="1" fill="#1A93FF"/>
+    <rect x="12" y="23" width="1" height="1" fill="#0087FF"/>
+    <rect x="12" y="25" width="1" height="1" fill="#0080E6"/>
+    <rect x="12" y="27" width="1" height="1" fill="#0073CC"/>
+    
+    <!-- Spiral pattern for 3D effect -->
+    <rect x="8" y="8" width="1" height="1" fill="#FFFFFF" opacity="0.6"/>
+    <rect x="14" y="10" width="1" height="1" fill="#FFFFFF" opacity="0.6"/>
+    <rect x="10" y="12" width="1" height="1" fill="#FFFFFF" opacity="0.7"/>
+    <rect x="13" y="14" width="1" height="1" fill="#FFFFFF" opacity="0.7"/>
+    <rect x="11" y="16" width="1" height="1" fill="#FFFFFF" opacity="0.8"/>
+    <rect x="12" y="18" width="1" height="1" fill="#FFFFFF" opacity="0.8"/>
+    <rect x="11" y="20" width="1" height="1" fill="#FFFFFF" opacity="0.9"/>
+    <rect x="12" y="22" width="1" height="1" fill="#FFFFFF" opacity="0.9"/>
+  </g>
+  
+  <!-- Floating debris particles -->
+  <g class="debris-float">
+    <rect x="5" y="7" width="1" height="1" fill="#FFFFFF" opacity="0.9"/>
+    <rect x="17" y="9" width="1" height="1" fill="#FFFFFF" opacity="0.8"/>
+    <rect x="8" y="15" width="1" height="1" fill="#FFFFFF" opacity="0.7"/>
+    <rect x="15" y="17" width="1" height="1" fill="#FFFFFF" opacity="0.6"/>
+  </g>
+  
+  <g class="debris-float-2">
+    <rect x="6" y="11" width="1" height="1" fill="#CCE7FF" opacity="0.8"/>
+    <rect x="16" y="13" width="1" height="1" fill="#CCE7FF" opacity="0.7"/>
+    <rect x="9" y="19" width="1" height="1" fill="#CCE7FF" opacity="0.6"/>
+    <rect x="14" y="21" width="1" height="1" fill="#CCE7FF" opacity="0.5"/>
+  </g>
+  
+  <!-- Dust/debris at spout base -->
+  <rect x="11" y="29" width="3" height="1" fill="#B3DBFF" opacity="0.6"/>
+  <rect x="10" y="30" width="5" height="1" fill="#CCE7FF" opacity="0.5"/>
+  <rect x="9" y="31" width="7" height="1" fill="#E6F3FF" opacity="0.4"/>
+</svg>

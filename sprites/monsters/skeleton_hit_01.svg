@@ -1,0 +1,96 @@
+<svg width="32" height="40" viewBox="0 0 32 40" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+  <!-- Skeleton Hit State - bones rattling from impact -->
+  
+  <!-- Skull base (tilted from impact) -->
+  <rect x="12" y="6" width="12" height="10" fill="#F5F5DC"/>
+  <rect x="10" y="8" width="16" height="6" fill="#F5F5DC"/>
+  <rect x="11" y="7" width="14" height="8" fill="#FFFACD"/>
+  
+  <!-- Skull shading -->
+  <rect x="13" y="7" width="10" height="2" fill="#FFFFFF"/>
+  <rect x="14" y="9" width="8" height="2" fill="#F0F8FF"/>
+  
+  <!-- Eye sockets (glowing with pain) -->
+  <rect x="14" y="9" width="3" height="3" fill="#000000"/>
+  <rect x="19" y="9" width="3" height="3" fill="#000000"/>
+  <rect x="15" y="10" width="1" height="1" fill="#FF0000"/>
+  <rect x="20" y="10" width="1" height="1" fill="#FF0000"/>
+  
+  <!-- Nasal cavity -->
+  <rect x="17" y="11" width="2" height="3" fill="#000000"/>
+  
+  <!-- Jaw (hanging open from shock) -->
+  <rect x="14" y="14" width="8" height="3" fill="#F5F5DC"/>
+  <rect x="15" y="15" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="17" y="15" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="19" y="15" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="21" y="15" width="1" height="1" fill="#FFFFFF"/>
+  
+  <!-- Neck vertebrae (displaced) -->
+  <rect x="15" y="17" width="4" height="2" fill="#F5F5DC"/>
+  <rect x="16" y="17" width="2" height="2" fill="#FFFACD"/>
+  
+  <!-- Ribcage (cracked and displaced) -->
+  <rect x="7" y="19" width="16" height="14" fill="#F5F5DC"/>
+  <rect x="8" y="20" width="14" height="12" fill="#FFFACD"/>
+  
+  <!-- Cracked ribs -->
+  <rect x="9" y="21" width="6" height="1" fill="#E6E6FA"/>
+  <rect x="17" y="21" width="5" height="1" fill="#E6E6FA"/>
+  <rect x="9" y="23" width="8" height="1" fill="#E6E6FA"/>
+  <rect x="18" y="23" width="4" height="1" fill="#E6E6FA"/>
+  <rect x="9" y="25" width="5" height="1" fill="#E6E6FA"/>
+  <rect x="16" y="25" width="6" height="1" fill="#E6E6FA"/>
+  <rect x="9" y="27" width="7" height="1" fill="#E6E6FA"/>
+  <rect x="17" y="27" width="5" height="1" fill="#E6E6FA"/>
+  <rect x="9" y="29" width="4" height="1" fill="#E6E6FA"/>
+  <rect x="15" y="29" width="7" height="1" fill="#E6E6FA"/>
+  
+  <!-- Spine (shifted) -->
+  <rect x="16" y="19" width="2" height="14" fill="#DCDCDC"/>
+  
+  <!-- Arms (flailing from impact) -->
+  <rect x="2" y="19" width="4" height="8" fill="#F5F5DC"/>
+  <rect x="26" y="21" width="4" height="8" fill="#F5F5DC"/>
+  <rect x="3" y="20" width="2" height="6" fill="#FFFACD"/>
+  <rect x="27" y="22" width="2" height="6" fill="#FFFACD"/>
+  
+  <!-- Forearms (separated) -->
+  <rect x="0" y="27" width="4" height="6" fill="#F5F5DC"/>
+  <rect x="28" y="29" width="4" height="6" fill="#F5F5DC"/>
+  <rect x="1" y="28" width="2" height="4" fill="#FFFACD"/>
+  <rect x="29" y="30" width="2" height="4" fill="#FFFACD"/>
+  
+  <!-- Hands (skeletal, shaking) -->
+  <rect x="0" y="33" width="4" height="3" fill="#F5F5DC"/>
+  <rect x="28" y="35" width="4" height="3" fill="#F5F5DC"/>
+  
+  <!-- Finger bones (rattling) -->
+  <rect x="0" y="36" width="1" height="2" fill="#FFFACD"/>
+  <rect x="2" y="37" width="1" height="2" fill="#FFFACD"/>
+  <rect x="4" y="36" width="1" height="2" fill="#FFFACD"/>
+  <rect x="27" y="38" width="1" height="2" fill="#FFFACD"/>
+  <rect x="29" y="37" width="1" height="2" fill="#FFFACD"/>
+  <rect x="31" y="38" width="1" height="2" fill="#FFFACD"/>
+  
+  <!-- Leg bones (wobbly) -->
+  <rect x="11" y="33" width="4" height="7" fill="#F5F5DC"/>
+  <rect x="19" y="33" width="4" height="7" fill="#F5F5DC"/>
+  <rect x="12" y="34" width="2" height="5" fill="#FFFACD"/>
+  <rect x="20" y="34" width="2" height="5" fill="#FFFACD"/>
+  
+  <!-- Feet (displaced) -->
+  <rect x="10" y="39" width="5" height="1" fill="#F5F5DC"/>
+  <rect x="19" y="39" width="5" height="1" fill="#F5F5DC"/>
+  
+  <!-- Impact effects (bone fragments) -->
+  <rect x="6" y="12" width="1" height="1" fill="#F5F5DC"/>
+  <rect x="25" y="15" width="1" height="1" fill="#FFFACD"/>
+  <rect x="4" y="20" width="1" height="1" fill="#F5F5DC"/>
+  <rect x="27" y="18" width="1" height="1" fill="#FFFACD"/>
+  
+  <!-- Hit sparks -->
+  <rect x="8" y="8" width="2" height="2" fill="#FFD700"/>
+  <rect x="24" y="10" width="2" height="2" fill="#FF6B6B"/>
+  <rect x="26" y="16" width="2" height="2" fill="#FFA500"/>
+</svg>
