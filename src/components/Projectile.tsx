@@ -20,19 +20,11 @@ const Projectile: React.FC<ProjectileProps> = ({ projectile, cameraOffset }) => 
       
       const gameConfig = dataLoader.getGameConfig();
       
-      if (projectile.type === 'arrow') {
-        const bowConfig = gameConfig.weaponTypes.bow;
-        return bowConfig?.projectile;
-      }
-      
-      if (projectile.type === 'fire') {
-        const fireConfig = gameConfig.weaponTypes.fire;
-        return fireConfig?.projectile;
-      }
-      
-      if (projectile.type === 'frost') {
-        const frostConfig = gameConfig.weaponTypes.frost;
-        return frostConfig?.projectile;
+      // Look for any weapon type that has this projectile type
+      for (const weaponType of Object.values(gameConfig.weaponTypes)) {
+        if (weaponType.projectile?.type === projectile.type) {
+          return weaponType.projectile;
+        }
       }
       
       return null;
@@ -50,8 +42,8 @@ const Projectile: React.FC<ProjectileProps> = ({ projectile, cameraOffset }) => 
     // Flip projectile based on facing direction
     transform: projectile.facing === 'left' ? 'scaleX(-1)' : 'scaleX(1)',
     // Set explicit size from config
-    width: projectileConfig?.size?.width || (projectile.type === 'arrow' ? 16 : projectile.type === 'frost' ? 16 : 24),
-    height: projectileConfig?.size?.height || (projectile.type === 'arrow' ? 4 : projectile.type === 'frost' ? 8 : 24),
+    width: projectileConfig?.size?.width || (projectile.type === 'arrow' ? 16 : projectile.type === 'frost' ? 16 : projectile.type === 'whirlwind' ? 20 : 24),
+    height: projectileConfig?.size?.height || (projectile.type === 'arrow' ? 4 : projectile.type === 'frost' ? 8 : projectile.type === 'whirlwind' ? 20 : 24),
     // Ensure projectiles render above other elements
     zIndex: 100,
     position: 'absolute',
@@ -71,6 +63,8 @@ const Projectile: React.FC<ProjectileProps> = ({ projectile, cameraOffset }) => 
         return '/sprites/magic/fireball_new.svg';
       case 'frost':
         return '/sprites/weapons/frost_crystal.svg';
+      case 'whirlwind':
+        return '/sprites/weapons/whirlwind.svg';
       default:
         return undefined;
     }

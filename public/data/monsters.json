@@ -84,11 +84,15 @@
       },
       "size": { "width": 56, "height": 70 },
       "isFlying": true,
-      "canShoot": true,
-      "shootCooldown": 120,
-      "shootRange": 250,
-      "projectileType": "frost",
-      "projectileLaunchOffset": { "x": 0.5, "y": 0.5 },
+      "projectiles": [
+        {
+          "type": "frost",
+          "launchOffset": { "x": 0.5, "y": 0.5 },
+          "weight": 1.0,
+          "cooldown": 120,
+          "range": 250
+        }
+      ],
       "ai": {
         "randomDirectionChangeChance": 0.015,
         "speedBoostRange": 120,
@@ -134,11 +138,15 @@
       },
       "size": { "width": 60, "height": 75 },
       "isFlying": true,
-      "canShoot": true,
-      "shootCooldown": 120,
-      "shootRange": 300,
-      "projectileType": "fire",
-      "projectileLaunchOffset": { "x": 1.0, "y": 0.5 },
+      "projectiles": [
+        {
+          "type": "fire",
+          "launchOffset": { "x": 1.0, "y": 0.5 },
+          "weight": 1.0,
+          "cooldown": 120,
+          "range": 300
+        }
+      ],
       "ai": {
         "randomDirectionChangeChance": 0.02,
         "speedBoostRange": 150,
@@ -167,16 +175,20 @@
       },
       "size": { "width": 52, "height": 65 },
       "isFlying": true,
+      "projectiles": [
+        {
+          "type": "whirlwind",
+          "launchOffset": { "x": 0.5, "y": 0.5 },
+          "weight": 1.0,
+          "cooldown": 100,
+          "range": 200
+        }
+      ],
       "animations": {
         "walk": { "frames": 4, "duration": 250 },
         "attack": { "frames": 4, "duration": 200 },
         "death": { "frames": 6, "duration": 550 }
-      },
-      "canShoot": true,
-        "shootCooldown": 100,
-        "shootRange": 200,
-        "projectileType": "fire",
-        "projectileLaunchOffset": { "x": 0.5, "y": 0.5 }
+      }
     },
     "wyvern": {
       "name": "Wyvern",
@@ -204,11 +216,15 @@
       "sprites": {
         "idle": "/sprites/monsters/wyvern-2.png"
       },
-      "canShoot": true,
-      "shootCooldown": 80,
-      "shootRange": 280,
-      "projectileType": "fire",
-      "projectileLaunchOffset": { "x": 0.5, "y": 0.5 },
+      "projectiles": [
+        {
+          "type": "fire",
+          "launchOffset": { "x": 0.5, "y": 0.5 },
+          "weight": 1.0,
+          "cooldown": 80,
+          "range": 280
+        }
+      ],
       "ai": {
         "randomDirectionChangeChance": 0.02,
         "speedBoostRange": 150,

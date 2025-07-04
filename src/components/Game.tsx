@@ -720,19 +720,23 @@ const Game: React.FC = () => {
         // Debug logging for Elite Wyvern only
         const isEliteWyvern = debugMode && monster.type === 'wyvern_elite';
 
-        // Handle monster shooting (for blue dragons and other shooters)
-        if (monster.canShoot && monster.isAlive && !monster.isDying && !isHit && monster.projectileType) {
+        // Handle monster shooting (for dragons and other shooters)
+        if (monster.isAlive && !monster.isDying && !isHit && monster.projectiles && monster.projectiles.length > 0) {
+          // Select a projectile to check for shooting (use first one for timing)
+          const primaryProjectile = monster.projectiles[0];
+          const shootCooldown = primaryProjectile.cooldown || 120;
+          const shootRange = primaryProjectile.range || 300;
+          
           const shootTimer = (monster.shootTimer || 0) + 1;
           updatedMonster.shootTimer = shootTimer;
           
           if (isEliteWyvern) {
-            console.log(`🔍 Elite Wyvern ${monster.id}: Shoot timer: ${shootTimer}/${monster.shootCooldown || 120}`);
+            console.log(`🔍 Elite Wyvern ${monster.id}: Shoot timer: ${shootTimer}/${shootCooldown}`);
           }
           
-          if (shootTimer >= (monster.shootCooldown || 120)) {
+          if (shootTimer >= shootCooldown) {
             // Check if player is within range
             const distanceToPlayer = Math.abs(updatedMonster.position.x - newState.player.position.x);
-            const shootRange = monster.shootRange || 300;
             
             if (isEliteWyvern) {
               console.log(`🔍 Elite Wyvern ${monster.id}: Player distance: ${distanceToPlayer}, shoot range: ${shootRange}`);
@@ -799,7 +803,7 @@ const Game: React.FC = () => {
               // Get projectile configuration from weapons.json
               try {
                 if (isEliteWyvern) {
-                  console.log(`🔍 Elite Wyvern ${monster.id}: Trying to load projectile config for '${monster.projectileType}'`);
+                  console.log(`🔍 Elite Wyvern ${monster.id}: Trying to load projectile config for monster projectiles:`, monster.projectiles);
                 }
                 
                 // Check if game config is loaded before trying to access it
@@ -816,21 +820,38 @@ const Game: React.FC = () => {
                   console.log(`🔍 Elite Wyvern ${monster.id}: Game config loaded, checking weaponTypes:`, Object.keys(gameConfig.weaponTypes));
                 }
                 
-                const weaponConfig = gameConfig.weaponTypes[monster.projectileType];
+                // Select a projectile from the projectiles array (could be random based on weight)
+                let selectedProjectile = monster.projectiles[0]; // Default to first projectile
+                
+                // If multiple projectiles, select based on weight (simple random selection for now)
+                if (monster.projectiles.length > 1) {
+                  const totalWeight = monster.projectiles.reduce((sum, proj) => sum + proj.weight, 0);
+                  let random = Math.random() * totalWeight;
+                  
+                  for (const projectile of monster.projectiles) {
+                    random -= projectile.weight;
+                    if (random <= 0) {
+                      selectedProjectile = projectile;
+                      break;
+                    }
+                  }
+                }
+                
+                const weaponConfig = gameConfig.weaponTypes[selectedProjectile.type];
                 
                 if (isEliteWyvern) {
-                  console.log(`🔍 Elite Wyvern ${monster.id}: Weapon config for '${monster.projectileType}':`, weaponConfig);
+                  console.log(`🔍 Elite Wyvern ${monster.id}: Selected projectile '${selectedProjectile.type}', weapon config:`, weaponConfig);
                 }
                 
                 if (weaponConfig?.projectile) {
                   if (isEliteWyvern) {
-                    console.log(`🎯 Elite Wyvern ${monster.id}: FIRING fire projectile!`);
+                    console.log(`🎯 Elite Wyvern ${monster.id}: FIRING ${selectedProjectile.type} projectile!`);
                   }
                   
                   const projectileConfig = weaponConfig.projectile;
                   
-                  // Calculate launch position using offset
-                  const launchOffset = monster.projectileLaunchOffset || { x: 0.5, y: 0.5 };
+                  // Calculate launch position using offset from selected projectile
+                  const launchOffset = selectedProjectile.launchOffset || { x: 0.5, y: 0.5 };
                   const spriteWidth = monster.size?.width || 32;
                   const spriteHeight = monster.size?.height || 40;
                   
@@ -863,9 +884,9 @@ const Game: React.FC = () => {
                     projectileVelY = 0;
                   }
                   
-                  const fireProjectile: Projectile = {
+                  const newProjectile: Projectile = {
                     id: `${projectileConfig.type}_${monster.id}_${Date.now()}`,
-                    type: projectileConfig.type as 'arrow' | 'fire' | 'frost',
+                    type: projectileConfig.type as 'arrow' | 'fire' | 'frost' | 'whirlwind',
                     position: {
                       x: launchX,
                       y: launchY
@@ -881,7 +902,7 @@ const Game: React.FC = () => {
                     ownerId: monster.id
                   };
                   
-                  newState.projectiles = [...newState.projectiles, fireProjectile];
+                  newState.projectiles = [...newState.projectiles, newProjectile];
                   updatedMonster.shootTimer = 0; // Reset cooldown
                   
                   if (isEliteWyvern) {
@@ -889,12 +910,12 @@ const Game: React.FC = () => {
                   }
                 } else {
                   if (isEliteWyvern) {
-                    console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - no projectile config found for ${monster.projectileType}. WeaponConfig:`, weaponConfig);
+                    console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - no projectile config found for ${selectedProjectile.type}. WeaponConfig:`, weaponConfig);
                   }
                 }
               } catch (error) {
                 if (isEliteWyvern) {
-                  console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - error loading projectile config for '${monster.projectileType}':`, error);
+                  console.log(`❌ Elite Wyvern ${monster.id}: NOT shooting - error loading projectile config:`, error);
                   if (error instanceof Error) {
                     console.log(`❌ Elite Wyvern ${monster.id}: Error details:`, {
                       name: error.name,
@@ -912,18 +933,17 @@ const Game: React.FC = () => {
           } else {
             // Elite Wyvern cooldown check - only log every 60 frames to avoid spam
             if (isEliteWyvern && shootTimer % 60 === 0) {
-              console.log(`⏳ Elite Wyvern ${monster.id}: Cooldown not ready (${shootTimer}/${monster.shootCooldown || 120})`);
+              console.log(`⏳ Elite Wyvern ${monster.id}: Cooldown not ready (${shootTimer}/${shootCooldown})`);
             }
           }
         } else {
           // Check why Elite Wyvern can't shoot at all
           if (isEliteWyvern) {
             const reasons = [];
-            if (!monster.canShoot) reasons.push('canShoot=false');
             if (!monster.isAlive) reasons.push('not alive');
             if (monster.isDying) reasons.push('dying');
             if (isHit) reasons.push('hit stunned');
-            if (!monster.projectileType) reasons.push('no projectileType');
+            if (!monster.projectiles || monster.projectiles.length === 0) reasons.push('no projectiles');
             
             if (reasons.length > 0) {
               console.log(`❌ Elite Wyvern ${monster.id}: Cannot shoot - ${reasons.join(', ')}`);

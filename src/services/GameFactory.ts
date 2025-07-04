@@ -70,23 +70,15 @@ class GameFactory {
           monster.sprites = monsterConfig.sprites;
           monster.size = monsterConfig.size;
           monster.isFlying = monsterConfig.isFlying;
-          monster.canShoot = monsterConfig.canShoot;
-          monster.shootCooldown = monsterConfig.shootCooldown;
-          monster.shootRange = monsterConfig.shootRange;
-          monster.projectileType = monsterConfig.projectileType;
-          monster.projectileLaunchOffset = monsterConfig.projectileLaunchOffset;
+          monster.projectiles = monsterConfig.projectiles; // Use new projectiles array
           monster.shootTimer = 0; // Initialize shoot timer
           monster.ai = monsterConfig.ai; // Add AI parameters
           monster.movementTimer = 0; // Initialize movement timer
           
           // Debug output for ice dragons
           if (monsterData.type === 'ice_dragon') {
-            console.log(`Ice dragon ${monsterData.id} created with:`, {
-              canShoot: monster.canShoot,
-              shootCooldown: monster.shootCooldown,
-              shootRange: monster.shootRange,
-              projectileType: monster.projectileType,
-              projectileLaunchOffset: monster.projectileLaunchOffset,
+            console.log(`Ice dragon ${monsterData.id} created with projectiles:`, {
+              projectiles: monster.projectiles,
               ai: monster.ai
             });
             console.log(`Monster config data:`, monsterConfig);

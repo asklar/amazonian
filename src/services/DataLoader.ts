@@ -67,11 +67,13 @@ export interface MonsterTypeData {
   };
   size: { width: number; height: number };
   isFlying?: boolean;
-  canShoot?: boolean;
-  shootCooldown?: number;
-  shootRange?: number;
-  projectileType?: 'fire' | 'frost';
-  projectileLaunchOffset?: { x: number; y: number };
+  projectiles?: {
+    type: string;
+    cooldown: number;
+    range: number;
+    launchOffset: { x: number; y: number };
+    weight: number;
+  }[];
   ai?: {
     randomDirectionChangeChance?: number;
     speedBoostRange?: number;

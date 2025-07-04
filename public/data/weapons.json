@@ -64,6 +64,21 @@
         "size": { "width": 16, "height": 8 }
       },
       "description": "A magical frost crystal projectile used by ice dragons"
+    },
+    "whirlwind": {
+      "name": "Wind Whirlwind",
+      "damage": 22,
+      "range": 280,
+      "attackSpeed": 0,
+      "type": "ranged",
+      "sprite": "/sprites/weapons/whirlwind.svg",
+      "projectile": {
+        "type": "whirlwind",
+        "speed": 4,
+        "sprite": "/sprites/weapons/whirlwind.svg",
+        "size": { "width": 20, "height": 20 }
+      },
+      "description": "A swirling wind projectile used by wind dragons"
     }
   }
 }

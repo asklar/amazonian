@@ -61,13 +61,15 @@ export interface Monster {
   sprites?: { idle?: string; hit?: string; dying?: string; };
   size?: { width: number; height: number };
   isFlying?: boolean;
-  // Monster shooting capabilities
-  canShoot?: boolean;
-  shootCooldown?: number;
+  // Monster shooting capabilities - moved to per-projectile basis
   shootTimer?: number;
-  shootRange?: number;
-  projectileType?: 'fire' | 'frost';
-  projectileLaunchOffset?: { x: number; y: number };
+  projectiles?: Array<{
+    type: 'fire' | 'frost' | 'whirlwind';
+    launchOffset: { x: number; y: number };
+    weight: number;
+    cooldown: number;
+    range: number;
+  }>;
   // Monster AI parameters
   ai?: {
     randomDirectionChangeChance?: number;
@@ -102,7 +104,7 @@ export interface Loot {
 
 export interface Projectile {
   id: string;
-  type: 'arrow' | 'fire' | 'frost';
+  type: 'arrow' | 'fire' | 'frost' | 'whirlwind';
   position: Position;
   velocity: Velocity;
   damage: number;

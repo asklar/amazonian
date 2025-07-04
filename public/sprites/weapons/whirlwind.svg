@@ -1,0 +1,47 @@
+<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .whirlwind-outer { fill: #87CEEB; opacity: 0.8; }
+      .whirlwind-mid { fill: #4682B4; opacity: 0.9; }
+      .whirlwind-inner { fill: #1E90FF; opacity: 1.0; }
+      .whirlwind-center { fill: #000080; opacity: 0.7; }
+      .whirl-animation {
+        animation: whirl 0.5s linear infinite;
+        transform-origin: 10px 10px;
+      }
+      @keyframes whirl {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </defs>
+  
+  <!-- Outer swirl -->
+  <g class="whirl-animation">
+    <path class="whirlwind-outer" d="M 10 2 Q 16 4 18 10 Q 16 16 10 18 Q 4 16 2 10 Q 4 4 10 2 Z"/>
+    <path class="whirlwind-outer" d="M 10 4 Q 14 5 16 10 Q 14 15 10 16 Q 6 15 4 10 Q 6 5 10 4 Z"/>
+  </g>
+  
+  <!-- Mid swirl -->
+  <g class="whirl-animation" style="animation-duration: 0.3s; animation-direction: reverse;">
+    <path class="whirlwind-mid" d="M 10 5 Q 13 6 15 10 Q 13 14 10 15 Q 7 14 5 10 Q 7 6 10 5 Z"/>
+    <circle class="whirlwind-mid" cx="10" cy="7" r="1"/>
+    <circle class="whirlwind-mid" cx="13" cy="10" r="1"/>
+    <circle class="whirlwind-mid" cx="10" cy="13" r="1"/>
+    <circle class="whirlwind-mid" cx="7" cy="10" r="1"/>
+  </g>
+  
+  <!-- Inner core -->
+  <g class="whirl-animation" style="animation-duration: 0.2s;">
+    <circle class="whirlwind-inner" cx="10" cy="10" r="3"/>
+    <circle class="whirlwind-center" cx="10" cy="10" r="1"/>
+  </g>
+  
+  <!-- Wind lines for motion effect -->
+  <g class="whirl-animation" style="animation-duration: 0.4s; animation-direction: reverse;">
+    <path class="whirlwind-outer" d="M 8 8 Q 10 6 12 8 Q 10 10 8 8" stroke="#B0E0E6" stroke-width="0.5" fill="none"/>
+    <path class="whirlwind-outer" d="M 12 8 Q 14 10 12 12 Q 10 10 12 8" stroke="#B0E0E6" stroke-width="0.5" fill="none"/>
+    <path class="whirlwind-outer" d="M 12 12 Q 10 14 8 12 Q 10 10 12 12" stroke="#B0E0E6" stroke-width="0.5" fill="none"/>
+    <path class="whirlwind-outer" d="M 8 12 Q 6 10 8 8 Q 10 10 8 12" stroke="#B0E0E6" stroke-width="0.5" fill="none"/>
+  </g>
+</svg>
