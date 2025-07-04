@@ -10,12 +10,12 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
   const lastTapRef = useRef<number>(0);
   const currentDirectionRef = useRef<'left' | 'right' | null>(null);
 
-  // Calculate scale to fit the game in mobile viewport
+  // Calculate scale to fit the game in mobile viewport - match Game component scaling
   const getScale = useCallback(() => {
     const gameWidth = 800;
     const gameHeight = 600;
     const availableWidth = window.innerWidth;
-    const availableHeight = window.innerHeight * 0.85; // 85% for game area
+    const availableHeight = window.innerHeight; // Use full height like Game component
     
     const scaleX = availableWidth / gameWidth;
     const scaleY = availableHeight / gameHeight;
@@ -168,7 +168,7 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
         WebkitUserSelect: 'none',
         WebkitTouchCallout: 'none',
         transformOrigin: 'center center',
-        transform: `scale(${getScale()}) translate(-50%, -50%)`, // Match game container scaling and centering
+        transform: `translate(-50%, -50%) scale(${getScale()})`, // Match game container scaling and centering
         touchAction: 'manipulation',
       }}
     >

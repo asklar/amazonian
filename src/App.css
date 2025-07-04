@@ -167,42 +167,9 @@ body.landscape-mode .orientation-message {
   margin-bottom: 20px;
 }
 
-/* Mobile layout adjustments */
-@media screen and (orientation: landscape) and (max-width: 1024px) {
-  .game-container.mobile {
-    width: 100vw !important;
-    height: 85vh !important;
-  }
-  
-  .mobile-controls {
-    height: 15vh !important;
-    min-height: 100px !important;
-  }
-}
+/* Mobile layout adjustments - Remove conflicting rules, let JavaScript handle scaling */
 
-/* Responsive game scaling for different mobile screen sizes */
-@media screen and (orientation: landscape) and (max-width: 1024px) {
-  .game-container.mobile {
-    /* Scale game content to fit screen while maintaining aspect ratio */
-    background-size: cover !important;
-    background-position: center !important;
-  }
-  
-  /* Scale UI elements based on screen size */
-  .game-ui {
-    transform: scale(0.9) !important;
-    transform-origin: top left !important;
-  }
-  
-  /* Adjust font sizes for smaller screens */
-  .mobile-controls {
-    font-size: 12px !important;
-  }
-  
-  .weapon-label, .magic-label {
-    font-size: 8px !important;
-  }
-}
+/* Responsive game scaling - Remove conflicting rules, let JavaScript handle scaling */
 
 /* Extra small mobile devices */
 @media screen and (orientation: landscape) and (max-width: 768px) {
@@ -213,17 +180,6 @@ body.landscape-mode .orientation-message {
   .mobile-controls {
     font-size: 11px !important;
     padding: 5px !important;
-  }
-  
-  .dpad-btn, .jump-btn {
-    width: 45px !important;
-    height: 45px !important;
-    font-size: 14px !important;
-  }
-  
-  .jump-btn {
-    width: 60px !important;
-    font-size: 9px !important;
   }
   
   .attack-btn {
@@ -872,12 +828,12 @@ body.landscape-mode .orientation-message {
   right: 10px;
   width: auto;
   height: auto;
-  max-width: 300px;
+  max-width: 250px; /* Smaller since no movement controls */
   background: rgba(0, 0, 0, 0.3);
   border: 2px solid rgba(255, 215, 0, 0.7);
   border-radius: 10px;
   display: flex;
-  justify-content: flex-end; /* Right align the controls */
+  justify-content: center; /* Center the action controls */
   align-items: center;
   padding: 10px;
   z-index: 1001; /* Higher than touch overlay */
@@ -886,6 +842,8 @@ body.landscape-mode .orientation-message {
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
 }
+
+
 
 /* Ensure buttons are visible on transparent background for real mobile */
 body:not(.desktop-mobile-emulation) .mobile-controls .attack-btn,
@@ -920,17 +878,6 @@ body:not(.desktop-mobile-emulation) .mobile-controls {
     padding: 8px;
   }
   
-  .dpad-btn, .jump-btn {
-    width: 50px !important;
-    height: 50px !important;
-    font-size: 16px !important;
-  }
-  
-  .jump-btn {
-    width: 70px !important;
-    font-size: 10px !important;
-  }
-  
   .attack-btn {
     width: 70px !important;
     height: 50px !important;
@@ -946,12 +893,10 @@ body:not(.desktop-mobile-emulation) .mobile-controls {
 
 /* Desktop mobile emulation - always assume landscape */
 body.desktop-mobile-emulation .game-container.mobile {
-  width: 100vw !important;
-  height: 100vh !important;
-  transform: none !important;
+  /* Let JavaScript handle the scaling, don't override dimensions */
+  border: none !important;
   position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
+  /* JavaScript will handle transform, top, and left positioning */
 }
 
 body.desktop-mobile-emulation .mobile-controls {
@@ -970,42 +915,7 @@ body.desktop-mobile-emulation .orientation-message {
   display: none !important;
 }
 
-.movement-section {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
 
-.dpad {
-  display: flex;
-  gap: 5px;
-}
-
-.dpad-btn, .jump-btn {
-  width: 60px;
-  height: 60px;
-  background: #4a86c7;
-  border: 2px solid #ffd700;
-  color: #ffd700;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 8px;
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-}
-
-.dpad-btn:active, .jump-btn:active {
-  background: #ffd700;
-  color: #000;
-  transform: scale(0.95);
-}
-
-.jump-btn {
-  font-size: 12px;
-  width: 80px;
-}
 
 .action-section {
   display: flex;
@@ -1143,14 +1053,7 @@ body.desktop-mobile-emulation .orientation-message {
   justify-content: flex-start;
 }
 
-.app.mobile .game-container {
-  width: 100vw;
-  height: 85vh; /* 85% for game, 15% for controls */
-  border: none;
-  border-radius: 0;
-  max-width: none;
-  max-height: none;
-}
+/* Let JavaScript handle game container sizing on mobile */
 
 /* Touch Overlay for mobile navigation */
 .touch-overlay {
@@ -1187,17 +1090,6 @@ body.mobile-game-active {
   padding-bottom: env(safe-area-inset-bottom) !important;
   padding-left: env(safe-area-inset-left) !important;
   padding-right: env(safe-area-inset-right) !important;
-}
-
-
-
-/* Adjust mobile controls for fullscreen */
-body.mobile-game-active .mobile-controls {
-  position: fixed !important;
-  bottom: env(safe-area-inset-bottom, 0) !important;
-  left: env(safe-area-inset-left, 0) !important;
-  right: env(safe-area-inset-right, 0) !important;
-  width: calc(100vw - env(safe-area-inset-left, 0) - env(safe-area-inset-right, 0)) !important;
 }
 
 /* Dynamic viewport units using CSS custom properties */

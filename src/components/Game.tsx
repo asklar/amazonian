@@ -35,11 +35,10 @@ const Game: React.FC = () => {
   
   const gameLoopRef = useRef<number | undefined>(undefined);
   const keysRef = useRef<Set<string>>(new Set());
-  const isMobile = useIsMobile(debugMode && mobileEmulation ? true : undefined);
+  // Modified mobile detection: preserve mobile emulation even when debug mode is off
+  const isMobile = useIsMobile(mobileEmulation ? true : undefined);
   
-  // Mobile control states
-  const [mobileMovement, setMobileMovement] = useState<'left' | 'right' | null>(null);
-  const [mobileJump, setMobileJump] = useState<boolean>(false);
+  // Mobile control states (movement is handled by TouchOverlay)
   
   // Remove frame rate limiting for now to fix broken functionality
 
@@ -402,17 +401,31 @@ const Game: React.FC = () => {
     }));
   }, []);
 
-  // Mobile control handlers
-  const handleMobileMove = useCallback((direction: 'left' | 'right' | null) => {
-    console.log('Mobile move called:', direction);
-    debugLog('Mobile move called:', direction);
-    setMobileMovement(direction);
+  // Mobile control handlers (movement is handled by TouchOverlay)
+  const handleTouchMove = useCallback((direction: 'left' | 'right' | null) => {
+    console.log('Touch move called:', direction);
+    debugLog('Touch move called:', direction);
+    // Directly manipulate keyboard state for consistency with desktop
+    const keys = keysRef.current;
+    keys.delete('arrowleft');
+    keys.delete('arrowright');
+    if (direction === 'left') {
+      keys.add('arrowleft');
+    } else if (direction === 'right') {
+      keys.add('arrowright');
+    }
   }, []);
 
-  const handleMobileJump = useCallback((pressed: boolean) => {
-    console.log('Mobile jump called:', pressed);
-    debugLog('Mobile jump called:', pressed);
-    setMobileJump(pressed);
+  const handleTouchJump = useCallback((pressed: boolean) => {
+    console.log('Touch jump called:', pressed);
+    debugLog('Touch jump called:', pressed);
+    // Directly manipulate keyboard state for consistency with desktop
+    const keys = keysRef.current;
+    if (pressed) {
+      keys.add(' ');
+    } else {
+      keys.delete(' ');
+    }
   }, []);
 
   const handleMobileAttack = useCallback(() => {
@@ -432,8 +445,8 @@ const Game: React.FC = () => {
     if (isMobile) {
       document.body.classList.add('mobile-game-active');
       
-      // Add special class for desktop mobile emulation
-      if (debugMode && mobileEmulation) {
+      // Add special class for desktop mobile emulation (whether debug mode is on or off)
+      if (mobileEmulation) {
         document.body.classList.add('desktop-mobile-emulation');
       } else {
         document.body.classList.remove('desktop-mobile-emulation');
@@ -447,7 +460,7 @@ const Game: React.FC = () => {
       document.body.classList.remove('mobile-game-active');
       document.body.classList.remove('desktop-mobile-emulation');
     };
-  }, [isMobile, debugMode, mobileEmulation]);
+  }, [isMobile, mobileEmulation]);
 
   // Handle orientation for mobile devices
   useEffect(() => {
@@ -455,7 +468,7 @@ const Game: React.FC = () => {
 
     const handleOrientationChange = () => {
       // Skip orientation handling for desktop mobile emulation
-      if (debugMode && mobileEmulation) {
+      if (mobileEmulation) {
         // Desktop mobile emulation - always assume landscape
         document.body.classList.add('landscape-mode');
         document.body.classList.remove('portrait-mode');
@@ -525,7 +538,7 @@ const Game: React.FC = () => {
     handleOrientationChange();
 
     // Listen for orientation changes (real mobile devices only)
-    if (!(debugMode && mobileEmulation)) {
+    if (!mobileEmulation) {
       window.addEventListener('orientationchange', handleOrientationChange);
       window.addEventListener('resize', handleOrientationChange);
       
@@ -553,7 +566,7 @@ const Game: React.FC = () => {
       document.removeEventListener('touchstart', preventZoom);
       document.body.classList.remove('landscape-mode', 'portrait-mode');
     };
-  }, [isMobile, debugMode, mobileEmulation]);
+  }, [isMobile, mobileEmulation]);
 
   // Handle fullscreen for mobile devices
   useEffect(() => {
@@ -566,7 +579,7 @@ const Game: React.FC = () => {
       
       try {
         // Skip fullscreen for desktop mobile emulation
-        if (debugMode && mobileEmulation) {
+        if (mobileEmulation) {
           console.log('Skipping fullscreen for desktop mobile emulation');
           return;
         }
@@ -646,14 +659,14 @@ const Game: React.FC = () => {
       window.removeEventListener('resize', handleViewportResize);
       window.removeEventListener('orientationchange', handleViewportResize);
     };
-  }, [isMobile, debugMode, mobileEmulation]);
+  }, [isMobile, mobileEmulation]);
 
   // Handle mobile viewport and address bar hiding
   useEffect(() => {
     if (!isMobile) return;
 
     // Skip for desktop mobile emulation
-    if (debugMode && mobileEmulation) {
+    if (mobileEmulation) {
       return;
     }
 
@@ -717,7 +730,7 @@ const Game: React.FC = () => {
       document.body.style.width = '';
       document.body.style.height = '';
     };
-  }, [isMobile, debugMode, mobileEmulation]);
+  }, [isMobile, mobileEmulation]);
 
   // Handle fullscreen change events
   const handleFullscreenChange = () => {
@@ -769,14 +782,9 @@ const Game: React.FC = () => {
       let newPlayerVelocity = { ...prev.player.velocity };
       let newPlayerPosition = { ...prev.player.position };
 
-      // Horizontal movement (arrows or mobile controls)
-      const movingLeft = keys.has('arrowleft') || mobileMovement === 'left';
-      const movingRight = keys.has('arrowright') || mobileMovement === 'right';
-      
-      // Debug mobile movement
-      if (mobileMovement) {
-        console.log('Mobile movement state:', mobileMovement, 'movingLeft:', movingLeft, 'movingRight:', movingRight);
-      }
+      // Horizontal movement (keyboard only - mobile uses TouchOverlay)
+      const movingLeft = keys.has('arrowleft');
+      const movingRight = keys.has('arrowright');
       
       if (movingLeft) {
         newPlayerVelocity.x = -GAME_CONSTANTS.PLAYER_SPEED;
@@ -841,13 +849,8 @@ const Game: React.FC = () => {
         }
       }
 
-      // Jumping - only allow jumping if canJump is true
-      const jumpKeys = keys.has('arrowup') || keys.has(' ') || mobileJump;
-      
-      // Debug mobile jump
-      if (mobileJump) {
-        console.log('Mobile jump state:', mobileJump, 'jumpKeys:', jumpKeys, 'isOnGround:', prev.player.isOnGround, 'canJump:', prev.player.canJump);
-      }
+      // Jumping - keyboard only (mobile uses TouchOverlay)
+      const jumpKeys = keys.has('arrowup') || keys.has(' ');
       
       if (jumpKeys && prev.player.isOnGround && prev.player.canJump) {
         newPlayerVelocity.y = GAME_CONSTANTS.JUMP_FORCE;
@@ -1524,7 +1527,7 @@ const Game: React.FC = () => {
     });
 
     gameLoopRef.current = requestAnimationFrame(gameLoop);
-  }, [gameState.gameStatus, gameDataLoaded, checkPlatformCollision, checkCollision, isPaused, mobileMovement, mobileJump]);
+  }, [gameState.gameStatus, gameDataLoaded, checkPlatformCollision, checkCollision, isPaused]);
 
   // Start game loop
   useEffect(() => {
@@ -1794,7 +1797,7 @@ const Game: React.FC = () => {
           className={`game-container ${isMobile ? 'mobile' : ''}`}
           style={{
             transform: isMobile 
-              ? `scale(${Math.min(window.innerWidth / 800, (window.innerHeight * 0.85) / 600)}) translate(-50%, -50%) translate(${screenShake.x}px, ${screenShake.y}px)`
+              ? `translate(-50%, -50%) scale(${Math.min(window.innerWidth / 800, window.innerHeight / 600)}) translate(${screenShake.x}px, ${screenShake.y}px)`
               : `translate(${screenShake.x}px, ${screenShake.y}px)`,
             transition: screenShake.x === 0 && screenShake.y === 0 ? 'transform 0.1s ease-out' : 'none',
             transformOrigin: 'center center'
@@ -1955,25 +1958,22 @@ const Game: React.FC = () => {
 
       {/* Touch Overlay for mobile navigation */}
       <TouchOverlay
-        onMove={handleMobileMove}
-        onJump={handleMobileJump}
+        onMove={handleTouchMove}
+        onJump={handleTouchJump}
         isVisible={isMobile && gameDataLoaded && !gameDataError}
       />
 
       {/* Mobile Controls */}
       <MobileControls
-        onMove={handleMobileMove}
-        onJump={handleMobileJump}
         onAttack={handleMobileAttack}
         onSwitchWeapon={handleMobileSwitchWeapon}
         onCastMagic={handleMobileCastMagic}
         currentWeapon={gameState.player.weapon}
         isVisible={isMobile && gameDataLoaded && !gameDataError}
-        isRealMobile={isMobile && !(debugMode && mobileEmulation)}
       />
 
       {/* Orientation Message for Mobile Portrait Mode */}
-      {isMobile && !(debugMode && mobileEmulation) && (
+      {isMobile && !mobileEmulation && (
         <div className="orientation-message">
           <div>Please rotate your device to landscape mode for the best gaming experience!</div>
           <div style={{ fontSize: '14px', marginTop: '10px', opacity: 0.8 }}>

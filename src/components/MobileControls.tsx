@@ -2,63 +2,21 @@ import React from 'react';
 import type { WeaponType, MagicType } from './types';
 
 interface MobileControlsProps {
-  onMove: (direction: 'left' | 'right' | null) => void;
-  onJump: (pressed: boolean) => void;
   onAttack: () => void;
   onSwitchWeapon: (weapon: WeaponType) => void;
   onCastMagic: (spell: MagicType) => void;
   currentWeapon: WeaponType;
   isVisible: boolean;
-  isRealMobile?: boolean; // New prop to distinguish real mobile from desktop emulation
 }
 
 const MobileControls: React.FC<MobileControlsProps> = ({
-  onMove,
-  onJump,
   onAttack,
   onSwitchWeapon,
   onCastMagic,
   currentWeapon,
-  isVisible,
-  isRealMobile = false
+  isVisible
 }) => {
   if (!isVisible) return null;
-
-  const handleMoveStart = (direction: 'left' | 'right') => (e: React.TouchEvent) => {
-    e.preventDefault();
-    console.log('Touch move start:', direction);
-    onMove(direction);
-  };
-
-  const handleMoveEnd = (e: React.TouchEvent) => {
-    e.preventDefault();
-    console.log('Touch move end');
-    onMove(null);
-  };
-
-  const handleMouseMoveStart = (direction: 'left' | 'right') => (e: React.MouseEvent) => {
-    e.preventDefault();
-    console.log('Mouse move start:', direction);
-    onMove(direction);
-  };
-
-  const handleMouseMoveEnd = (e: React.MouseEvent) => {
-    e.preventDefault();
-    console.log('Mouse move end');
-    onMove(null);
-  };
-
-  const handleJumpStart = (e: React.TouchEvent | React.MouseEvent) => {
-    e.preventDefault();
-    console.log('Jump start');
-    onJump(true);
-  };
-
-  const handleJumpEnd = (e: React.TouchEvent | React.MouseEvent) => {
-    e.preventDefault();
-    console.log('Jump end');
-    onJump(false);
-  };
 
   const handleAttackClick = (e: React.TouchEvent | React.MouseEvent) => {
     e.preventDefault();
@@ -80,47 +38,6 @@ const MobileControls: React.FC<MobileControlsProps> = ({
 
   return (
     <div className="mobile-controls">
-      {/* Movement Controls - Only show on desktop emulation, hide on real mobile */}
-      {!isRealMobile && (
-        <div className="movement-section">
-          <div className="dpad">
-            <button
-              className="dpad-btn left"
-              onTouchStart={handleMoveStart('left')}
-              onTouchEnd={handleMoveEnd}
-              onTouchCancel={handleMoveEnd}
-              onMouseDown={handleMouseMoveStart('left')}
-              onMouseUp={handleMouseMoveEnd}
-              onMouseLeave={handleMouseMoveEnd}
-            >
-              ←
-            </button>
-            <button
-              className="dpad-btn right"
-              onTouchStart={handleMoveStart('right')}
-              onTouchEnd={handleMoveEnd}
-              onTouchCancel={handleMoveEnd}
-              onMouseDown={handleMouseMoveStart('right')}
-              onMouseUp={handleMouseMoveEnd}
-              onMouseLeave={handleMouseMoveEnd}
-            >
-              →
-            </button>
-          </div>
-          <button
-            className="jump-btn"
-            onTouchStart={handleJumpStart}
-            onTouchEnd={handleJumpEnd}
-            onTouchCancel={handleJumpEnd}
-            onMouseDown={handleJumpStart}
-            onMouseUp={handleJumpEnd}
-            onMouseLeave={handleJumpEnd}
-          >
-            JUMP
-          </button>
-        </div>
-      )}
-
       {/* Action Controls */}
       <div className="action-section">
         <button
