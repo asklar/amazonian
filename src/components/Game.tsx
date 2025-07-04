@@ -1978,7 +1978,7 @@ const Game: React.FC = () => {
       <TouchOverlay
         onMove={handleTouchMove}
         onJump={handleTouchJump}
-        isVisible={isMobile && gameDataLoaded && !gameDataError}
+        isVisible={isMobile && gameDataLoaded && !gameDataError && gameState.gameStatus === 'playing'}
       />
 
       {/* Mobile Controls */}
@@ -1987,7 +1987,7 @@ const Game: React.FC = () => {
         onSwitchWeapon={handleMobileSwitchWeapon}
         onCastMagic={handleMobileCastMagic}
         currentWeapon={gameState.player.weapon}
-        isVisible={isMobile && gameDataLoaded && !gameDataError}
+        isVisible={isMobile && gameDataLoaded && !gameDataError && gameState.gameStatus === 'playing'}
       />
 
       {/* Orientation Message for Mobile Portrait Mode */}

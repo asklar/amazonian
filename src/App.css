@@ -728,6 +728,45 @@ body.landscape-mode .orientation-message {
   background: #6495ed;
 }
 
+/* Mobile touch support for game screen buttons */
+.game-screen button {
+  /* Ensure minimum touch target size for mobile */
+  min-width: 44px;
+  min-height: 44px;
+  /* Better touch feedback */
+  touch-action: manipulation;
+  /* Prevent text selection on touch */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  /* Ensure button is above touch overlay */
+  position: relative;
+  z-index: 200;
+}
+
+/* Mobile-specific button styling */
+@media (hover: none) and (pointer: coarse) {
+  .game-screen button {
+    /* Larger touch targets on mobile */
+    padding: 15px 25px;
+    font-size: 20px;
+    min-width: 200px;
+    min-height: 60px;
+    /* Remove hover effects on touch devices */
+    background: #4169e1;
+  }
+  
+  .game-screen button:active {
+    background: #6495ed;
+    transform: scale(0.98);
+  }
+}
+
+/* Ensure game screen is above touch overlay on mobile */
+body.mobile-game-active .game-screen {
+  z-index: 200;
+}
+
 /* Sprite Image System */
 .sprite-image {
   image-rendering: pixelated;
