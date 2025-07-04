@@ -62,9 +62,7 @@ body.mobile-game-active .app {
   background: #4a86c7 !important;
   overflow: hidden !important;
   transform-origin: center center !important;
-  /* Center the game container using margins */
-  margin-left: -400px !important; /* Half of 800px */
-  margin-top: -300px !important;  /* Half of 600px */
+  /* No margins - centering is handled by JavaScript transform */
 }
 
 /* Safe area handling for mobile devices */
@@ -87,7 +85,6 @@ body.mobile-game-active .app {
   /* Ensure no scrollbars on mobile */
   overflow: hidden !important;
   /* Hardware acceleration */
-  transform: translate3d(0, 0, 0) !important;
   will-change: auto !important;
 }
 

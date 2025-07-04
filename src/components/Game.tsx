@@ -38,6 +38,24 @@ const Game: React.FC = () => {
   // Modified mobile detection: preserve mobile emulation even when debug mode is off
   const isMobile = useIsMobile(mobileEmulation ? true : undefined);
   
+  // Mobile scaling helper function
+  const calculateMobileScale = useCallback(() => {
+    if (!isMobile) return 1;
+    
+    const gameWidth = 800;
+    const gameHeight = 600;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    // Calculate scale to fit the entire game area within the viewport
+    const scaleX = viewportWidth / gameWidth;
+    const scaleY = viewportHeight / gameHeight;
+    
+    // Use the smaller scale to ensure everything fits, but prioritize fitting the full height
+    // on mobile landscape (which is the typical gaming orientation)
+    return Math.min(scaleX, scaleY);
+  }, [isMobile]);
+  
   // Mobile control states (movement is handled by TouchOverlay)
   
   // Remove frame rate limiting for now to fix broken functionality
@@ -1797,7 +1815,7 @@ const Game: React.FC = () => {
           className={`game-container ${isMobile ? 'mobile' : ''}`}
           style={{
             transform: isMobile 
-              ? `translate(-50%, -50%) scale(${Math.min(window.innerWidth / 800, window.innerHeight / 600)}) translate(${screenShake.x}px, ${screenShake.y}px)`
+              ? `translate(-50%, -50%) scale(${calculateMobileScale()}) translate(${screenShake.x}px, ${screenShake.y}px)`
               : `translate(${screenShake.x}px, ${screenShake.y}px)`,
             transition: screenShake.x === 0 && screenShake.y === 0 ? 'transform 0.1s ease-out' : 'none',
             transformOrigin: 'center center'

@@ -14,12 +14,14 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
   const getScale = useCallback(() => {
     const gameWidth = 800;
     const gameHeight = 600;
-    const availableWidth = window.innerWidth;
-    const availableHeight = window.innerHeight; // Use full height like Game component
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
     
-    const scaleX = availableWidth / gameWidth;
-    const scaleY = availableHeight / gameHeight;
+    // Calculate scale to fit the entire game area within the viewport
+    const scaleX = viewportWidth / gameWidth;
+    const scaleY = viewportHeight / gameHeight;
     
+    // Use the smaller scale to ensure everything fits
     return Math.min(scaleX, scaleY);
   }, []);
 
