@@ -10,6 +10,21 @@ export interface GameConfig {
 export interface LevelData {
   id: number;
   name: string;
+  width: number;
+  background: {
+    skyGradient: {
+      top: string;
+      bottom: string;
+    };
+    layers: Array<{
+      element: string | string[];
+      parallaxSpeed: number;
+      scale: number;
+      opacity: number;
+      yOffset: number;
+      repeat?: boolean;
+    }>;
+  };
   playerStartPosition: { x: number; y: number };
   platforms: PlatformData[];
   monsters: MonsterData[];

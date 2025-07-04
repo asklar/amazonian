@@ -11,6 +11,21 @@ import { dataLoader, type MonsterData, type PlatformData, type LootData } from '
 export interface GameLevel {
   id: number;
   name: string;
+  width: number;
+  background: {
+    skyGradient: {
+      top: string;
+      bottom: string;
+    };
+    layers: Array<{
+      element: string | string[];
+      parallaxSpeed: number;
+      scale: number;
+      opacity: number;
+      yOffset: number;
+      repeat?: boolean;
+    }>;
+  };
   playerStartPosition: { x: number; y: number };
   monsters: Monster[];
   platforms: Platform[];
@@ -36,6 +51,8 @@ class GameFactory {
     return {
       id: levelData.id,
       name: levelData.name,
+      width: levelData.width,
+      background: levelData.background,
       playerStartPosition: levelData.playerStartPosition,
       monsters: this.createMonsters(levelData.monsters),
       platforms: this.createPlatforms(levelData.platforms),

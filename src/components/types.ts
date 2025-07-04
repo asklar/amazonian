@@ -64,7 +64,7 @@ export interface Monster {
   // Monster shooting capabilities - moved to per-projectile basis
   shootTimer?: number;
   projectiles?: Array<{
-    type: 'fire' | 'frost' | 'whirlwind';
+    type: string;
     launchOffset: { x: number; y: number };
     weight: number;
     cooldown: number;
@@ -136,6 +136,7 @@ export interface GameState {
   magicEffects: MagicEffect[];
   castleGate: CastleGate;
   currentLevel: number;
+  levelWidth: number;
   gameStatus: 'playing' | 'game-over' | 'victory' | 'level-complete';
   cameraOffset: Position;
 }

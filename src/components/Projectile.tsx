@@ -41,9 +41,9 @@ const Projectile: React.FC<ProjectileProps> = ({ projectile, cameraOffset }) => 
     top: projectile.position.y - cameraOffset.y,
     // Flip projectile based on facing direction
     transform: projectile.facing === 'left' ? 'scaleX(-1)' : 'scaleX(1)',
-    // Set explicit size from config
-    width: projectileConfig?.size?.width || (projectile.type === 'arrow' ? 16 : projectile.type === 'frost' ? 16 : projectile.type === 'whirlwind' ? 20 : 24),
-    height: projectileConfig?.size?.height || (projectile.type === 'arrow' ? 4 : projectile.type === 'frost' ? 8 : projectile.type === 'whirlwind' ? 20 : 24),
+    // Set size from config, with reasonable defaults if no config is available
+    width: projectileConfig?.size?.width || 16,
+    height: projectileConfig?.size?.height || 16,
     // Ensure projectiles render above other elements
     zIndex: 100,
     position: 'absolute',

@@ -83,6 +83,7 @@ const Game: React.FC = () => {
       magicEffects: [],
       castleGate: { position: { x: 0, y: 0 }, isUnlocked: false },
       currentLevel: 1,
+      levelWidth: 2400, // Default width
       gameStatus: 'playing',
       cameraOffset: { x: 0, y: 0 },
     };
@@ -119,6 +120,7 @@ const Game: React.FC = () => {
         magicEffects: [],
         castleGate: level1.castleGate,
         currentLevel: 1,
+        levelWidth: level1.width,
         gameStatus: 'playing',
         cameraOffset: { x: 0, y: 0 },
       });
@@ -489,7 +491,7 @@ const Game: React.FC = () => {
       }
 
       // Boundary checking
-      newPlayerPosition.x = Math.max(0, Math.min(GAME_CONSTANTS.GAME_WIDTH - 32, newPlayerPosition.x));
+      newPlayerPosition.x = Math.max(0, Math.min(newState.levelWidth - 32, newPlayerPosition.x));
       if (newPlayerPosition.y > GAME_CONSTANTS.GAME_HEIGHT) {
         newState.player.health -= 20;
         newPlayerPosition = { x: 50, y: 452 }; // Respawn on ground
@@ -502,7 +504,7 @@ const Game: React.FC = () => {
 
       // Update camera to follow player
       const targetCameraX = newPlayerPosition.x - GAME_CONSTANTS.SCREEN_WIDTH / 2;
-      const clampedCameraX = Math.max(0, Math.min(GAME_CONSTANTS.GAME_WIDTH - GAME_CONSTANTS.SCREEN_WIDTH, targetCameraX));
+      const clampedCameraX = Math.max(0, Math.min(newState.levelWidth - GAME_CONSTANTS.SCREEN_WIDTH, targetCameraX));
       newState.cameraOffset = { x: clampedCameraX, y: 0 };
 
       // Update projectiles
@@ -515,7 +517,7 @@ const Game: React.FC = () => {
         };
 
         // Check boundaries - deactivate if projectile goes off screen
-        if (newProjectilePosition.x < 0 || newProjectilePosition.x > GAME_CONSTANTS.GAME_WIDTH ||
+        if (newProjectilePosition.x < 0 || newProjectilePosition.x > newState.levelWidth ||
             newProjectilePosition.y < 0 || newProjectilePosition.y > GAME_CONSTANTS.GAME_HEIGHT) {
           return { ...projectile, isActive: false };
         }
@@ -706,7 +708,7 @@ const Game: React.FC = () => {
         }
 
         // Boundary checking for monsters
-        newMonsterPosition.x = Math.max(0, Math.min(GAME_CONSTANTS.GAME_WIDTH - 32, newMonsterPosition.x));
+        newMonsterPosition.x = Math.max(0, Math.min(newState.levelWidth - 32, newMonsterPosition.x));
 
         // Handle burning
         let updatedMonster = {
@@ -1173,6 +1175,7 @@ const Game: React.FC = () => {
         const currentLevel = createLevel(prev.currentLevel);
         return {
           ...prev,
+          levelWidth: currentLevel.width,
           monsters: currentLevel.monsters,
           platforms: currentLevel.platforms,
           loot: currentLevel.loot,
@@ -1300,6 +1303,7 @@ const Game: React.FC = () => {
       return {
         ...prev,
         currentLevel: nextLevelNum,
+        levelWidth: newLevel.width,
         monsters: newLevel.monsters,
         platforms: newLevel.platforms,
         loot: newLevel.loot,
@@ -1353,6 +1357,7 @@ const Game: React.FC = () => {
       magicEffects: [],
       castleGate: level1.castleGate,
       currentLevel: 1,
+      levelWidth: level1.width,
       gameStatus: 'playing',
       cameraOffset: { x: 0, y: 0 },
     });

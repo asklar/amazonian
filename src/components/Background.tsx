@@ -1,17 +1,37 @@
 import React, { useMemo } from 'react';
 import type { Position } from './types';
-import { getBackgroundForLevel, getRandomBackgroundElement, type BackgroundLayer } from '../assets/backgroundAssets';
+import { dataLoader } from '../services/DataLoader';
+
+interface BackgroundLayer {
+  element: string | string[];
+  parallaxSpeed: number;
+  scale: number;
+  opacity: number;
+  yOffset: number;
+  repeat?: boolean;
+}
 
 interface BackgroundProps {
   cameraOffset: Position;
   currentLevel: number;
 }
 
+// Helper function to get a random element from array or return single element
+const getRandomBackgroundElement = (element: string | string[]): string => {
+  if (Array.isArray(element)) {
+    return element[Math.floor(Math.random() * element.length)];
+  }
+  return element;
+};
+
+
+
 const Background: React.FC<BackgroundProps> = ({ cameraOffset, currentLevel }) => {
   // Memoize the resolved background layers to prevent strobing
   const { skyGradient, resolvedLayers } = useMemo(() => {
-    const backgroundConfig = getBackgroundForLevel(currentLevel);
-    const layers = backgroundConfig.layers.map(layer => ({
+    const levelData = dataLoader.getLevelData(currentLevel);
+    const backgroundConfig = levelData.background;
+    const layers = backgroundConfig.layers.map((layer: BackgroundLayer) => ({
       ...layer,
       element: getRandomBackgroundElement(layer.element)
     }));
@@ -60,10 +80,13 @@ const Background: React.FC<BackgroundProps> = ({ cameraOffset, currentLevel }) =
           const basePosition = layer.repeat ? repIndex * 200 - 200 : 0;
           const finalPosition = basePosition + spacingVariation;
           
+          // Add base path for background sprites
+          const elementPath = `/sprites/backgrounds/${layer.element}`;
+          
           return (
             <img
               key={repIndex}
-              src={layer.element}
+              src={elementPath}
               alt={`Background layer ${index}`}
               style={{
                 position: 'absolute',
@@ -76,7 +99,7 @@ const Background: React.FC<BackgroundProps> = ({ cameraOffset, currentLevel }) =
                 display: 'block',
               }}
               onError={(e) => {
-                console.warn(`Failed to load background element: ${layer.element}`);
+                console.warn(`Failed to load background element: ${elementPath}`);
                 e.currentTarget.style.display = 'none';
               }}
             />
@@ -103,7 +126,7 @@ const Background: React.FC<BackgroundProps> = ({ cameraOffset, currentLevel }) =
       />
       
       {/* Render all background layers from back to front */}
-      {resolvedLayers.map((layer, index) => renderBackgroundLayer(layer, index))}
+      {resolvedLayers.map((layer: BackgroundLayer & { element: string }, index: number) => renderBackgroundLayer(layer, index))}
     </div>
   );
 };

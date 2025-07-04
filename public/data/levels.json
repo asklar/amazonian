@@ -3,6 +3,55 @@
     {
       "id": 1,
       "name": "Forest Entrance",
+      "width": 2400,
+      "background": {
+        "skyGradient": {
+          "top": "#87CEEB",
+          "bottom": "#FFA07A"
+        },
+        "layers": [
+          {
+            "element": ["clouds.svg", "clouds_wispy.svg"],
+            "parallaxSpeed": 0.05,
+            "scale": 1.4,
+            "opacity": 0.4,
+            "yOffset": 220,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_distant.svg", "mountains_distant_2.svg", "mountains_distant_3.svg"],
+            "parallaxSpeed": 0.1,
+            "scale": 1.8,
+            "opacity": 0.6,
+            "yOffset": 180,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_distant.svg", "mountains_distant_2.svg"],
+            "parallaxSpeed": 0.15,
+            "scale": 1.5,
+            "opacity": 0.7,
+            "yOffset": 160,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_mid.svg", "mountains_mid_2.svg"],
+            "parallaxSpeed": 0.25,
+            "scale": 1.2,
+            "opacity": 0.8,
+            "yOffset": 120,
+            "repeat": true
+          },
+          {
+            "element": "forest_distant.svg",
+            "parallaxSpeed": 0.4,
+            "scale": 1.0,
+            "opacity": 0.9,
+            "yOffset": 80,
+            "repeat": true
+          }
+        ]
+      },
       "playerStartPosition": { "x": 50, "y": 452 },
       "platforms": [
         { "id": "ground1", "x": 0, "y": 500, "width": 800, "height": 100, "type": "grass" },
@@ -52,6 +101,63 @@
     {
       "id": 2,
       "name": "Mountain Pass",
+      "width": 2400,
+      "background": {
+        "skyGradient": {
+          "top": "#4169E1",
+          "bottom": "#FF6347"
+        },
+        "layers": [
+          {
+            "element": ["clouds.svg", "clouds_wispy.svg"],
+            "parallaxSpeed": 0.08,
+            "scale": 1.3,
+            "opacity": 0.5,
+            "yOffset": 240,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_distant.svg", "mountains_distant_2.svg"],
+            "parallaxSpeed": 0.12,
+            "scale": 1.9,
+            "opacity": 0.5,
+            "yOffset": 200,
+            "repeat": true
+          },
+          {
+            "element": "castle_distant.svg",
+            "parallaxSpeed": 0.18,
+            "scale": 1.6,
+            "opacity": 0.7,
+            "yOffset": 180,
+            "repeat": false
+          },
+          {
+            "element": ["mountains_distant.svg", "mountains_distant_3.svg"],
+            "parallaxSpeed": 0.22,
+            "scale": 1.4,
+            "opacity": 0.8,
+            "yOffset": 160,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_mid.svg", "mountains_mid_2.svg"],
+            "parallaxSpeed": 0.35,
+            "scale": 1.1,
+            "opacity": 0.9,
+            "yOffset": 100,
+            "repeat": true
+          },
+          {
+            "element": "forest_distant.svg",
+            "parallaxSpeed": 0.5,
+            "scale": 0.9,
+            "opacity": 0.8,
+            "yOffset": 60,
+            "repeat": true
+          }
+        ]
+      },
       "playerStartPosition": { "x": 50, "y": 452 },
       "platforms": [
         { "id": "ground1", "x": 0, "y": 500, "width": 600, "height": 100, "type": "stone" },
@@ -110,6 +216,63 @@
     {
       "id": 3,
       "name": "Ice Caverns",
+      "width": 2400,
+      "background": {
+        "skyGradient": {
+          "top": "#2F4F4F",
+          "bottom": "#8B0000"
+        },
+        "layers": [
+          {
+            "element": ["clouds.svg", "clouds_wispy.svg"],
+            "parallaxSpeed": 0.05,
+            "scale": 1.8,
+            "opacity": 0.3,
+            "yOffset": 260,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_distant.svg", "mountains_distant_2.svg"],
+            "parallaxSpeed": 0.1,
+            "scale": 2.2,
+            "opacity": 0.4,
+            "yOffset": 220,
+            "repeat": true
+          },
+          {
+            "element": "castle_distant.svg",
+            "parallaxSpeed": 0.15,
+            "scale": 1.8,
+            "opacity": 0.6,
+            "yOffset": 190,
+            "repeat": false
+          },
+          {
+            "element": ["mountains_distant.svg", "mountains_distant_3.svg"],
+            "parallaxSpeed": 0.25,
+            "scale": 1.6,
+            "opacity": 0.7,
+            "yOffset": 160,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_mid.svg", "mountains_mid_2.svg"],
+            "parallaxSpeed": 0.4,
+            "scale": 1.3,
+            "opacity": 0.8,
+            "yOffset": 120,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_mid.svg", "mountains_mid_3.svg"],
+            "parallaxSpeed": 0.6,
+            "scale": 1.0,
+            "opacity": 0.9,
+            "yOffset": 80,
+            "repeat": true
+          }
+        ]
+      },
       "playerStartPosition": { "x": 50, "y": 452 },
       "platforms": [
         { "id": "ground1", "x": 0, "y": 500, "width": 800, "height": 100, "type": "grass" },
@@ -177,6 +340,47 @@
     {
       "id": 4,
       "name": "Dragon's Lair",
+      "width": 2400,
+      "background": {
+        "skyGradient": {
+          "top": "#87CEEB",
+          "bottom": "#F0E68C"
+        },
+        "layers": [
+          {
+            "element": ["clouds.svg", "clouds_wispy.svg"],
+            "parallaxSpeed": 0.08,
+            "scale": 1.2,
+            "opacity": 0.5,
+            "yOffset": 280,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_distant.svg", "mountains_distant_2.svg"],
+            "parallaxSpeed": 0.15,
+            "scale": 1.6,
+            "opacity": 0.7,
+            "yOffset": 200,
+            "repeat": true
+          },
+          {
+            "element": "village_distant.svg",
+            "parallaxSpeed": 0.25,
+            "scale": 1.3,
+            "opacity": 0.8,
+            "yOffset": 160,
+            "repeat": false
+          },
+          {
+            "element": "water_distant.svg",
+            "parallaxSpeed": 0.4,
+            "scale": 1.1,
+            "opacity": 0.9,
+            "yOffset": 80,
+            "repeat": true
+          }
+        ]
+      },
       "playerStartPosition": { "x": 50, "y": 452 },
       "platforms": [
         { "id": "ground1", "x": 0, "y": 500, "width": 400, "height": 100, "type": "stone" },
@@ -250,6 +454,47 @@
     {
       "id": 5,
       "name": "Wyvern Heights",
+      "width": 2700,
+      "background": {
+        "skyGradient": {
+          "top": "#696969",
+          "bottom": "#A0522D"
+        },
+        "layers": [
+          {
+            "element": ["clouds.svg", "clouds_wispy.svg"],
+            "parallaxSpeed": 0.06,
+            "scale": 1.8,
+            "opacity": 0.3,
+            "yOffset": 260,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_distant.svg", "mountains_distant_2.svg"],
+            "parallaxSpeed": 0.2,
+            "scale": 1.5,
+            "opacity": 0.6,
+            "yOffset": 190,
+            "repeat": true
+          },
+          {
+            "element": "ruins_distant.svg",
+            "parallaxSpeed": 0.35,
+            "scale": 1.4,
+            "opacity": 0.9,
+            "yOffset": 140,
+            "repeat": false
+          },
+          {
+            "element": ["mountains_mid.svg", "mountains_mid_2.svg"],
+            "parallaxSpeed": 0.5,
+            "scale": 1.1,
+            "opacity": 0.7,
+            "yOffset": 100,
+            "repeat": true
+          }
+        ]
+      },
       "playerStartPosition": { "x": 50, "y": 452 },
       "platforms": [
         { "id": "ground1", "x": 0, "y": 500, "width": 300, "height": 100, "type": "stone" },
@@ -361,13 +606,62 @@
         { "id": "wyvern_treasure2", "type": "coin", "position": { "x": 2500, "y": 270 }, "collected": false }
       ],
       "castleGate": {
-        "position": { "x": 2600, "y": 180 },
+        "position": { "x": 2300, "y": 180 },
         "isUnlocked": false
       }
     },
     {
       "id": 6,
       "name": "Dragon Apocalypse",
+      "width": 3800,
+      "background": {
+        "skyGradient": {
+          "top": "#228B22",
+          "bottom": "#ADFF2F"
+        },
+        "layers": [
+          {
+            "element": ["clouds.svg", "clouds_wispy.svg"],
+            "parallaxSpeed": 0.1,
+            "scale": 1.3,
+            "opacity": 0.6,
+            "yOffset": 270,
+            "repeat": true
+          },
+          {
+            "element": ["mountains_distant.svg", "mountains_distant_2.svg"],
+            "parallaxSpeed": 0.18,
+            "scale": 1.7,
+            "opacity": 0.8,
+            "yOffset": 220,
+            "repeat": true
+          },
+          {
+            "element": "forest_distant.svg",
+            "parallaxSpeed": 0.3,
+            "scale": 1.5,
+            "opacity": 0.9,
+            "yOffset": 150,
+            "repeat": true
+          },
+          {
+            "element": "village_distant.svg",
+            "parallaxSpeed": 0.4,
+            "scale": 1.2,
+            "opacity": 0.7,
+            "yOffset": 120,
+            "repeat": false
+          },
+          {
+            "element": "forest_distant.svg",
+            "parallaxSpeed": 0.6,
+            "scale": 1.0,
+            "opacity": 0.8,
+            "yOffset": 60,
+            "repeat": true
+          }
+        ]
+      },
       "playerStartPosition": { "x": 50, "y": 452 },
       "platforms": [
         { "id": "entrance_ground", "x": 0, "y": 500, "width": 400, "height": 100, "type": "stone" },
@@ -379,7 +673,7 @@
         { "id": "fire_trial2", "x": 1980, "y": 200, "width": 220, "height": 20, "type": "stone" },
         { "id": "final_ascent1", "x": 2300, "y": 150, "width": 300, "height": 20, "type": "stone" },
         { "id": "final_ascent2", "x": 2700, "y": 100, "width": 250, "height": 20, "type": "stone" },
-        { "id": "dragon_throne", "x": 3000, "y": 300, "width": 500, "height": 100, "type": "stone" }
+        { "id": "dragon_throne", "x": 3000, "y": 300, "width": 600, "height": 100, "type": "stone" }
       ],
       "monsters": [
         {

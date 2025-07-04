@@ -74,9 +74,9 @@
       "sprite": "/sprites/weapons/whirlwind.svg",
       "projectile": {
         "type": "whirlwind",
-        "speed": 4,
-        "sprite": "/sprites/weapons/whirlwind.svg",
-        "size": { "width": 20, "height": 20 }
+        "speed": 2,
+        "sprite": "/sprites/weapons/whirlwind-final.svg",
+        "size": { "width": 40, "height": 40 }
       },
       "description": "A swirling wind projectile used by wind dragons"
     }

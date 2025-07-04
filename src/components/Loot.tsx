@@ -23,7 +23,7 @@ const Loot: React.FC<LootProps> = ({ loot, cameraOffset }) => {
       case 'coin':
         return `${basePath}/coin_01.svg`;
       case 'health':
-        return `${basePath}/health_potion_01.svg`;
+        return `${basePath}/health_heart.svg`;
       case 'magic':
         return `${basePath}/magic_potion_01.svg`;
       default:
