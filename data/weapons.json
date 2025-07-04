@@ -6,7 +6,7 @@
       "range": 40,
       "attackSpeed": 300,
       "type": "melee",
-      "sprite": "/sprites/weapons/sword_horizontal.svg",
+      "sprite": "./sprites/weapons/sword_horizontal.svg",
       "projectile": null,
       "description": "A reliable melee weapon with balanced damage and speed"
     },
@@ -16,11 +16,11 @@
       "range": 200,
       "attackSpeed": 400,
       "type": "ranged",
-      "sprite": "/sprites/weapons/bow.svg",
+      "sprite": "./sprites/weapons/bow.svg",
       "projectile": {
         "type": "arrow",
         "speed": 8,
-        "sprite": "/sprites/weapons/arrow.svg",
+        "sprite": "./sprites/weapons/arrow.svg",
         "size": { "width": 16, "height": 2 }
       },
       "description": "A ranged weapon that fires arrows at distant enemies"
@@ -31,7 +31,7 @@
       "range": 60,
       "attackSpeed": 250,
       "type": "melee",
-      "sprite": "/sprites/weapons/whip.svg",
+      "sprite": "./sprites/weapons/whip.svg",
       "projectile": null,
       "description": "A long-range melee weapon with quick attacks but lower damage"
     },
@@ -41,11 +41,11 @@
       "range": 300,
       "attackSpeed": 0,
       "type": "ranged",
-      "sprite": "/sprites/magic/fireball_new.svg",
+      "sprite": "./sprites/magic/fireball_new.svg",
       "projectile": {
         "type": "fire",
         "speed": 6,
-        "sprite": "/sprites/magic/fireball_new.svg",
+        "sprite": "./sprites/magic/fireball_new.svg",
         "size": { "width": 24, "height": 24 }
       },
       "description": "A magical fire projectile used by dragons"
@@ -56,11 +56,11 @@
       "range": 250,
       "attackSpeed": 0,
       "type": "ranged",
-      "sprite": "/sprites/weapons/frost_crystal.svg",
+      "sprite": "./sprites/weapons/frost_crystal.svg",
       "projectile": {
         "type": "frost",
         "speed": 5,
-        "sprite": "/sprites/weapons/frost_crystal.svg",
+        "sprite": "./sprites/weapons/frost_crystal.svg",
         "size": { "width": 16, "height": 8 }
       },
       "description": "A magical frost crystal projectile used by ice dragons"
@@ -71,11 +71,11 @@
       "range": 280,
       "attackSpeed": 0,
       "type": "ranged",
-      "sprite": "/sprites/weapons/whirlwind.svg",
+      "sprite": "./sprites/weapons/whirlwind.svg",
       "projectile": {
         "type": "whirlwind",
         "speed": 2,
-        "sprite": "/sprites/weapons/whirlwind-final.svg",
+        "sprite": "./sprites/weapons/whirlwind-final.svg",
         "size": { "width": 40, "height": 40 }
       },
       "description": "A swirling wind projectile used by wind dragons"
