@@ -9,6 +9,9 @@ interface TouchOverlayProps {
 const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }) => {
   const lastTapRef = useRef<number>(0);
   const currentDirectionRef = useRef<'left' | 'right' | null>(null);
+  const jumpStartTimeRef = useRef<number>(0);
+  const isJumpHeldRef = useRef<boolean>(false);
+  const jumpTimeoutRef = useRef<number | null>(null);
 
   // Calculate scale to fit the game in mobile viewport - match Game component scaling
   const getScale = useCallback(() => {
@@ -50,17 +53,37 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
       onMove(direction);
     }
     
-    // Handle double-tap for jumping
+    // Handle jump input - support both quick tap and hold for variable height
     const now = Date.now();
     const timeSinceLastTap = now - lastTapRef.current;
     
-    if (timeSinceLastTap < 300) { // 300ms window for double-tap
-      // Double tap detected - jump
+    if (timeSinceLastTap < 300) { 
+      // Double tap detected - start jump immediately and mark as held
       onJump(true);
-      // Reset tap timer to prevent triple-tap issues
-      lastTapRef.current = 0;
+      isJumpHeldRef.current = true;
+      jumpStartTimeRef.current = now;
+      lastTapRef.current = 0; // Reset to prevent triple-tap issues
+      
+      // Clear any existing timeout
+      if (jumpTimeoutRef.current) {
+        clearTimeout(jumpTimeoutRef.current);
+        jumpTimeoutRef.current = null;
+      }
     } else {
+      // Single tap - start timer for potential double tap
       lastTapRef.current = now;
+      
+      // Set timeout for single tap jump (if no second tap comes)
+      jumpTimeoutRef.current = window.setTimeout(() => {
+        if (!isJumpHeldRef.current) {
+          // Single tap jump - quick release for small jump
+          onJump(true);
+          setTimeout(() => {
+            onJump(false);
+          }, 100); // Quick release after 100ms
+        }
+        jumpTimeoutRef.current = null;
+      }, 300); // Wait 300ms to see if second tap comes
     }
   }, [onMove, onJump]);
 
@@ -73,10 +96,19 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
       currentDirectionRef.current = null;
     }
     
-    // Stop jumping when touch ends (after a brief delay to allow jump to register)
-    setTimeout(() => {
+    // Handle jump release for variable height jumping
+    if (isJumpHeldRef.current) {
+      // Release jump after hold
       onJump(false);
-    }, 100);
+      isJumpHeldRef.current = false;
+      jumpStartTimeRef.current = 0;
+    }
+    
+    // Clear any pending single-tap jump timeout
+    if (jumpTimeoutRef.current) {
+      clearTimeout(jumpTimeoutRef.current);
+      jumpTimeoutRef.current = null;
+    }
   }, [onMove, onJump]);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
@@ -124,15 +156,34 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
       onMove(direction);
     }
     
-    // Handle double-click for jumping
+    // Handle jump input - similar to touch but with mouse
     const now = Date.now();
     const timeSinceLastTap = now - lastTapRef.current;
     
     if (timeSinceLastTap < 300) {
+      // Double click detected - start jump and mark as held
       onJump(true);
+      isJumpHeldRef.current = true;
+      jumpStartTimeRef.current = now;
       lastTapRef.current = 0;
+      
+      if (jumpTimeoutRef.current) {
+        clearTimeout(jumpTimeoutRef.current);
+        jumpTimeoutRef.current = null;
+      }
     } else {
       lastTapRef.current = now;
+      
+      // Set timeout for single click jump
+      jumpTimeoutRef.current = window.setTimeout(() => {
+        if (!isJumpHeldRef.current) {
+          onJump(true);
+          setTimeout(() => {
+            onJump(false);
+          }, 100);
+        }
+        jumpTimeoutRef.current = null;
+      }, 300);
     }
   }, [onMove, onJump]);
 
@@ -144,9 +195,16 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
       currentDirectionRef.current = null;
     }
     
-    setTimeout(() => {
+    if (isJumpHeldRef.current) {
       onJump(false);
-    }, 100);
+      isJumpHeldRef.current = false;
+      jumpStartTimeRef.current = 0;
+    }
+    
+    if (jumpTimeoutRef.current) {
+      clearTimeout(jumpTimeoutRef.current);
+      jumpTimeoutRef.current = null;
+    }
   }, [onMove, onJump]);
 
   return isVisible ? (
@@ -218,7 +276,7 @@ const TouchOverlay: React.FC<TouchOverlayProps> = ({ onMove, onJump, isVisible }
         className="touch-instructions"
       >
         Tap left/right quarters to move<br />
-        Double-tap anywhere to jump
+        Single tap for small jump, double-tap and hold for high jump
       </div>
     </div>
   ) : null;

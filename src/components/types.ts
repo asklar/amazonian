@@ -29,6 +29,9 @@ export interface Player {
   isInvulnerable: boolean;
   invulnerabilityTimer: number;
   isPermanentlyInvulnerable: boolean; // Debug mode permanent invulnerability
+  isJumping: boolean; // Track if currently in a jump
+  jumpStartTime: number; // When the jump started (for variable height)
+  jumpHeldTime: number; // How long jump has been held
 }
 
 export interface Monster {

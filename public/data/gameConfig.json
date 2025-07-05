@@ -2,7 +2,7 @@
   "gameConstants": {
     "physics": {
       "gravity": 0.25,
-      "jumpForce": -12,
+      "jumpForce": -10,
       "playerSpeed": 2,
       "monsterSpeed": 1,
       "arrowSpeed": 8

@@ -91,26 +91,28 @@ const Game: React.FC = () => {
 
   const [gameState, setGameState] = useState<GameState>(() => {
     // Initialize with a safe placeholder state that doesn't use GAME_CONSTANTS
-    return {
-      player: {
-        position: { x: 50, y: 452 },
-        velocity: { x: 0, y: 0 },
-        health: 100,
-        maxHealth: 100,
-        magic: 100,
-        maxMagic: 100,
-        coins: 0,
-        weapon: 'sword',
-        facing: 'right',
-        isAttacking: false,
-        isCasting: false,
-        isOnGround: true,
-        isAlive: true,
-        canJump: true,
-        isInvulnerable: false,
-        invulnerabilityTimer: 0,
-        isPermanentlyInvulnerable: false,
-      },
+    return {        player: {
+          position: { x: 50, y: 452 },
+          velocity: { x: 0, y: 0 },
+          health: 100,
+          maxHealth: 100,
+          magic: 100,
+          maxMagic: 100,
+          coins: 0,
+          weapon: 'sword',
+          facing: 'right',
+          isAttacking: false,
+          isCasting: false,
+          isOnGround: true,
+          isAlive: true,
+          canJump: true,
+          isInvulnerable: false,
+          invulnerabilityTimer: 0,
+          isPermanentlyInvulnerable: false,
+          isJumping: false,
+          jumpStartTime: 0,
+          jumpHeldTime: 0,
+        },
       monsters: [],
       platforms: [],
       loot: [],
@@ -147,6 +149,9 @@ const Game: React.FC = () => {
           isInvulnerable: false,
           invulnerabilityTimer: 0,
           isPermanentlyInvulnerable: false,
+          isJumping: false,
+          jumpStartTime: 0,
+          jumpHeldTime: 0,
         },
         monsters: level1.monsters,
         platforms: level1.platforms,
@@ -189,6 +194,40 @@ const Game: React.FC = () => {
       pos1.y < pos2.y + size2.height &&
       pos1.y + size1.height > pos2.y
     );
+  }, []);
+
+  // Get actual collision size for a monster (accounting for PNG scaling)
+  const getMonsterCollisionSize = useCallback((monster: { spriteType?: 'svg' | 'png', size?: { width: number, height: number } }): { width: number, height: number } => {
+    const baseWidth = monster.size?.width || 32;
+    const baseHeight = monster.size?.height || 40;
+    
+    // PNG sprites are scaled 2x in rendering, so use 2x size for collision detection
+    if (monster.spriteType === 'png') {
+      return { width: baseWidth * 2, height: baseHeight * 2 };
+    }
+    
+    // SVG sprites use their base size
+    return { width: baseWidth, height: baseHeight };
+  }, []);
+
+  // Check if player is behind an unopened castle gate (protected from monster damage)
+  const isPlayerProtectedByGate = useCallback((playerPos: Position, monsterPos: Position, castleGate: { position: Position, isUnlocked: boolean }): boolean => {
+    if (castleGate.isUnlocked) return false; // Gate is open, no protection
+    
+    const gateLeft = castleGate.position.x;
+    const gateRight = castleGate.position.x + 80; // Gate width is 80
+    
+    // Player must be behind (to the right of) the gate, and monster must be in front of (to the left of) the gate
+    const playerBehindGate = playerPos.x >= gateRight; // Player is behind/to the right of the gate
+    const monsterInFrontOfGate = monsterPos.x <= gateLeft; // Monster is in front of/to the left of the gate
+    
+    const isProtected = playerBehindGate && monsterInFrontOfGate;
+    
+    if (isProtected) {
+      console.log(`Player protected by gate: playerX=${playerPos.x}, monsterX=${monsterPos.x}, gateLeft=${gateLeft}, gateRight=${gateRight}`);
+    }
+    
+    return isProtected;
   }, []);
 
   // Distance calculation utility
@@ -265,11 +304,15 @@ const Game: React.FC = () => {
         const attackX = prev.player.position.x + (direction > 0 ? 32 : -attackRange);
         
         newState.monsters = prev.monsters.map(monster => {
-          if (monster.isAlive && checkCollision(
+          if (!monster.isAlive) return monster;
+          
+          const monsterCollisionSize = getMonsterCollisionSize(monster);
+          
+          if (checkCollision(
             { x: attackX, y: prev.player.position.y },
             { width: attackRange, height: 48 },
             monster.position,
-            { width: 32, height: 40 }
+            monsterCollisionSize
           )) {
             const newHealth = monster.health - GAME_CONSTANTS.WEAPON_DAMAGE[prev.player.weapon];
             const shouldDie = newHealth <= 0;
@@ -867,18 +910,53 @@ const Game: React.FC = () => {
         }
       }
 
-      // Jumping - keyboard only (mobile uses TouchOverlay)
+      // Jumping - keyboard only (mobile uses TouchOverlay) - Variable height jump system
       const jumpKeys = keys.has('arrowup') || keys.has(' ');
+      const currentTime = Date.now();
       
       if (jumpKeys && prev.player.isOnGround && prev.player.canJump) {
-        newPlayerVelocity.y = GAME_CONSTANTS.JUMP_FORCE;
+        // Start jump
+        newPlayerVelocity.y = GAME_CONSTANTS.JUMP_FORCE * 0.6; // Initial smaller jump force
         newState.player.isOnGround = false;
         newState.player.canJump = false; // Prevent jumping until key is released
+        newState.player.isJumping = true;
+        newState.player.jumpStartTime = currentTime;
+        newState.player.jumpHeldTime = 0;
+      } else if (jumpKeys && prev.player.isJumping && !prev.player.isOnGround) {
+        // Continue jump - increase velocity while held (up to max time)
+        const maxJumpHoldTime = 300; // 300ms max hold time for full jump
+        newState.player.jumpHeldTime = currentTime - prev.player.jumpStartTime;
+        
+        if (newState.player.jumpHeldTime < maxJumpHoldTime && newPlayerVelocity.y < 0) {
+          // Add additional upward force while jump is held
+          const jumpBoost = -0.4; // Additional upward force per frame
+          newPlayerVelocity.y += jumpBoost;
+          
+          // Cap the maximum upward velocity to full jump force
+          const maxUpwardVelocity = GAME_CONSTANTS.JUMP_FORCE;
+          if (newPlayerVelocity.y < maxUpwardVelocity) {
+            newPlayerVelocity.y = maxUpwardVelocity;
+          }
+        }
+      } else if (!jumpKeys && prev.player.isJumping && !prev.player.isOnGround) {
+        // Jump key released while in air - stop adding upward force
+        newState.player.isJumping = false;
+        // If moving upward slowly, reduce velocity for quicker fall
+        if (newPlayerVelocity.y < -2) {
+          newPlayerVelocity.y *= 0.5; // Cut upward momentum when key released
+        }
       }
       
-      // Reset canJump when jump key is released
-      if (!jumpKeys && prev.player.isOnGround) {
-        newState.player.canJump = true;
+      // Reset canJump and jumping state when on ground
+      if (prev.player.isOnGround) {
+        if (!jumpKeys) {
+          newState.player.canJump = true;
+        }
+        if (newState.player.isJumping) {
+          newState.player.isJumping = false;
+          newState.player.jumpStartTime = 0;
+          newState.player.jumpHeldTime = 0;
+        }
       }
 
       // Apply gravity
@@ -928,6 +1006,28 @@ const Game: React.FC = () => {
         if (newProjectilePosition.x < 0 || newProjectilePosition.x > newState.levelWidth ||
             newProjectilePosition.y < 0 || newProjectilePosition.y > GAME_CONSTANTS.GAME_HEIGHT) {
           return { ...projectile, isActive: false };
+        }
+
+        // Check castle gate collision - projectiles should vanish when hitting the gate
+        if (!newState.castleGate.isUnlocked && checkCollision(
+          newProjectilePosition,
+          { width: 16, height: 2 }, // Projectile size
+          newState.castleGate.position,
+          { width: 80, height: 120 } // Castle gate size
+        )) {
+          return { ...projectile, isActive: false };
+        }
+
+        // Check platform collision - projectiles should vanish when hitting platforms
+        for (const platform of newState.platforms) {
+          if (checkCollision(
+            newProjectilePosition,
+            { width: 16, height: 2 }, // Projectile size
+            { x: platform.x, y: platform.y },
+            { width: platform.width, height: platform.height }
+          )) {
+            return { ...projectile, isActive: false };
+          }
         }
 
         return { ...projectile, position: newProjectilePosition };
@@ -1409,11 +1509,13 @@ const Game: React.FC = () => {
             return monster;
           }
 
+          const monsterCollisionSize = getMonsterCollisionSize(monster);
+
           if (checkCollision(
             projectile.position,
             { width: 16, height: 2 },
             monster.position,
-            { width: 32, height: 40 }
+            monsterCollisionSize
           )) {
             // Mark projectile as inactive
             projectile.isActive = false;
@@ -1438,6 +1540,11 @@ const Game: React.FC = () => {
       // Check projectile-player collisions (for monster projectiles)
       newState.projectiles.forEach(projectile => {
         if (!projectile.isActive || projectile.source !== 'monster') return;
+
+        // Check if player is protected by castle gate
+        if (isPlayerProtectedByGate(newState.player.position, projectile.position, newState.castleGate)) {
+          return; // Player is protected, skip collision
+        }
 
         if (checkCollision(
           projectile.position,
@@ -1473,11 +1580,18 @@ const Game: React.FC = () => {
       newState.monsters.forEach(monster => {
         if (!monster.isAlive || newState.player.isInvulnerable || newState.player.isPermanentlyInvulnerable) return;
 
+        // Check if player is protected by castle gate
+        if (isPlayerProtectedByGate(newState.player.position, monster.position, newState.castleGate)) {
+          return; // Player is protected, skip collision
+        }
+
+        const monsterCollisionSize = getMonsterCollisionSize(monster);
+
         if (checkCollision(
           newState.player.position,
           { width: 32, height: 48 },
           monster.position,
-          { width: 32, height: 40 }
+          monsterCollisionSize
         )) {
           newState.player.health = Math.max(0, newState.player.health - monster.damage);
           // Start invulnerability period (2 seconds at 60fps)
@@ -1739,6 +1853,9 @@ const Game: React.FC = () => {
           velocity: { x: 0, y: 0 },
           isOnGround: true,
           canJump: true,
+          isJumping: false,
+          jumpStartTime: 0,
+          jumpHeldTime: 0,
         },
         projectiles: [],
         magicEffects: [],
@@ -1773,6 +1890,9 @@ const Game: React.FC = () => {
         isInvulnerable: false,
         invulnerabilityTimer: 0,
         isPermanentlyInvulnerable: preserveInvulnerability, // Preserve debug invulnerability
+        isJumping: false,
+        jumpStartTime: 0,
+        jumpHeldTime: 0,
       },
       monsters: level1.monsters,
       platforms: level1.platforms,
